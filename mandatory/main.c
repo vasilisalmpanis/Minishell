@@ -6,7 +6,7 @@
 /*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 18:26:28 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/02 18:29:31 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/08/03 11:40:15 by valmpani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 #include <string.h>
 #include <signal.h>
 #include "../libft/libft.h"
+#include "../readline/include/readline/history.h"
 #include "../readline/include/readline/rlstdc.h"
 #include "../readline/include/readline/readline.h"
-#include "../readline/include/readline/history.h"
 
 void	handle_sigquit(void)
 {

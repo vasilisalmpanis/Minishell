@@ -14,10 +14,10 @@ PINK = \033[95m
 END=\033[0m
 MAKE = make
 
-all: norm ${LIBFT} ${NAME}
+all: ${LIBFT} ${NAME}
 
 ${NAME}: ${OBJ} ${LIBFT}
-		@$(CC) ${CFLAGS} $(OBJ) -o $(NAME) -I./readline/include -L./readline/lib -lreadline -lhistory libft.a
+		@$(CC) ${CFLAGS} $(OBJ) -o $(NAME) libft.a -Ireadline/include -Lreadline/lib -lreadline -lhistory
 		@${RM} libft.a
 		@echo "${RED}${NAME} completed${RED}"
 
