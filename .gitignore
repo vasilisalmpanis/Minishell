@@ -1,5 +1,7 @@
 # Prerequisites
 *.d
+.DS_STORE
+.idea
 
 # Object files
 *.o
@@ -18,7 +20,6 @@
 
 # Libraries
 *.lib
-*.a
 *.la
 *.lo
 
@@ -26,7 +27,6 @@
 *.dll
 *.so
 *.so.*
-*.dylib
 
 # Executables
 *.exe
