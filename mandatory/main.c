@@ -66,18 +66,23 @@ char *get_git_head(void)
 		--i;
 	i++;
 	temp = ft_substr(buf, i, ft_strlen(buf) - (size_t)i);
+	temp[ft_strlen(temp) - 1] = '\0';
 	return (temp);
 }
 
 void get_repo(char **input)
 {
 	char	*temp;
-	char 	*last_str;
+	char	*last_str;
 
 	temp = get_git_head();
-	last_str = ft_strjoin(*input, "\x1B[38;5;33mgit:(");
+	last_str = ft_strjoin(*input, "\x1B[38;5;33;1mgit:(\x1B[31m");
 	free(*input);
-	*input = last_str;
+	*input = ft_strdup(last_str);
+	free(last_str);
+	last_str = ft_strjoin(*input, temp);
+	free(*input);
+	*input = ft_strjoin(last_str, "\x1B[38;5;33;1m)\x1B[0m ");
 }
 
 int	main(void)
@@ -90,8 +95,7 @@ int	main(void)
 	sa.sa_flags = 0;
 	while (1)
 	{
-		input = ft_strjoin(BLUE, "minishell ");
-		input = ft_strjoin(input, ESCAPE);
+		input = ft_strdup("\033[38;5;40;1m→  \033[38;5;44;1mminishell \x1B[0m");
 		if (access(".git/HEAD", O_RDONLY) == 0)
 			get_repo(&input);
 		sigaction(SIGINT, &sa, NULL);
