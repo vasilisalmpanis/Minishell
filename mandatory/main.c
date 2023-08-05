@@ -76,7 +76,7 @@ void get_repo(char **input)
 	char	*last_str;
 
 	temp = get_git_head();
-	last_str = ft_strjoin(*input, "\x1B[38;5;33;1mgit:(\x1B[31m");
+	last_str = ft_strjoin(*input, LIGHT_BLUE"git:("RED);
 	free(*input);
 	*input = ft_strdup(last_str);
 	free(last_str);
@@ -95,7 +95,7 @@ int	main(void)
 	sa.sa_flags = 0;
 	while (1)
 	{
-		input = ft_strdup("\033[38;5;40;1m→  \033[38;5;44;1mminishell \x1B[0m");
+		input = ft_strdup(GREEN"→" BLUE" minishell "ESCAPE);
 		if (access(".git/HEAD", O_RDONLY) == 0)
 			get_repo(&input);
 		sigaction(SIGINT, &sa, NULL);
