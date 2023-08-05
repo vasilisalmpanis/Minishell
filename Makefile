@@ -36,7 +36,7 @@ norm :
 
 test:
 		@if [ -e "minishell" ]; then \
-			cd minishell_tester; \
+			cd .minishell_tester; \
 			./tester; \
 		else \
 			echo "${PINK}Make first${END}"; \
