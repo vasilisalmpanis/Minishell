@@ -34,6 +34,14 @@ norm :
 		@rm -rf /tmp/norminette_output.txt
 		@echo "${BLUE}\nnorminette completed\n${END}"
 
+test:
+		@if [ -e "minishell" ]; then \
+			cd minishell_tester; \
+			./tester; \
+		else \
+			echo "${PINK}Make first${END}"; \
+		fi
+
 clean:
 		@make clean -C libft
 		@${RM} mandatory/libft.a
