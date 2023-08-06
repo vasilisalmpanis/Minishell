@@ -1,36 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.h                                            :+:      :+:    :+:   */
+/*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/06 15:31:53 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/06 16:37:04 by mamesser         ###   ########.fr       */
+/*   Created: 2023/08/06 16:15:37 by mamesser          #+#    #+#             */
+/*   Updated: 2023/08/06 16:50:05 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LEXER_H
-# define LEXER_H
+#include "../../includes/minishell.h"
 
-typedef enum s_token
-{
-	TK_WORD = 'w',
-	TK_SINGLE_QUOTE = '\'',
-	TK_DOUBLE_QUOTE = '"',
-	TK_PIPE = '|',
-	TK_IN_R = '<',
-	TK_OUT_R = '>',
-	TK_APP_R = 'A',
-	TK_HERE_DOC = 'H',
-	TK_END_OF_LINE = '\0',
-}			t_token;
 
-typedef struct s_lex
-{
-	t_token token;
-	char	*value;
-	void	*next;
-}				t_lex;
 
-#endif
+// pre_lexer: function to check for uneven num of double/single quotes before lexer (or if single/double quote is not followed by same quote)
+// function to check for expansion
+
