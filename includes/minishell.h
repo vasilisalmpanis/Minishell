@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valmpani <valmpani@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 14:26:53 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/06 14:26:58 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/08/06 16:34:53 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include <stdlib.h>
 # include <string.h>
 # include <signal.h>
+# include "lexer.h"
+# include "utils.h"
 # include "../libft/libft.h"
 # include "../includes/colors.h"
 # define READLINE_LIBRARY
@@ -32,6 +34,5 @@ void	get_repo(char **input);
 char	*get_git_head(void);
 
 //UTILS
-char	**split_args(t_data object, int i);
 
 #endif

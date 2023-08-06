@@ -3,35 +3,50 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valmpani <valmpani@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:52:47 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/06 15:52:51 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/08/06 16:42:42 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char	**split_args(t_data object, int i)
+char	**split_args(char *input)
 {
 	int		j;
 	char	buf;
 	char	**split;
 
 	j = -1;
-	while (object.argv[i][++j])
+	while (input[++j])
 	{
-		if (object.argv[i][j] == ' ')
-			object.argv[i][j] = 26;
-		if (object.argv[i][j] == 39 || object.argv[i][j] == 34)
+		if (input[j] == ' ')
+			input[j] = 26;
+		if (input[j] == 39 || input[j] == 34)
 		{
-			buf = object.argv[i][j];
-			object.argv[i][j] = 26;
-			while (object.argv[i][j] != buf && object.argv[i][j])
+			buf = input[j];
+			++j;
+			while (input[j] != buf && input[j])
 				j++;
-			object.argv[i][j] = 26;
+			++j;
 		}
 	}
-	split = ft_split(object.argv[i], 26);
+	split = ft_split(input, 26);
 	return (split);
 }
+
+// int	main(void)
+// {
+// 	char	**ret;
+// 	char	*str;
+// 	int	i = 0;
+	
+// 	str = 
+// 	ret = split_args(str);
+// 	while (ret[i])
+// 	{
+// 		printf("%s\n", ret[i++]);
+// 	}
+	
+// }
