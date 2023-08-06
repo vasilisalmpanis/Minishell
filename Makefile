@@ -1,5 +1,8 @@
 NAME = minishell
-SRC = mandatory/main.c
+SRC =	mandatory/main.c \
+		mandatory/prompt/prompt.c \
+		mandatory/signals/signals.c\
+
 
 LIBFT = ./libft
 RM = rm -rf

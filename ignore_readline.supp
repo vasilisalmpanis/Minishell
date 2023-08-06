@@ -1,4 +1,12 @@
 {
+   malloc
+   fun:_nc_*
+   fun:malloc
+   fun:strdup
+   fun:add_history
+   fun:realloc
+}
+{
    ignore_readline
    Memcheck:Leak
    match-leak-kinds: reachable

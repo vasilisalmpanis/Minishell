@@ -10,38 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <signal.h>
-#include "../libft/libft.h"
-#include "../includes/colors.h"
-#define READLINE_LIBRARY
-#include "../readline/include/history.h"
-#include "../readline/include/readline.h"
-#include "../readline/include/rlstdc.h"
-//#include "${HOME}/goinfre/homebrew/Cellar/readline/8.2.1/include/history.h"
-//#include "${HOME}/goinfre/homebrew/Cellar/readline/8.2.1/include/readline.h"
-
-void	handle_sigquit(void)
-{
-	rl_replace_line("", 0);
-	rl_on_new_line();
-	rl_redisplay();
-}
-
-void	handle_sigint(int signum)
-{
-	if (signum == 3)
-	{
-		handle_sigquit();
-		return ;
-	}
-	rl_replace_line("", 0);
-	ft_putchar_fd('\n', 1);
-	rl_on_new_line();
-	rl_redisplay();
-}
+#include "../includes/minishell.h"
 
 void	exit_min(char *input)
 {
@@ -51,49 +20,10 @@ void	exit_min(char *input)
 	exit(1);
 }
 
-char	*get_git_head(void)
-{
-	char	buf[100];
-	char	*temp;
-	int		fd;
-	int		i;
-	size_t	bytes;
-
-	fd = open(".git/HEAD", O_RDONLY);
-	bytes = read(fd, buf, 100);
-	i = 0;
-	buf[bytes] = 0;
-	while (buf[i])
-		++i;
-	while (buf[i] != '/')
-		--i;
-	i++;
-	temp = ft_substr(buf, i, ft_strlen(buf) - (size_t)i);
-	temp[ft_strlen(temp) - 1] = '\0';
-	return (temp);
-}
-
-void	get_repo(char **input)
-{
-	char	*temp;
-	char	*last_str;
-
-	temp = get_git_head();
-	last_str = ft_strjoin(*input, LIGHT_BLUE"git:("RED);
-	free(*input);
-	*input = ft_strdup(last_str);
-	free(last_str);
-	last_str = ft_strjoin(*input, temp);
-	free(*input);
-	free(temp);
-	*input = ft_strjoin(last_str, LIGHT_BLUE") "ESCAPE);
-	free(last_str);
-}
-
 int	main(void)
 {
 	char				*input;
-	char 				*temp;
+	char				*temp;
 	struct sigaction	sa;
 
 	sa.sa_handler = &handle_sigint;
