@@ -17,9 +17,11 @@
 #include "../libft/libft.h"
 #include "../includes/colors.h"
 #define READLINE_LIBRARY
-#include "/goinfre/mamesser/homebrew/Cellar/readline/8.2.1/include/readline/rlstdc.h"
-#include "/goinfre/mamesser/homebrew/Cellar/readline/8.2.1/include/readline/history.h"
-#include "/goinfre/mamesser/homebrew/Cellar/readline/8.2.1/include/readline/readline.h"
+#include "../readline/history.h"
+#include "../readline/readline.h"
+#include "../readline/rlstdc.h"
+//#include "${HOME}/goinfre/homebrew/Cellar/readline/8.2.1/include/history.h"
+//#include "${HOME}/goinfre/homebrew/Cellar/readline/8.2.1/include/readline.h"
 
 void	handle_sigquit(void)
 {
