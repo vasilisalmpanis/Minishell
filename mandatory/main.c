@@ -6,7 +6,7 @@
 /*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 18:26:28 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/06 13:14:55 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/08/06 13:33:37 by valmpani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	exit_min(char *input)
 	exit(1);
 }
 
-char *get_git_head(void)
+char	*get_git_head(void)
 {
 	char	buf[100];
 	char	*temp;
@@ -73,7 +73,7 @@ char *get_git_head(void)
 	return (temp);
 }
 
-void get_repo(char **input)
+void	get_repo(char **input)
 {
 	char	*temp;
 	char	*last_str;
@@ -85,29 +85,34 @@ void get_repo(char **input)
 	free(last_str);
 	last_str = ft_strjoin(*input, temp);
 	free(*input);
+	free(temp);
 	*input = ft_strjoin(last_str, LIGHT_BLUE") "ESCAPE);
+	free(last_str);
 }
 
 int	main(void)
 {
 	char				*input;
+	char 				*temp;
 	struct sigaction	sa;
 
 	sa.sa_handler = &handle_sigint;
 	sigemptyset(&sa.sa_mask);
 	sa.sa_flags = 0;
+	sigaction(SIGINT, &sa, NULL);
+	sigaction(SIGQUIT, &sa, NULL);
 	while (1)
 	{
-		input = ft_strdup(GREEN"→" BLUE" minishell "ESCAPE);
+		temp = ft_strdup(GREEN"→" BLUE"  minishell "ESCAPE);
 		if (access(".git/HEAD", O_RDONLY) == 0)
-			get_repo(&input);
-		sigaction(SIGINT, &sa, NULL);
-		sigaction(SIGQUIT, &sa, NULL);
-		input = readline(input);
+			get_repo(&temp);
+		input = readline(temp);
+		free(temp);
 		if (!input)
 			exit_min(input);
 		if (strcmp(input, "exit") == 0)
 			exit_min(input);
+		add_history(input);
 		free(input);
 	}
 	return (0);
