@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 18:26:28 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/06 16:53:16 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/06 18:33:09 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	exit_min(char *input)
 
 int	main(void)
 {
-	char				*input;
+	// char				*input;
 	char				*temp;
 	struct sigaction	sa;
 
@@ -31,18 +31,20 @@ int	main(void)
 	sa.sa_flags = 0;
 	sigaction(SIGINT, &sa, NULL);
 	sigaction(SIGQUIT, &sa, NULL);
-	while (1)
-	{
-		temp = ft_strdup(GREEN"→" BLUE"  minishell "ESCAPE);
-		if (access(".git/HEAD", O_RDONLY) == 0)
-			get_repo(&temp);
-		input = readline(temp);
-		free(temp);
-		if (!input)
-			exit_min(input);
-		if (strcmp(input, "exit") == 0)
-			exit_min(input);
-		add_history(input);
-		free(input);
-	}
+	// while (1)
+	// {
+	// 	temp = ft_strdup(GREEN"→" BLUE"  minishell "ESCAPE);
+	// 	if (access(".git/HEAD", O_RDONLY) == 0)
+	// 		get_repo(&temp);
+	// 	input = readline(temp);
+	// 	free(temp);
+	// 	if (!input)
+	// 		exit_min(input);
+	// 	if (strcmp(input, "exit") == 0)
+	// 		exit_min(input);
+	// 	add_history(input);
+	// 	free(input);
+	// }
+	temp = readline("Minishell :");
+	printf("%d\n", check_quotes(temp));
 }
