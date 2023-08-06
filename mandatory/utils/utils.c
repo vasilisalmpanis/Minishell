@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:52:47 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/06 16:42:42 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/06 19:03:08 by valmpani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,18 +35,3 @@ char	**split_args(char *input)
 	split = ft_split(input, 26);
 	return (split);
 }
-
-// int	main(void)
-// {
-// 	char	**ret;
-// 	char	*str;
-// 	int	i = 0;
-	
-// 	str = 
-// 	ret = split_args(str);
-// 	while (ret[i])
-// 	{
-// 		printf("%s\n", ret[i++]);
-// 	}
-	
-// }
