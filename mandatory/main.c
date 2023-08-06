@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
+/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 18:26:28 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/03 11:40:15 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/08/06 12:27:36 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,11 @@
 #include <string.h>
 #include <signal.h>
 #include "../libft/libft.h"
-#include "../readline/include/readline/history.h"
-#include "../readline/include/readline/rlstdc.h"
-#include "../readline/include/readline/readline.h"
 #include "../includes/colors.h"
+#define READLINE_LIBRARY
+#include "/goinfre/mamesser/homebrew/Cellar/readline/8.2.1/include/readline/rlstdc.h"
+#include "/goinfre/mamesser/homebrew/Cellar/readline/8.2.1/include/readline/history.h"
+#include "/goinfre/mamesser/homebrew/Cellar/readline/8.2.1/include/readline/readline.h"
 
 void	handle_sigquit(void)
 {

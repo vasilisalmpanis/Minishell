@@ -1,6 +1,5 @@
 NAME    =   minishell
-SRC     =   mandatory/main.c\
-
+SRC     =   mandatory/main.c
 
 LIBFT   =   ./libft
 RM      =   rm -rf
@@ -14,10 +13,13 @@ PINK = \033[95m
 END=\033[0m
 MAKE = make
 
+# Update this line to include the path to your readline installation
+READLINE_PATH = /goinfre/mamesser/homebrew/opt/readline
+
 all: ${LIBFT} ${NAME}
 
 ${NAME}: ${OBJ} ${LIBFT}
-		@$(CC) ${CFLAGS} $(OBJ) -o $(NAME) libft.a -Ireadline/include -Lreadline/lib -lreadline -lhistory
+		@$(CC) ${CFLAGS} $(OBJ) -o $(NAME) libft.a -I${READLINE_PATH}/include -L${READLINE_PATH}/lib -lreadline -lhistory
 		@${RM} libft.a
 		@echo "${RED}${NAME} completed${RED}"
 
@@ -27,7 +29,7 @@ ${LIBFT}:
 		@echo "${GREEN}libft completed\n${END}"
 
 %.o: %.c
-	${CC} ${CFLAGS} -I./readline/include -I./libft -c $< -o $@
+	${CC} ${CFLAGS} -I./readline -I./libft -c $< -o $@
 
 norm :
 		@norminette mandatory > /tmp/norminette_output.txt 2>&1
