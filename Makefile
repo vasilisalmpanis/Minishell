@@ -2,7 +2,8 @@ NAME = minishell
 SRC =	mandatory/main.c \
 		mandatory/prompt/prompt.c \
 		mandatory/signals/signals.c\
-		mandatory/utils/utils.c
+		mandatory/utils/utils.c \
+		mandatory/lexer/lexer.c
 
 
 LIBFT = ./libft

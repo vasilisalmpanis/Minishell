@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:31:53 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/06 16:37:04 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/06 18:31:15 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,7 @@ typedef struct s_lex
 	char	*value;
 	void	*next;
 }				t_lex;
+
+int	check_quotes(char *input);
 
 #endif
