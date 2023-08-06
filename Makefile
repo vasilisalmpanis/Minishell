@@ -13,8 +13,7 @@ PINK = \033[95m
 END=\033[0m
 MAKE = make
 
-# Update this line to include the path to your readline installation
-READLINE_PATH = /goinfre/mamesser/homebrew/opt/readline
+READLINE_PATH = ${HOME}/goinfre/homebrew/opt/readline
 
 all: ${LIBFT} ${NAME}
 
