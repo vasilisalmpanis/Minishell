@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 18:26:28 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/06 12:27:36 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/06 12:29:54 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void get_repo(char **input)
 	free(last_str);
 	last_str = ft_strjoin(*input, temp);
 	free(*input);
-	*input = ft_strjoin(last_str, "\x1B[38;5;33;1m)\x1B[0m ");
+	*input = ft_strjoin(last_str, LIGHT_BLUE") "ESCAPE);
 }
 
 int	main(void)
