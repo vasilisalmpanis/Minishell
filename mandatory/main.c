@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 18:26:28 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/06 12:29:54 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/06 13:14:55 by valmpani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@
 #include "../libft/libft.h"
 #include "../includes/colors.h"
 #define READLINE_LIBRARY
-#include "../readline/history.h"
-#include "../readline/readline.h"
-#include "../readline/rlstdc.h"
+#include "../readline/include/history.h"
+#include "../readline/include/readline.h"
+#include "../readline/include/rlstdc.h"
 //#include "${HOME}/goinfre/homebrew/Cellar/readline/8.2.1/include/history.h"
 //#include "${HOME}/goinfre/homebrew/Cellar/readline/8.2.1/include/readline.h"
 
