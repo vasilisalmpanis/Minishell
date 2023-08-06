@@ -32,4 +32,7 @@ void	handle_sigint(int signum);
 void	get_repo(char **input);
 char	*get_git_head(void);
 
+//UTILS
+char	**split_args(t_data object, int i);
+
 #endif
