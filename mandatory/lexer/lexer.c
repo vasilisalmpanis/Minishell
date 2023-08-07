@@ -68,7 +68,7 @@ t_lex	*create_token(char *split)
 {
 	t_lex	*new_token;
 	char	*word;
-	
+
 	if (!(ft_strncmp(split, "|", ft_strlen(split))))
 		new_token = ft_new_tk(split, TK_PIPE);
 	else if (!(ft_strncmp(split, "<", ft_strlen(split))))
@@ -81,7 +81,8 @@ t_lex	*create_token(char *split)
 		new_token = ft_new_tk(split, TK_HERE_DOC);
 	else
 	{
-		word = check_expand(split);
+//		word = check_expand(split);
+		word = NULL;
 		if (!word)
 			return (NULL);
 		new_token = ft_new_tk(word, TK_WORD);

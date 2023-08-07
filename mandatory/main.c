@@ -47,5 +47,4 @@ int	main(void)
 		add_history(input);
 		free(input);
 	}
-	return (0);
 }

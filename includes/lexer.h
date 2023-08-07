@@ -25,8 +25,8 @@ typedef enum s_token
 
 typedef struct s_lex
 {
-	t_token token;
-	char	*value;
+	t_token			token;
+	char			*value;
 	struct s_lex	*next;
 }				t_lex;
 
