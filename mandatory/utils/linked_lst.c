@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 16:03:16 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/06 16:31:44 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/07 11:45:24 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ t_lex	*ft_new_tk(void *value, t_token token)
 	node->next = NULL;
 	return (node);
 }
+
 
 void	ft_lstadd_end(t_lex **lst, t_lex *new)
 {

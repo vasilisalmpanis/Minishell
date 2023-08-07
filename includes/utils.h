@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 16:13:07 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/06 16:31:52 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/07 10:59:55 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,3 +17,4 @@ void	ft_lstadd_end(t_lex **lst, t_lex *new);
 void	ft_lst_free(t_lex **lst);
 
 char	**split_args(char *input);
+int		ft_isspace(char c);
