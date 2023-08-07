@@ -38,7 +38,7 @@ int	main(void)
 		if (access(".git/HEAD", O_RDONLY) == 0)
 			get_repo(&temp);
 		input = readline(temp);
-		lst = lex(input); // needs to be freed
+		lst = lex(input);
 		free(temp);
 		if (!input)
 			exit_min(input);
@@ -46,5 +46,7 @@ int	main(void)
 			exit_min(input);
 		add_history(input);
 		free(input);
+		ft_lst_free(&lst);
 	}
+	return (0);
 }

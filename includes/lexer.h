@@ -35,5 +35,6 @@ t_lex	*lex(char *input);
 t_lex	*create_token(char *split);
 void	expand(char *word, int *i, int start, char **exp_word);
 void	ft_show_tab(t_lex *list);
+char	*check_expand(char *word);
 
 #endif

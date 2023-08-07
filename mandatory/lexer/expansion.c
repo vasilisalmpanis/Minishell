@@ -63,12 +63,10 @@ void	expand(char *word, int *i, int start, char **exp_word)
 	free(temp);
 }
 
-
 // int main(void)
 // {
 // 	char *ret;
 // 	char temp[] = "Hello $\0";
-
 // 	ret = check_expand(temp);
 // //	temp = "Hello $SHLVL $XPC_FLAGS $TERMINAL_EMULATOR";
 // 	printf("%s", ret);

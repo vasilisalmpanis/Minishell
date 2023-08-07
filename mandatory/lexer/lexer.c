@@ -102,5 +102,4 @@ t_lex	*create_token(char *split)
 // 		list = list->next;
 // 	}
 // }
-
 // function to check for expansion

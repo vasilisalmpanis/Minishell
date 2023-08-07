@@ -10,7 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef UTILS_H
+# define UTILS_H
+# include "minishell.h"
 
 t_lex	*ft_new_tk(void *value, t_token token);
 void	ft_lstadd_end(t_lex **lst, t_lex *new);
@@ -19,5 +21,6 @@ void	ft_lst_free(t_lex **lst);
 char	**split_args(char *input);
 int		ft_isspace(char c);
 char	*ft_charjoin_mod(char *s1, char s2);
-char	*ft_strjoin_mod(char *s1, char s2)
+char	*ft_strjoin_mod(char *s1, char *s2);
 
+#endif
