@@ -25,7 +25,6 @@ t_lex	*ft_new_tk(void *value, t_token token)
 	return (node);
 }
 
-
 void	ft_lstadd_end(t_lex **lst, t_lex *new)
 {
 	t_lex	**ptr;

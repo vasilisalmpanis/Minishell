@@ -16,7 +16,7 @@ char	*check_expand(char *word)
 {
 	int		i;
 	int		start;
-	char 	*exp_word;
+	char	*exp_word;
 
 	i = -1;
 	exp_word = ft_calloc(1, 1);
@@ -41,7 +41,7 @@ void	expand(char *word, int *i, int start, char **exp_word)
 {
 	char	*temp;
 	char	*exp_var;
-	
+
 	while (word[*i] && !ft_isspace(word[*i]))
 		(*i)++;
 	temp = ft_substr(word, start + 1, *i - start - 1);
