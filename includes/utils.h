@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 16:13:07 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/07 10:59:55 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/07 15:48:10 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,3 +18,6 @@ void	ft_lst_free(t_lex **lst);
 
 char	**split_args(char *input);
 int		ft_isspace(char c);
+char	*ft_charjoin_mod(char *s1, char s2);
+char	*ft_strjoin_mod(char *s1, char s2)
+

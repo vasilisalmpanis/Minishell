@@ -6,42 +6,71 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 12:43:19 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/07 12:48:52 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/07 15:48:27 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	check_expand(char *word)
+char	*check_expand(char *word)
 {
-	int	i;
-	int	start;
-	char *temp;
-	char *ret;
+	int		i;
+	int		start;
+	char 	*exp_word;
 
 	i = -1;
-	ret = "";
+	exp_word = ft_calloc(1, 1);
+	if (!exp_word)
+		return (NULL);
 	while (word[++i])
 	{
 		start = i;
 		if (word[i] == '$')
 		{
-			while (word[i] && !ft_isspace(word[i]))
-				i++;
-			temp = ft_substr(word, start + 1, i - start - 1);
-			ret = ft_strjoin(ret, getenv(temp));
-			free(temp);
+			if (!ft_isspace(word[i + 1]) && word[i + 1] != '\0')
+				expand(word, &i, start, &exp_word);
 		}
-		else
-			ret = ft_charjoin(ret, word[i]);
+		exp_word = ft_charjoin_mod(exp_word, word[i]);
+		if (!exp_word)
+			return (NULL);
 	}
-	printf("%s\n", ret);
+	return (exp_word);
 }
 
-int main(void)
+void	expand(char *word, int *i, int start, char **exp_word)
 {
-	char temp[] = "Hello $SHLVL $XPC_FLAGS $TERMINAL_EMULATOR ";
-
-//	temp = "Hello $SHLVL $XPC_FLAGS $TERMINAL_EMULATOR";
-	check_expand(temp);
+	char	*temp;
+	char	*exp_var;
+	
+	while (word[*i] && !ft_isspace(word[*i]))
+		(*i)++;
+	temp = ft_substr(word, start + 1, *i - start - 1);
+	if (!temp)
+	{
+		free(*exp_word);
+		return ;
+	}
+	exp_var = getenv(temp);
+	if (exp_var)
+	{
+		*exp_word = ft_strjoin_mod(*exp_word, exp_var);
+		if (!(*exp_word))
+		{
+			free(temp);
+			return ;
+		}
+	}
+	free(temp);
 }
+
+
+// int main(void)
+// {
+// 	char *ret;
+// 	char temp[] = "Hello $\0";
+
+// 	ret = check_expand(temp);
+// //	temp = "Hello $SHLVL $XPC_FLAGS $TERMINAL_EMULATOR";
+// 	printf("%s", ret);
+// 	free(ret);
+// }

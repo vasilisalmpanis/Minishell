@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 16:15:37 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/07 13:11:31 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/07 15:50:19 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,7 @@ t_lex	*create_token(char *split)
 		new_token = ft_new_tk(split, TK_HERE_DOC);
 	else
 	{
-//		word = check_expand(split);
-		word = NULL;
+		word = check_expand(split);
 		if (!word)
 			return (NULL);
 		new_token = ft_new_tk(word, TK_WORD);
@@ -92,16 +91,16 @@ t_lex	*create_token(char *split)
 }
 
 // for testing lexer
-void	ft_show_tab(t_lex *list)
-{
-	while (list)
-	{
-		ft_putstr_fd(list->value, 1);
-		write(1, "\n", 1);
-		printf("token: %c\n", list->token);
-		// write(1, "\n", 1);
-		list = list->next;
-	}
-}
+// void	ft_show_tab(t_lex *list)
+// {
+// 	while (list)
+// 	{
+// 		ft_putstr_fd(list->value, 1);
+// 		write(1, "\n", 1);
+// 		printf("token: %c\n", list->token);
+// 		// write(1, "\n", 1);
+// 		list = list->next;
+// 	}
+// }
 
 // function to check for expansion
