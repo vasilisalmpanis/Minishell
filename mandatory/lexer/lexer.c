@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 16:15:37 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/07 12:14:27 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/07 12:25:36 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,37 +39,48 @@ int	check_quotes(char *input)
 	return (flag);
 }
 
-
 t_lex	*lex(char *input)
 {
 	char	**split;
-	t_lex	*tokens;
+	t_lex	*token_lst;
 	t_lex	*new_token;
 	int		i;
 
 	i = -1;
+	if (check_quotes(input))
+		return (NULL);
 	split = split_args(input);
-	tokens = NULL;
+	token_lst = NULL;
 	if (!split)
 		return (NULL);
 	while (split[++i])
 	{
-		if (!(ft_strncmp(split[i], "|", ft_strlen(split[i]))))
-			new_token = ft_new_tk(split[i], TK_PIPE);
-		else if (!(ft_strncmp(split[i], "<", ft_strlen(split[i]))))
-			new_token = ft_new_tk(split[i], TK_IN_R);
-		else if (!(ft_strncmp(split[i], ">", ft_strlen(split[i]))))
-			new_token = ft_new_tk(split[i], TK_OUT_R);
-		else if (!(ft_strncmp(split[i], ">>", ft_strlen(split[i]))))
-			new_token = ft_new_tk(split[i], TK_APP_R);
-		else if ((!ft_strncmp(split[i], "<<", ft_strlen(split[i]))))
-			new_token = ft_new_tk(split[i], TK_HERE_DOC);
-		else
-			new_token = ft_new_tk(split[i], TK_WORD);
-		ft_lstadd_end(&tokens, new_token);
+		new_token = create_token(split[i]);
+		if (!(new_token->value))
+			return (ft_lst_free(&token_lst), NULL);
+		ft_lstadd_end(&token_lst, new_token);
 	}
 	ft_free(split);
-	return (tokens);
+	return (token_lst);
+}
+
+t_lex	*create_token(char *split)
+{
+	t_lex	*new_token;
+	
+	if (!(ft_strncmp(split, "|", ft_strlen(split))))
+		new_token = ft_new_tk(split, TK_PIPE);
+	else if (!(ft_strncmp(split, "<", ft_strlen(split))))
+		new_token = ft_new_tk(split[i], TK_IN_R);
+	else if (!(ft_strncmp(split, ">", ft_strlen(split))))
+		new_token = ft_new_tk(split[i], TK_OUT_R);
+	else if (!(ft_strncmp(split, ">>", ft_strlen(split))))
+		new_token = ft_new_tk(split[i], TK_APP_R);
+	else if ((!ft_strncmp(split, "<<", ft_strlen(split))))
+		new_token = ft_new_tk(split, TK_HERE_DOC);
+	else
+		new_token = ft_new_tk(split, TK_WORD);
+	return (new_token);
 }
 
 // for testing lexer
