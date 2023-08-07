@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
+/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 18:26:28 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/06 19:07:01 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/08/07 12:09:33 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	main(void)
 	char				*input;
 	char				*temp;
 	struct sigaction	sa;
+	t_lex				*lst;
 
 	sa.sa_handler = &handle_sigint;
 	sigemptyset(&sa.sa_mask);
@@ -37,6 +38,7 @@ int	main(void)
 		if (access(".git/HEAD", O_RDONLY) == 0)
 			get_repo(&temp);
 		input = readline(temp);
+		lst = lex(input); // needs to be freed
 		free(temp);
 		if (!input)
 			exit_min(input);
@@ -45,5 +47,5 @@ int	main(void)
 		add_history(input);
 		free(input);
 	}
-	return (1);
+	return (0);
 }
