@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 16:15:37 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/07 12:49:37 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/07 13:11:31 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,11 @@ t_lex	*create_token(char *split)
 	if (!(ft_strncmp(split, "|", ft_strlen(split))))
 		new_token = ft_new_tk(split, TK_PIPE);
 	else if (!(ft_strncmp(split, "<", ft_strlen(split))))
-		new_token = ft_new_tk(split[i], TK_IN_R);
+		new_token = ft_new_tk(split, TK_IN_R);
 	else if (!(ft_strncmp(split, ">", ft_strlen(split))))
-		new_token = ft_new_tk(split[i], TK_OUT_R);
+		new_token = ft_new_tk(split, TK_OUT_R);
 	else if (!(ft_strncmp(split, ">>", ft_strlen(split))))
-		new_token = ft_new_tk(split[i], TK_APP_R);
+		new_token = ft_new_tk(split, TK_APP_R);
 	else if ((!ft_strncmp(split, "<<", ft_strlen(split))))
 		new_token = ft_new_tk(split, TK_HERE_DOC);
 	else

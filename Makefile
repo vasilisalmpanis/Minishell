@@ -4,7 +4,8 @@ SRC =	mandatory/main.c \
 		mandatory/signals/signals.c\
 		mandatory/utils/utils.c \
 		mandatory/utils/linked_lst.c \
-		mandatory/lexer/lexer.c
+		mandatory/lexer/lexer.c \
+		mandatory/lexer/expansion.c
 
 
 LIBFT = ./libft
