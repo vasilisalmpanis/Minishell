@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 12:43:19 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/07 15:48:27 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/08 15:59:38 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,24 @@ char	*check_expand(char *word)
 		if (!exp_word)
 			return (NULL);
 	}
+	exp_word = trim_word(exp_word);
 	return (exp_word);
+}
+
+char	*trim_word(char *word)
+{
+	char	*trimmed_word;
+
+	if (word[0] == '"')
+		trimmed_word = ft_strtrim(word, "\"");
+	else if (word[0] == '\'')
+		trimmed_word = ft_strtrim(word, "'");
+	else
+		return (word);
+	if (!trimmed_word)
+		return (free(word), NULL);
+	free(word);
+	return (trimmed_word);
 }
 
 void	expand(char *word, int *i, int start, char **exp_word)

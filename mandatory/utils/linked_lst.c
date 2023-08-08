@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 16:03:16 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/08 12:13:14 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/08 14:22:00 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	ft_cmd_lstadd_end(t_cmd **lst, t_cmd *new)
 
 void	ft_cmd_lst_free(t_cmd **lst)
 {
-	t_lex	*temp;
+	t_cmd	*temp;
 
 	while (*lst)
 	{
