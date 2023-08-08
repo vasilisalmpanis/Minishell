@@ -1,0 +1,64 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   echo.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/08 11:23:37 by valmpani          #+#    #+#             */
+/*   Updated: 2023/08/08 11:36:47 by valmpani         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../includes/minishell.h"
+
+int	echo(t_cmd cmd)
+{
+	int	i;
+
+	i = -1;
+	while (cmd.args[++i])
+	{
+		ft_putstr_fd(cmd.args[i], 1);
+		if (cmd.args[i + 1])
+			ft_putchar_fd(' ', 1);
+	}
+	if (cmd.opts == NULL)
+		ft_putchar_fd('\n', 1);
+	return (0);
+}
+
+//int	main(void)
+//{
+//	t_cmd	cmd1;
+//	t_cmd	cmd2;
+//	t_cmd	cmd3;
+//
+//	cmd1.args = (char **)malloc(4 * sizeof(char *));
+//	cmd1.args[0] = "Hello,";
+//	cmd1.args[1] = "world!";
+//	cmd1.args[2] = NULL;
+//	cmd1.opts = 0;
+//
+//	cmd2.args = (char **)malloc(4 * sizeof(char *));
+//	cmd2.args[0] = "This";
+//	cmd2.args[1] = "is";
+//	cmd2.args[2] = "a";
+//	cmd2.args[3] = "test";
+//	cmd2.args[4] = NULL;
+//	cmd2.opts = "-n";
+//
+//	cmd3.args = (char **)malloc(2 * sizeof(char *));
+//	cmd3.args[0] = "Single";
+//	cmd3.args[1] = NULL;
+//	cmd3.opts = 0;
+//
+//	echo(cmd1);
+//	echo(cmd2);
+//	echo(cmd3);
+//
+//	free(cmd1.args);
+//	free(cmd2.args);
+//	free(cmd3.args);
+//	return (0);
+//}
