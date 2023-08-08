@@ -13,6 +13,4 @@
 #ifndef BUILTINS_H
 # define BUILTINS_H
 
-int	pwd(void);
-
 #endif

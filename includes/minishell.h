@@ -18,6 +18,8 @@
 # include <signal.h>
 # include "lexer.h"
 # include "utils.h"
+# include "builtins.h"
+# include "parser.h"
 # include "../libft/libft.h"
 # include "../includes/colors.h"
 # define READLINE_LIBRARY
@@ -34,5 +36,10 @@ void	get_repo(char **input);
 char	*get_git_head(void);
 
 //UTILS
+
+//BUILTINS
+int		pwd(void);
+int		echo(t_cmd cmd);
+int		cd_dir(t_cmd cmd);
 
 #endif
