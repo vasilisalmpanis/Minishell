@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 14:26:53 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/06 16:34:53 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/08 11:43:08 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <string.h>
 # include <signal.h>
 # include "lexer.h"
+# include "parser.h"
 # include "utils.h"
 # include "../libft/libft.h"
 # include "../includes/colors.h"

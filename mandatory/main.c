@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 18:26:28 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/07 12:09:33 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/08 12:26:52 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	main(void)
 			exit_min(input);
 		add_history(input);
 		free(input);
-		ft_lst_free(&lst);
+		ft_lst_free(&lst); // probably only need to free the cmd lst and not lex as we pass the token values to that one
 	}
 	return (0);
 }
