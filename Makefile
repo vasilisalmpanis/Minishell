@@ -5,7 +5,9 @@ SRC =	mandatory/main.c \
 		mandatory/utils/utils.c \
 		mandatory/utils/linked_lst.c \
 		mandatory/lexer/lexer.c \
-		mandatory/lexer/expansion.c
+		mandatory/lexer/expansion.c \
+		mandatory/parser/parse.c \
+		mandatory/parser/analyze_word.c
 
 
 LIBFT = ./libft

@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:31:53 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/07 15:47:29 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/08 17:25:15 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,6 @@ t_lex	*create_token(char *split);
 void	expand(char *word, int *i, int start, char **exp_word);
 void	ft_show_tab(t_lex *list);
 char	*check_expand(char *word);
+char	*trim_word(char *word);
 
 #endif
