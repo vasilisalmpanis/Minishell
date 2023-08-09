@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 18:23:58 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/09 16:09:43 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/09 19:10:58 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,17 @@ t_cmd	*parse(t_lex *lex_lst)
 	{
 		new_cmd = ft_new_cmd(id++);
 		// if (!new_cmd)
-		// 	return (ft_cmd_lst_free(&cmd_lst), NULL); // free function to be implemented
+		// 	return (ft_cmd_lst_free(&cmd_lst), NULL); // free function to be implemented + free lex
 		arg_num = 0;
+		if (allocate_args(lex_lst, new_cmd))
+			return (NULL); // also: free cmd_lst and lex
 		while (lex_lst && lex_lst->token != TK_PIPE)
 		{
 			analyze_token(&lex_lst, new_cmd, &arg_num);
 				// malloc err hanlding
 			lex_lst = lex_lst->next;
 		}
-		// new_cmd->args[arg_num] = NULL;
+		new_cmd->args[arg_num] = NULL;
 		ft_cmd_lstadd_end(&cmd_lst, new_cmd);
 		if (lex_lst)
 			lex_lst = lex_lst->next;
@@ -50,6 +52,32 @@ t_cmd	*parse(t_lex *lex_lst)
 	// free lexer lst (all values will already be freed or passed)
 	return (cmd_lst);
 }
+
+int	allocate_args(t_lex *lex_lst, t_cmd *new_cmd)
+{
+	int		arg_num;
+	t_lex	**start_lst;
+
+	start_lst = &lex_lst;
+	arg_num = 0;
+	while (*start_lst && (*start_lst)->token != TK_PIPE)
+	{
+		if ((*start_lst)->token == TK_WORD)
+			arg_num++;
+		else if ((*start_lst)->token == TK_IN_R || (*start_lst)->token == TK_OUT_R
+			|| (*start_lst)->token == TK_APP_R || (*start_lst)->token == TK_HERE_DOC)
+		{
+			arg_num -= 1;
+		}
+		
+		start_lst = &(*start_lst)->next;
+	}
+	new_cmd->args = malloc((arg_num + 1) * sizeof((*new_cmd->args)));
+	if (!new_cmd->args)
+		return (1);
+	return (0);
+}
+
 
 int	analyze_token(t_lex **lex_lst, t_cmd *new_cmd, int *arg_num)
 {
@@ -102,52 +130,49 @@ int	set_redir_flags(t_lex **lex_lst, t_cmd *new_cmd)
 // TESTING //
 // gcc -fsanitize=address parse.c ../../libft/libft.a ../lexer/lexer.c ../utils/linked_lst.c ../lexer/expansion.c ../utils/utils.c ./analyze_word.c 
 
-void	ft_show_tab(t_lex *list)
-{
-	while (list)
-	{
-		ft_putstr_fd(list->value, 1);
-		write(1, "\n", 1);
-		printf("token: %c\n", list->token);
-		printf("position: %d\n", list->pos);
-		// write(1, "\n", 1);
-		list = list->next;
-	}
-}
+// void	ft_show_tab(t_lex *list)
+// {
+// 	while (list)
+// 	{
+// 		ft_putstr_fd(list->value, 1);
+// 		write(1, "\n", 1);
+// 		printf("token: %c\n", list->token);
+// 		printf("position: %d\n", list->pos);
+// 		// write(1, "\n", 1);
+// 		list = list->next;
+// 	}
+// }
 
-void	ft_show_tab2(t_cmd *list)
-{
-	write(1, "\n", 1);
-	while (list)
-	{
-		printf("cmd id: %d\n", list->cmd_id);
-		printf("hd_flag: %d\n", list->hd_flag);
-		printf("in_flag: %d\n", list->in_flag);
-		printf("out_flag: %d\n", list->out_flag);
-		printf("file: %s\n", list->file);
-		printf("delim: %s\n", list->delim);
-		printf("opts: %d\n", list->opt);
-		// printf("args[0]: %s\n", list->args[0]);
-		// printf("word: %s\n", list->out_);
-		// ft_putstr_fd(list->cmd_id, 1);
-		// write(1, "\n", 1);
-		// printf("token: %c\n", list->token);
-		write(1, "\n", 1);
-		list = list->next;
-	}
-}
+// void	ft_show_tab2(t_cmd *list)
+// {
+// 	write(1, "\n", 1);
+// 	while (list)
+// 	{
+// 		printf("cmd id: %d\n", list->cmd_id);
+// 		printf("hd_flag: %d\n", list->hd_flag);
+// 		printf("in_flag: %d\n", list->in_flag);
+// 		printf("out_flag: %d\n", list->out_flag);
+// 		printf("file: %s\n", list->file);
+// 		printf("delim: %s\n", list->delim);
+// 		printf("opts: %d\n", list->opt);
+// 		printf("args[0]: %s\n", list->args[0]);
+// 		printf("args[1]: %s\n", list->args[1]);
+// 		write(1, "\n", 1);
+// 		list = list->next;
+// 	}
+// }
 
-int	main(void)
-{
-	t_lex 	*lex_lst;
-	t_cmd	*cmd_lst;
-	char	input[] = "cat << eof | echo > file2 | echo -n \"Hello\"\0";
+// int	main(void)
+// {
+// 	t_lex 	*lex_lst;
+// 	t_cmd	*cmd_lst;
+// 	char	input[] = "echo \"Hello World\" | cat << eof | echo > file2 | echo -n \"Hello\"\0";
 
-	lex_lst = lex(input);
-	ft_show_tab(lex_lst);
+// 	lex_lst = lex(input);
+// 	ft_show_tab(lex_lst);
 	
-	cmd_lst = parse(lex_lst);
-	ft_show_tab2(cmd_lst);
+// 	cmd_lst = parse(lex_lst);
+// 	ft_show_tab2(cmd_lst);
 	
 	
-}
+// }
