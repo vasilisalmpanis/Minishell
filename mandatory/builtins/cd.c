@@ -33,16 +33,16 @@ int	cd_dir(t_cmd cmd)
 	return (0);
 }
 
-int main(void)
-{
-	t_cmd	cmd;
-
-	cmd.args = (char **)malloc(3 * sizeof(char *));
-	cmd.args[1] = "..";
-	cmd.args[2] = NULL;
-	cmd.opts = "-n";
-
-	cd_dir(cmd);
-	free(cmd.args);
-	return (0);
-}
+//int main(void)
+//{
+//	t_cmd	cmd;
+//
+//	cmd.args = (char **)malloc(3 * sizeof(char *));
+//	cmd.args[1] = "..";
+//	cmd.args[2] = NULL;
+//	cmd.opts = "-n";
+//
+//	cd_dir(cmd);
+//	free(cmd.args);
+//	return (0);
+//}
