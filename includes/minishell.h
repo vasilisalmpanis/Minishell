@@ -44,5 +44,6 @@ char	*current_dir(void);
 int		pwd(void);
 int		echo(t_cmd cmd);
 int		cd_dir(t_cmd cmd);
+int		env(t_env *lst);
 
 #endif

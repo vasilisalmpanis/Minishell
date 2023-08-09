@@ -21,7 +21,6 @@ int	ft_atoi(const char *str)
 	index = 0;
 	minus = 1;
 	number = 0;
-	printf("hello world");
 	while ((str[index] >= '\t' && str[index] <= '\r') || str[index] == ' ')
 		index++;
 	if (str[index] == '-')

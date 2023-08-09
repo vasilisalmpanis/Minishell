@@ -21,6 +21,8 @@ char	*get_git_head(void)
 	size_t	bytes;
 
 	fd = open(".git/HEAD", O_RDONLY);
+	if (!fd)
+		return (NULL);
 	bytes = read(fd, buf, 100);
 	i = 0;
 	buf[bytes] = 0;
@@ -43,6 +45,8 @@ void	get_repo(char **input, char *head)
 		temp = get_git_head();
 	else
 		temp = ft_strdup(head);
+	if (!temp)
+		return ;
 	last_str = ft_strjoin(*input, LIGHT_BLUE"git:("RED);
 	free(*input);
 	*input = ft_strdup(last_str);
@@ -107,7 +111,7 @@ char	*prompt(char **cur_dir)
 	free(last_str);
 	if (access(".git/HEAD", O_RDONLY) == 0)
 		get_repo(&temp, NULL);
-	else if (strstr(gcwd, cur_dir[0]))
+	else if (strstr(gcwd, cur_dir[0]) && cur_dir[1][0])
 		get_repo(&temp, cur_dir[1]);
 	return (free(gcwd), temp);
 }
