@@ -28,7 +28,7 @@ t_env	*lst_env_node(char *key, char *value)
 		node->value = ft_itoa(temp);
 	}
 	else
-	node->value = ft_strdup(value);
+		node->value = ft_strdup(value);
 	node->next = NULL;
 	return (node);
 }
@@ -59,12 +59,38 @@ void	ft_env_free(t_env **lst)
 	}
 }
 
+void	ft_env_remove(t_env **begin_list, char *key)
+{
+	t_env	**ptr;
+	t_env	*temp;
+
+	temp = NULL;
+	ptr = begin_list;
+	while (*ptr)
+	{
+		if (ft_strncmp(key, (*ptr)->key, ft_strlen((*ptr)->key)) == 0 && \
+		ft_strlen(key) == ft_strlen((*ptr)->key))
+		{
+			temp = *ptr;
+			*ptr = temp->next;
+			temp->next = NULL;
+			free(temp->key);
+			free(temp->value);
+			free(temp);
+			return ;
+		}
+		else
+			ptr = &((*ptr)->next);
+	}
+}
+
 int main(int argc, char **argv, char **en)
 {
 	t_env	*lst;
 	t_env	*tmp;
 	char	**temp;
 	int		i;
+	t_cmd	cmd1;
 
 	i = 0;
 	temp = ft_split(en[i], '=');
@@ -77,6 +103,13 @@ int main(int argc, char **argv, char **en)
 		ft_env_addback(&lst, tmp);
 		ft_free(temp);
 	}
+	cmd1.args = NULL;
+	env(lst, cmd1);
+	ft_env_remove(&lst, "PATH");
+	ft_env_remove(&lst, "SHLVL");
+	ft_env_remove(&lst, "wefqwefwefwefewfef");
+	ft_printf("-----------------------------\n");
+	env(lst, cmd1);
 	ft_env_free(&lst);
 	return (0);
 }
