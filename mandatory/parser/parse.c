@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 18:23:58 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/08 18:36:08 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/09 16:09:43 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ t_cmd	*parse(t_lex *lex_lst)
 	t_cmd	*new_cmd;
 	int		id;
 	int		arg_num;
-	int		pos;
 
 	id = 0;
 	cmd_lst = NULL;
@@ -36,11 +35,10 @@ t_cmd	*parse(t_lex *lex_lst)
 		new_cmd = ft_new_cmd(id++);
 		// if (!new_cmd)
 		// 	return (ft_cmd_lst_free(&cmd_lst), NULL); // free function to be implemented
-		pos = 1;
 		arg_num = 0;
 		while (lex_lst && lex_lst->token != TK_PIPE)
 		{
-			analyze_token(&lex_lst, new_cmd, &pos, &arg_num);
+			analyze_token(&lex_lst, new_cmd, &arg_num);
 				// malloc err hanlding
 			lex_lst = lex_lst->next;
 		}
@@ -53,10 +51,10 @@ t_cmd	*parse(t_lex *lex_lst)
 	return (cmd_lst);
 }
 
-int	analyze_token(t_lex **lex_lst, t_cmd *new_cmd, int *pos, int *arg_num)
+int	analyze_token(t_lex **lex_lst, t_cmd *new_cmd, int *arg_num)
 {
 	if ((*lex_lst)->token == TK_WORD)
-		analyze_word(lex_lst, new_cmd, *pos, arg_num);
+		analyze_word(lex_lst, new_cmd, arg_num);
 	else if ((*lex_lst)->token == TK_HERE_DOC)
 	{
 		if (set_here_doc_flag(lex_lst, new_cmd))
@@ -68,7 +66,6 @@ int	analyze_token(t_lex **lex_lst, t_cmd *new_cmd, int *pos, int *arg_num)
 		if (set_redir_flags(lex_lst, new_cmd))
 			return (1); // err handling malloc fail; need to free lex and cmd_lst
 	}
-	(*pos)++;
 	return (0);
 }
 
@@ -112,6 +109,7 @@ void	ft_show_tab(t_lex *list)
 		ft_putstr_fd(list->value, 1);
 		write(1, "\n", 1);
 		printf("token: %c\n", list->token);
+		printf("position: %d\n", list->pos);
 		// write(1, "\n", 1);
 		list = list->next;
 	}
@@ -128,8 +126,8 @@ void	ft_show_tab2(t_cmd *list)
 		printf("out_flag: %d\n", list->out_flag);
 		printf("file: %s\n", list->file);
 		printf("delim: %s\n", list->delim);
-		printf("opts: %s\n", list->opts);
-		printf("args[0]: %s\n", list->args[0]);
+		printf("opts: %d\n", list->opt);
+		// printf("args[0]: %s\n", list->args[0]);
 		// printf("word: %s\n", list->out_);
 		// ft_putstr_fd(list->cmd_id, 1);
 		// write(1, "\n", 1);
@@ -143,7 +141,7 @@ int	main(void)
 {
 	t_lex 	*lex_lst;
 	t_cmd	*cmd_lst;
-	char	input[] = "cat << eof | echo > file2 | \"hello | test\"\0";
+	char	input[] = "cat << eof | echo > file2 | echo -n \"Hello\"\0";
 
 	lex_lst = lex(input);
 	ft_show_tab(lex_lst);

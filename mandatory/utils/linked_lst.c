@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 16:03:16 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/08 14:22:00 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/09 15:00:35 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	ft_cmd_lst_free(t_cmd **lst)
 	}
 }
 
-t_lex	*ft_new_tk(void *value, t_token token)
+t_lex	*ft_new_tk(void *value, t_token token, int pos)
 {
 	t_lex	*node;
 
@@ -59,6 +59,7 @@ t_lex	*ft_new_tk(void *value, t_token token)
 		return (NULL);
 	node->value = ft_strdup(value);
 	node->token = token;
+	node->pos = pos;
 	node->next = NULL;
 	return (node);
 }

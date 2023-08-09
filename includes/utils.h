@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 16:13:07 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/08 12:08:07 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/09 15:00:46 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 # include "minishell.h"
 
 t_cmd	*ft_new_cmd(int id);
-t_lex	*ft_new_tk(void *value, t_token token);
+t_lex	*ft_new_tk(void *value, t_token token, int pos);
 void	ft_lstadd_end(t_lex **lst, t_lex *new);
 void	ft_cmd_lstadd_end(t_cmd **lst, t_cmd *new);
 void	ft_lst_free(t_lex **lst);

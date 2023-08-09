@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 17:20:07 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/08 18:09:20 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/09 16:09:21 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ typedef struct s_cmd
 {
 	char			*cmd;
 	char			*path;
-	char			*opts;
+	int				opt; // make it an int
 	char			**args;
 	int				builtin;
 	int				path_known;
@@ -38,11 +38,11 @@ typedef struct s_cmd
 }				t_cmd;
 
 t_cmd	*parse(t_lex *lex_lst);
-int		analyze_token(t_lex **lex_lst, t_cmd *new_cmd, int *pos, int *arg_num);
+int		analyze_token(t_lex **lex_lst, t_cmd *new_cmd, int *arg_num);
 int		set_here_doc_flag(t_lex **lex_lst, t_cmd *new_cmd);
 int		set_redir_flags(t_lex **lex_lst, t_cmd *new_cmd);
 
-int		analyze_word(t_lex **lex_lst, t_cmd *new_cmd, int pos, int *arg_num);
-int		check_word_type(int	hd_flag, int pos);
+int		analyze_word(t_lex **lex_lst, t_cmd *new_cmd, int *arg_num);
+int		check_word_type(t_lex *lex_lst, int hd_flag);
 
 #endif
