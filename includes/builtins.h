@@ -13,6 +13,11 @@
 #ifndef BUILTINS_H
 # define BUILTINS_H
 
-int	pwd(void);
+typedef struct s_env
+{
+	char			*key;
+	char			*value;
+	struct s_env	*next;
+}		t_env;
 
 #endif

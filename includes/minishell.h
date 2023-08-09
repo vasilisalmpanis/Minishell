@@ -12,12 +12,15 @@
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+# include <limits.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
 # include <signal.h>
 # include "lexer.h"
 # include "utils.h"
+# include "builtins.h"
+# include "parser.h"
 # include "../libft/libft.h"
 # include "../includes/colors.h"
 # define READLINE_LIBRARY
@@ -30,9 +33,16 @@ void	handle_sigquit(void);
 void	handle_sigint(int signum);
 
 //PROMPT
-void	get_repo(char **input);
+void	get_repo(char **input, char *head);
 char	*get_git_head(void);
+char	*prompt(char **cur_dir);
+char	*current_dir(void);
 
 //UTILS
+
+//BUILTINS
+int		pwd(void);
+int		echo(t_cmd cmd);
+int		cd_dir(t_cmd cmd);
 
 #endif

@@ -36,8 +36,9 @@ int	echo(t_cmd cmd)
 //
 //	cmd1.args = (char **)malloc(4 * sizeof(char *));
 //	cmd1.args[0] = "Hello,";
-//	cmd1.args[1] = "world!";
-//	cmd1.args[2] = NULL;
+//	cmd1.args[1] = "";
+//	cmd1.args[2] = "world!";
+//	cmd1.args[3] = NULL;
 //	cmd1.opts = 0;
 //
 //	cmd2.args = (char **)malloc(4 * sizeof(char *));
@@ -46,7 +47,7 @@ int	echo(t_cmd cmd)
 //	cmd2.args[2] = "a";
 //	cmd2.args[3] = "test";
 //	cmd2.args[4] = NULL;
-//	cmd2.opts = "-n";
+//	cmd2.opts = "-nn";
 //
 //	cmd3.args = (char **)malloc(2 * sizeof(char *));
 //	cmd3.args[0] = "Single";
