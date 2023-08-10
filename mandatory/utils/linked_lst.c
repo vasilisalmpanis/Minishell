@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 16:03:16 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/09 15:00:35 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/10 13:21:44 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,38 @@ void	ft_cmd_lstadd_end(t_cmd **lst, t_cmd *new)
 	*ptr = new;
 }
 
+void	free_cmd_and_lex(t_cmd **cmd_lst, t_lex **lex_lst)
+{
+	ft_cmd_lst_free(cmd_lst);
+	ft_lst_free(lex_lst);
+}
+
+
 void	ft_cmd_lst_free(t_cmd **lst)
 {
 	t_cmd	*temp;
+	int		i;
 
+	i = -1;
 	while (*lst)
 	{
 		temp = *lst;
 		*lst = (*lst)->next;
-		// free(temp->value); 
+		if (temp->cmd)
+			free(temp->cmd);
+		if (temp->path)
+			free(temp->path);
+		// if (temp->args)
+		// {
+		// 	while (temp->args[++i])
+		// 		free(temp->args[i]);
+		// 	free(temp->args);
+		// }
+		if (temp->delim)
+			free(temp->delim);
+		if (temp->file)
+			free(temp->file);
+		//free env?
 		free(temp);
 	}
 }
@@ -82,7 +105,8 @@ void	ft_lst_free(t_lex **lst)
 	{
 		temp = *lst;
 		*lst = (*lst)->next;
-		free(temp->value);
+		if (temp->value)
+			free(temp->value);
 		free(temp);
 	}
 }
