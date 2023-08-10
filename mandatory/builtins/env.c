@@ -12,6 +12,14 @@
 
 #include "../../includes/minishell.h"
 
+
+/*
+ * Function:  env
+ * --------------------
+ * Prints the env list but doesn't print the node if it doesn't have a value
+ * @lst	Reference to the env list
+ * @cmd Reference to the command given by lexer
+ */
 int	env(t_env *lst, t_cmd cmd)
 {
 	t_env	*env;
@@ -26,8 +34,8 @@ int	env(t_env *lst, t_cmd cmd)
 	}
 	while (env != NULL)
 	{
-		if (env->value != NULL)
-			printf("%s=\"%s\"\n", env->key, env->value);
+		if (env->value[0] != '\0')
+			printf("%s=%s\n", env->key, env->value);
 		env = env->next;
 	}
 	return (0);
