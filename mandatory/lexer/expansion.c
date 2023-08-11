@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 12:43:19 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/11 14:35:15 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/11 14:57:30 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,11 @@ int	expand(char *word, int *i, int start, char **exp_word)
 
 	offset = 0;
 	while (word[*i] && word[*i] != '"' && word[*i] != '\'' 
-			&& !ft_isspace(word[*i]))
+		&& !ft_isspace(word[*i]))
 		(*i)++;
 	if (word[start] == '{' && word[*i - 1] == '}')
 		offset++;
-	temp = ft_substr(word, start + offset, *i - start - (2 *offset));
+	temp = ft_substr(word, start + offset, *i - start - (2 * offset));
 	if (!temp)
 		return (free(*exp_word), 1);
 	exp_var = determine_exp_var(temp);
@@ -76,6 +76,7 @@ int	expand(char *word, int *i, int start, char **exp_word)
 		if (!(*exp_word))
 			return (free(temp), 1);
 	}
+	free(exp_var);
 	free(temp);
 	return (0);
 }
@@ -83,23 +84,32 @@ int	expand(char *word, int *i, int start, char **exp_word)
 char	*determine_exp_var(char *temp)
 {
 	char	*exp_var;
-	
+	int		len;
+
+	len = ft_strlen(temp);
+	if (temp[0] == '(' && temp[1] == '('
+		&& temp[len - 1] == ')' && temp[len - 2] == ')')
+	{
+		exp_var = ft_strdup("You can calculate in your head"); // may implement do_op
+	}
 	if (temp[0] == '$' && temp[1] == '\0')
-		exp_var = "67672";
+		exp_var = ft_strdup("67672");
 	else if (temp[0] == '?' && temp[1] == '\0')
-		exp_var = "<last exit code>"; //replace with static variable; needs tp be malloced
+		exp_var = ft_strdup("<last exit code>"); //replace with static variable
 	else
-		exp_var = getenv(temp);
+		exp_var = ft_strdup(getenv(temp));
 	return (exp_var);
 }
 
-int main(void)
-{
-	char *ret;
+///// TESTING /////
+
+// int main(void)
+// {
+// 	char *ret;
 	
-	ret = check_expand("\"Hello $?\"\0");
+// 	ret = check_expand("\"Hello $USER\"\0");
 	
-//	temp = "Hello $SHLVL $XPC_FLAGS $TERMINAL_EMULATOR";
-	printf("%s\n", ret);
-	free(ret);
-}
+// //	temp = "Hello $SHLVL $XPC_FLAGS $TERMINAL_EMULATOR";
+// 	printf("%s\n", ret);
+// 	free(ret);
+// }
