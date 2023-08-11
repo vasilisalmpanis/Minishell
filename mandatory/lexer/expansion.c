@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 12:43:19 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/08 15:59:38 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/11 12:49:38 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ char	*check_expand(char *word)
 	while (word[++i])
 	{
 		start = i;
-		if (word[i] == '$')
+		if (word[0] != '\'' && word[i] == '$')
 		{
-			if (!ft_isspace(word[i + 1]) && word[i + 1] != '\0')
+			if (word[i + 1] != '\0' && !ft_isspace(word[i + 1]))
 				expand(word, &i, start, &exp_word);
 		}
 		exp_word = ft_charjoin_mod(exp_word, word[i]);
@@ -59,7 +59,7 @@ void	expand(char *word, int *i, int start, char **exp_word)
 	char	*temp;
 	char	*exp_var;
 
-	while (word[*i] && !ft_isspace(word[*i]))
+	while (word[*i] && word[*i] != '"' && !ft_isspace(word[*i]))
 		(*i)++;
 	temp = ft_substr(word, start + 1, *i - start - 1);
 	if (!temp)
@@ -80,12 +80,11 @@ void	expand(char *word, int *i, int start, char **exp_word)
 	free(temp);
 }
 
-// int main(void)
-// {
-// 	char *ret;
-// 	char temp[] = "Hello $\0";
-// 	ret = check_expand(temp);
-// //	temp = "Hello $SHLVL $XPC_FLAGS $TERMINAL_EMULATOR";
-// 	printf("%s", ret);
-// 	free(ret);
-// }
+int main(void)
+{
+	char *ret;
+	ret = check_expand("'\"Hello $USER\"'\0");
+//	temp = "Hello $SHLVL $XPC_FLAGS $TERMINAL_EMULATOR";
+	printf("%s\n", ret);
+	free(ret);
+}
