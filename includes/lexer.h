@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:31:53 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/09 14:58:01 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/11 14:29:00 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,10 @@ typedef struct s_lex
 int		check_quotes(char *input);
 t_lex	*lex(char *input);
 t_lex	*create_token(char *split, int *pos);
-void	expand(char *word, int *i, int start, char **exp_word);
+int		expand(char *word, int *i, int start, char **exp_word);
 void	ft_show_tab(t_lex *list);
 char	*check_expand(char *word);
 char	*trim_word(char *word);
+char	*determine_exp_var(char *temp);
 
 #endif
