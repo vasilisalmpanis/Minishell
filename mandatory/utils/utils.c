@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:52:47 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/11 12:19:29 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/11 15:06:22 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ char	*handle_redirects(char *input, int j)
 		}
 	}
 	new_input[j] = '\0';
-	free(input);
+	// free(input) ???
 	return (new_input);
 }
 

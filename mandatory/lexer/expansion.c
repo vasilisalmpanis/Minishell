@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 12:43:19 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/11 14:57:30 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/11 16:20:16 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,16 @@ char	*check_expand(char *word)
 		if (word[0] != '\'' && word[i] == '$')
 		{
 			if (word[i + 1] != '\0' && !ft_isspace(word[i + 1]))
-				expand(word, &i, start, &exp_word);
+			{
+				if (expand(word, &i, start, &exp_word) == 2)
+					return (ft_putstr_fd("Error: Bad syntax near '{'\n", 2), NULL);
+			}
 		}
 		exp_word = ft_charjoin_mod(exp_word, word[i]);
 		if (!exp_word)
 			return (NULL);
+		if (!word[i])
+			break ;
 	}
 	exp_word = trim_word(exp_word);
 	return (exp_word);
@@ -60,12 +65,12 @@ int	expand(char *word, int *i, int start, char **exp_word)
 	char	*exp_var;
 	int		offset;
 
-	offset = 0;
 	while (word[*i] && word[*i] != '"' && word[*i] != '\'' 
-		&& !ft_isspace(word[*i]))
+		&& word[*i] != '}' && !ft_isspace(word[*i]))
 		(*i)++;
-	if (word[start] == '{' && word[*i - 1] == '}')
-		offset++;
+	offset = calc_offset(word, start, i);
+	if (offset == -1)
+		return (free(*exp_word), 2);
 	temp = ft_substr(word, start + offset, *i - start - (2 * offset));
 	if (!temp)
 		return (free(*exp_word), 1);
@@ -76,14 +81,31 @@ int	expand(char *word, int *i, int start, char **exp_word)
 		if (!(*exp_word))
 			return (free(temp), 1);
 	}
-	free(exp_var);
+	if (exp_var)
+		free(exp_var);
 	free(temp);
 	return (0);
+}
+
+int		calc_offset(char *word, int start, int *i)
+{
+	int	offset;
+
+	offset = 0;
+	if (word[start] == '{' && word[*i] == '}')
+	{
+		offset++;
+		(*i)++;
+	}
+	if (word[start + 1] == '{')
+		offset = -1;
+	return (offset);
 }
 
 char	*determine_exp_var(char *temp)
 {
 	char	*exp_var;
+	char	*temp2;
 	int		len;
 
 	len = ft_strlen(temp);
@@ -97,7 +119,13 @@ char	*determine_exp_var(char *temp)
 	else if (temp[0] == '?' && temp[1] == '\0')
 		exp_var = ft_strdup("<last exit code>"); //replace with static variable
 	else
-		exp_var = ft_strdup(getenv(temp));
+	{
+		temp2 = getenv(temp);
+		if (temp2)
+			exp_var = strdup(temp2);
+		else
+			exp_var = NULL;
+	}
 	return (exp_var);
 }
 
@@ -107,7 +135,7 @@ char	*determine_exp_var(char *temp)
 // {
 // 	char *ret;
 	
-// 	ret = check_expand("\"Hello $USER\"\0");
+// 	ret = check_expand("\"Hello ${USER}T\"");
 	
 // //	temp = "Hello $SHLVL $XPC_FLAGS $TERMINAL_EMULATOR";
 // 	printf("%s\n", ret);
