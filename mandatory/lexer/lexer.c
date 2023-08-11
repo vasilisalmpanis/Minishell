@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 16:15:37 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/10 15:49:05 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/11 16:21:41 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,14 @@ t_lex	*lex(char *input)
 	pos = 0;
 	if (check_quotes(input))
 		return (NULL);
-	split = split_args(input);
 	token_lst = NULL;
+	split = split_args(input);
 	if (!split)
 		return (NULL);
 	while (split[++i])
 	{
 		new_token = create_token(split[i], &pos);
-		if (!(new_token->value))
+		if (!(new_token))
 			return (ft_lst_free(&token_lst), NULL);
 		ft_lstadd_end(&token_lst, new_token);
 	}
