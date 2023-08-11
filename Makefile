@@ -7,6 +7,8 @@ SRC =	mandatory/main.c \
 		mandatory/utils/env_dict.c \
 		mandatory/lexer/lexer.c \
 		mandatory/lexer/expansion.c \
+		mandatory/parser/parse.c \
+		mandatory/parser/analyze_word.c
 		mandatory/builtins/env.c \
 		mandatory/builtins/export.c \
 

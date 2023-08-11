@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 16:15:37 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/07 15:50:19 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/10 15:49:05 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,10 @@ t_lex	*lex(char *input)
 	t_lex	*token_lst;
 	t_lex	*new_token;
 	int		i;
+	int		pos;
 
 	i = -1;
+	pos = 0;
 	if (check_quotes(input))
 		return (NULL);
 	split = split_args(input);
@@ -55,7 +57,7 @@ t_lex	*lex(char *input)
 		return (NULL);
 	while (split[++i])
 	{
-		new_token = create_token(split[i]);
+		new_token = create_token(split[i], &pos);
 		if (!(new_token->value))
 			return (ft_lst_free(&token_lst), NULL);
 		ft_lstadd_end(&token_lst, new_token);
@@ -64,27 +66,31 @@ t_lex	*lex(char *input)
 	return (token_lst);
 }
 
-t_lex	*create_token(char *split)
+t_lex	*create_token(char *split, int *pos)
 {
 	t_lex	*new_token;
 	char	*word;
 
+	(*pos)++;
 	if (!(ft_strncmp(split, "|", ft_strlen(split))))
-		new_token = ft_new_tk(split, TK_PIPE);
+	{
+		new_token = ft_new_tk(split, TK_PIPE, 0);
+		*pos = 0;
+	}
 	else if (!(ft_strncmp(split, "<", ft_strlen(split))))
-		new_token = ft_new_tk(split, TK_IN_R);
+		new_token = ft_new_tk(split, TK_IN_R, *pos);
 	else if (!(ft_strncmp(split, ">", ft_strlen(split))))
-		new_token = ft_new_tk(split, TK_OUT_R);
+		new_token = ft_new_tk(split, TK_OUT_R, *pos);
 	else if (!(ft_strncmp(split, ">>", ft_strlen(split))))
-		new_token = ft_new_tk(split, TK_APP_R);
+		new_token = ft_new_tk(split, TK_APP_R, *pos);
 	else if ((!ft_strncmp(split, "<<", ft_strlen(split))))
-		new_token = ft_new_tk(split, TK_HERE_DOC);
+		new_token = ft_new_tk(split, TK_HERE_DOC, *pos);
 	else
 	{
 		word = check_expand(split);
 		if (!word)
 			return (NULL);
-		new_token = ft_new_tk(word, TK_WORD);
+		new_token = ft_new_tk(word, TK_WORD, *pos);
 		free(word);
 	}
 	return (new_token);
