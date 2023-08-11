@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:52:47 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/11 12:08:38 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/11 12:19:29 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,15 +61,16 @@ char	*handle_redirects(char *input, int j)
 		new_input[j++] = input[i];
 		if ((input[i] == '<' || input[i] == '>')
 			&& (input[i + 1] != '<' && input[i + 1] != '>'
-			&& !(ft_isspace(input[i + 1]))))
+				&& !(ft_isspace(input[i + 1]))))
 		{
 			new_input[j++] = ' ';
 			if (i > 0 && (input[i] == '<' && input[i - 1] == '>')
 				|| (input[i] == '>' && input[i - 1] == '<'))
-				j--;
+				j--; //alternatively give a syntax error
 		}
 	}
 	new_input[j] = '\0';
+	free(input);
 	return (new_input);
 }
 
@@ -84,7 +85,7 @@ int	calc_redir_wo_space(char *input)
 	{
 		if ((input[i] == '<' || input[i] == '>')
 			&& (input[i + 1] != '<' && input[i + 1] != '>'
-			&& !(ft_isspace(input[i + 1]))))
+				&& !(ft_isspace(input[i + 1]))))
 		{
 			redir_no_sp++;
 			if (i > 0 && (input[i] == '<' && input[i - 1] == '>')
