@@ -12,6 +12,14 @@
 
 #include "../../includes/minishell.h"
 
+/*
+ * Function:  cd
+ * --------------------
+ * Changes directory to the absolute or relative path passed to it.
+ * If cmd has more than one argument it is supposed to display an error message
+ * and set the error code accordingly
+ * @cmd Reference to the command given by lexer
+ */
 int	cd_dir(t_cmd cmd)
 {
 	const char	*target_dir = cmd.args[1];

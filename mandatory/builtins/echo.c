@@ -12,18 +12,25 @@
 
 #include "../../includes/minishell.h"
 
-int	echo(t_cmd cmd)
+/*
+ * Function:  echo
+ * --------------------
+ * Echoes the arguments passed to the cmd. if the -n flag is present echo doesn't
+ * print a newline.
+ * @cmd Reference to the command given by lexer
+ */
+int	echo(t_cmd *cmd)
 {
 	int	i;
 
 	i = -1;
-	while (cmd.args[++i])
+	while (cmd->args[++i])
 	{
-		ft_putstr_fd(cmd.args[i], 1);
-		if (cmd.args[i + 1])
+		ft_putstr_fd(cmd->args[i], 1);
+		if (cmd->args[i + 1])
 			ft_putchar_fd(' ', 1);
 	}
-	if (cmd.opts == NULL)
+	if (cmd->opts == NULL)
 		ft_putchar_fd('\n', 1);
 	return (0);
 }
