@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:52:47 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/11 15:06:22 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/11 17:24:25 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,10 @@ char	*handle_redirects(char *input, int j)
 			&& (input[i + 1] != '<' && input[i + 1] != '>'
 				&& !(ft_isspace(input[i + 1]))))
 		{
-			new_input[j++] = ' ';
+			new_input[j++] = 26;
 			if (i > 0 && (input[i] == '<' && input[i - 1] == '>')
 				|| (input[i] == '>' && input[i - 1] == '<'))
-				j--; //alternatively give a syntax error
+				j--; //will be done in lexer
 		}
 	}
 	new_input[j] = '\0';

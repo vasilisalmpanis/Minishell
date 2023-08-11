@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 16:15:37 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/11 16:21:41 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/11 17:24:05 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,8 @@ t_lex	*create_token(char *split, int *pos)
 		new_token = ft_new_tk(split, TK_HERE_DOC, *pos);
 	else
 	{
-		word = check_expand(split);
+		// do error handling for >< case here; also define behavior for <>
+		word = check_expand(split); 
 		if (!word)
 			return (NULL);
 		new_token = ft_new_tk(word, TK_WORD, *pos);
