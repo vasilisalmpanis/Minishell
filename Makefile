@@ -7,16 +7,16 @@ SRC =	mandatory/main.c \
 		mandatory/utils/env_dict.c \
 		mandatory/lexer/lexer.c \
 		mandatory/lexer/expansion.c \
-		mandatory/parser/parse.c \
-		mandatory/parser/analyze_word.c
 		mandatory/builtins/env.c \
 		mandatory/builtins/export.c \
+		mandatory/parser/parse.c \
+		mandatory/parser/analyze_word.c \
 
 
 LIBFT = ./libft
 RM = rm -rf
 CC = gcc
-CFLAGS = -g -Wall -Werror -Wextra
+CFLAGS = -g
 OBJ = $(SRC:.c=.o)
 GREEN = \033[0;32m
 RED = \033[0;31m

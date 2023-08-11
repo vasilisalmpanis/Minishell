@@ -23,6 +23,7 @@
 # include "utils.h"
 # include "builtins.h"
 # include "parser.h"
+# include "errors.h"
 # include "../libft/libft.h"
 # include "../includes/colors.h"
 # define READLINE_LIBRARY
@@ -35,10 +36,11 @@ void	handle_sigquit(void);
 void	handle_sigint(int signum);
 
 //PROMPT
-void	get_repo(char **input, char *head);
-char	*get_git_head(void);
-char	*prompt(char **cur_dir);
+void	get_repo(char **input, char *head, char *w);
+char	*get_git_head(char *w);
+char	*prompt(void);
 char	*current_dir(void);
+char	*git_traversal(void);
 
 //UTILS
 
@@ -54,5 +56,6 @@ void	ft_env_remove(t_env **begin_list, char *key);
 t_env	*create_env(char **en);
 void	export_print(t_env *lst);
 int		export(t_env **lst, t_cmd *cmd);
+int	export_args(t_env **lst, t_cmd *cmd);
 
 #endif

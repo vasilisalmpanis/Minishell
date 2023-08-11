@@ -12,7 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-char	*get_git_head(void)
+char	*get_git_head(char *w)
 {
 	char	buf[100];
 	char	*temp;
@@ -20,7 +20,7 @@ char	*get_git_head(void)
 	int		i;
 	size_t	bytes;
 
-	fd = open(".git/HEAD", O_RDONLY);
+	fd = open(w, O_RDONLY);
 	if (!fd)
 		return (NULL);
 	bytes = read(fd, buf, 100);
@@ -36,13 +36,13 @@ char	*get_git_head(void)
 	return (temp);
 }
 
-void	get_repo(char **input, char *head)
+void	get_repo(char **input, char *head, char *w)
 {
 	char	*temp;
 	char	*last_str;
 
 	if (!head)
-		temp = get_git_head();
+		temp = get_git_head(w);
 	else
 		temp = ft_strdup(head);
 	if (!temp)
@@ -87,7 +87,32 @@ char	*current_dir(void)
 	return (ft_free(temp), string);
 }
 
-char	*prompt(char **cur_dir)
+char	*git_traversal(void)
+{
+	char	*path;
+	char	*temp;
+	int		i;
+
+	i = 0;
+	path = ft_strdup(".git/HEAD");
+	while (access(path, O_RDONLY) != 0 && i < 10)
+	{
+		temp = ft_strjoin("../", path);
+		if (!temp)
+			return (NULL);
+		free(path);
+		path = ft_strdup(temp);
+		if (!path)
+			return (NULL);
+		free(temp);
+		++i;
+	}
+	if (access(path, O_RDONLY) != 0 && i == 10)
+		return (NULL);
+	return (path);
+}
+
+char	*prompt(void)
 {
 	char	*temp;
 	char	*last_str;
@@ -109,9 +134,10 @@ char	*prompt(char **cur_dir)
 	if (temp == NULL)
 		return (ft_strdup(GREEN"→" BLUE"  minishell "ESCAPE));
 	free(last_str);
-	if (access(".git/HEAD", O_RDONLY) == 0)
-		get_repo(&temp, NULL);
-	else if (strstr(gcwd, cur_dir[0]) && cur_dir[1][0])
-		get_repo(&temp, cur_dir[1]);
-	return (free(gcwd), temp);
+	last_str = git_traversal();
+	if (!last_str)
+		return (temp);
+	get_repo(&temp, NULL, last_str);
+	free(gcwd);
+	return (free(last_str), temp);
 }

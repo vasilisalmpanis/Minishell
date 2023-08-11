@@ -20,7 +20,6 @@ t_cmd	*parser(t_lex *lex_lst, char **env_paths)
 {
 	t_cmd	*cmd_lst;
 	t_cmd	*cmd_lst_start;
-	t_cmd	*new_cmd;
 
 	cmd_lst = NULL;
 	cmd_lst_start = cmd_lst;
