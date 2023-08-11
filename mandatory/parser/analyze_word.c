@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 15:08:23 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/10 17:02:33 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/11 11:09:06 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	analyze_opt(t_lex **lex_lst, t_cmd *new_cmd)
 	int	i;
 
 	i = 0;
-	if (strncmp(new_cmd->cmd, "echo", ft_strlen(new_cmd->cmd)))
+	if (ft_strncmp(new_cmd->cmd, "echo", ft_strlen(new_cmd->cmd)))
 		return (1);
 	if (((*lex_lst)->pos != 2
 			&& !((*lex_lst)->pos == 4 && new_cmd->in_flag == 1)))
