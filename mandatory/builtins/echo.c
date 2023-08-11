@@ -12,18 +12,25 @@
 
 #include "../../includes/minishell.h"
 
-int	echo(t_cmd cmd)
+/*
+ * Function:  echo
+ * --------------------
+ * Echoes the arguments passed to the cmd. if the -n flag is present echo doesn't
+ * print a newline.
+ * @cmd Reference to the command given by lexer
+ */
+int	echo(t_cmd *cmd)
 {
 	int	i;
 
 	i = -1;
-	while (cmd.args[++i])
+	while (cmd->args[++i])
 	{
-		ft_putstr_fd(cmd.args[i], 1);
-		if (cmd.args[i + 1])
+		ft_putstr_fd(cmd->args[i], 1);
+		if (cmd->args[i + 1])
 			ft_putchar_fd(' ', 1);
 	}
-	if (cmd.opts == NULL)
+	if (cmd->opts == NULL)
 		ft_putchar_fd('\n', 1);
 	return (0);
 }
@@ -36,8 +43,9 @@ int	echo(t_cmd cmd)
 //
 //	cmd1.args = (char **)malloc(4 * sizeof(char *));
 //	cmd1.args[0] = "Hello,";
-//	cmd1.args[1] = "world!";
-//	cmd1.args[2] = NULL;
+//	cmd1.args[1] = "";
+//	cmd1.args[2] = "world!";
+//	cmd1.args[3] = NULL;
 //	cmd1.opts = 0;
 //
 //	cmd2.args = (char **)malloc(4 * sizeof(char *));
@@ -46,7 +54,7 @@ int	echo(t_cmd cmd)
 //	cmd2.args[2] = "a";
 //	cmd2.args[3] = "test";
 //	cmd2.args[4] = NULL;
-//	cmd2.opts = "-n";
+//	cmd2.opts = "-nn";
 //
 //	cmd3.args = (char **)malloc(2 * sizeof(char *));
 //	cmd3.args[0] = "Single";

@@ -12,6 +12,12 @@
 
 #include "../../includes/minishell.h"
 
+/*
+ * Function:  pwd
+ * --------------------
+ * Prints the current working directory by using the
+ *  standard function getcwd();
+ */
 int	pwd(void)
 {
 	char	*cwd;
@@ -25,9 +31,3 @@ int	pwd(void)
 	printf("%s\n", cwd);
 	return (0);
 }
-
-//int	main(void)
-//{
-//	pwd();
-//	return (0);
-//}
