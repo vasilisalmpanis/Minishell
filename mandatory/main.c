@@ -26,19 +26,15 @@ int	main(void)
 	char				*temp;
 	struct sigaction	sa;
 	t_lex				*lst;
-	char				**str;
 
 	sa.sa_handler = &handle_sigint;
 	sigemptyset(&sa.sa_mask);
 	sa.sa_flags = 0;
 	sigaction(SIGINT, &sa, NULL);
 	sigaction(SIGQUIT, &sa, NULL);
-	str = malloc(2 * sizeof(char *));
-	str[0] = getcwd(NULL, 0);
-	str[1] = get_git_head();
 	while (1)
 	{
-		temp = prompt(str);
+		temp = prompt();
 		input = readline(temp);
 		lst = lex(input);
 		free(temp);
@@ -112,7 +108,6 @@ int	main(void)
 //{
 //	char				*input;
 //	char				*temp;
-//	char				**str;
 //	t_cmd 				cmd1;
 //	t_env				*lst;
 //
@@ -120,12 +115,9 @@ int	main(void)
 //	argv++;
 //	cmd1.args = NULL;
 //	lst = create_env(en);
-//	str = (char **)ft_calloc((2), sizeof(char *));
-//	str[0] = getcwd(NULL, 0);
-//	str[1] = get_git_head();
 //	while (1)
 //	{
-//		temp = prompt(str);
+//		temp = prompt();
 //		input = readline(temp);
 //		free(temp);
 //		parse(input, &lst);

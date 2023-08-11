@@ -75,7 +75,7 @@ void	ft_env_addback(t_env **lst, t_env *new)
 			free(new->value);
 			free(new->key);
 			free(new);
-			return;
+			return ;
 		}
 		ptr = &(*ptr)->next;
 	}
