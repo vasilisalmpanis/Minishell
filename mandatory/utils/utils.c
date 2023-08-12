@@ -55,7 +55,7 @@ char	*handle_redirects(char *input, int j)
 		new_input[j++] = input[i];
 		if ((input[i] == '<' || input[i] == '>')
 			&& (input[i + 1] != '<' && input[i + 1] != '>'
-				&& !(ft_isspace(input[i + 1])) && input[i + 1]))
+				&& !(input[i + 1] == 26) && input[i + 1]))
 		{
 			new_input[j++] = 26;
 			if (i > 0 && (input[i] == '<' && input[i - 1] == '>')
@@ -78,7 +78,7 @@ int	calc_redir_wo_space(char *input)
 	{
 		if ((input[i] == '<' || input[i] == '>')
 			&& (input[i + 1] != '<' && input[i + 1] != '>'
-				&& !(ft_isspace(input[i + 1]) && input[i + 1])))
+				&& !(input[i + 1] == 26) && input[i + 1])))
 		{
 			redir_no_sp++;
 			if (i > 0 && (input[i] == '<' && input[i - 1] == '>')
