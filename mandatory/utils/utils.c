@@ -12,13 +12,6 @@
 
 #include "../../includes/minishell.h"
 
-int	ft_isspace(char c)
-{
-	if ((c >= 9 && c <= 13) || c == 32)
-		return (1);
-	return (0);
-}
-
 char	**split_args(char *input)
 {
 	int		j;
@@ -80,7 +73,7 @@ int	calc_redir_wo_space(char *input)
 	int	i;
 
 	redir_no_sp = 0;
-	i = 0;
+	i = -1;
 	while (input[++i + 1])
 	{
 		if ((input[i] == '<' || input[i] == '>')

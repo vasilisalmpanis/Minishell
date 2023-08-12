@@ -1,30 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unset.c                                            :+:      :+:    :+:   */
+/*   ft_isspace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: valmpani <valmpani@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/12 09:02:53 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/12 09:02:56 by valmpani         ###   ########.fr       */
+/*   Created: 2023/08/12 10:46:47 by valmpani          #+#    #+#             */
+/*   Updated: 2023/08/12 10:46:51 by valmpani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "libft.h"
 
-int	unset(t_env **lst, t_cmd *cmd)
+int	ft_isspace(char c)
 {
-	int	i;
-	int	err_code;
-
-	i = -1;
-	err_code = 0;
-	while (cmd->args[++i])
-	{
-		if (check_arg(cmd->args[i], "unset"))
-			err_code = 1;
-		else
-			ft_env_remove(lst, cmd->args[i]);
-	}
-	return (err_code);
+	if ((c >= 9 && c <= 13) || c == 32)
+		return (1);
+	return (0);
 }

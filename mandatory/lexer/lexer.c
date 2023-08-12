@@ -12,31 +12,61 @@
 
 #include "../../includes/minishell.h"
 
-int	check_quotes(char *input)
+//int	check_quotes(char *input)
+//{
+//	int		i;
+//	int		flag;
+//	char	buf;
+//
+//	i = -1;
+//	flag = 0;
+//	buf = 1;
+//	while (input[++i])
+//	{
+//		if (input[i] == '"' || input[i] == '\'')
+//		{
+//			flag = 1;
+//			buf = input[i];
+//			++i;
+//		}
+//		while (input[i] != buf && input[i + 1] && buf != 0)
+//			++i;
+//		if (input[i] == buf)
+//		{
+//			flag = 0;
+//			buf = 0;
+//		}
+//	}
+//	return (flag);
+//}
+
+int	check_quotes(char *input, int single, int dbl)
 {
 	int		i;
-	int		flag;
 	char	buf;
 
 	i = -1;
-	flag = 0;
+	buf = '\0';
 	while (input[++i])
 	{
-		if (input[i] == '"' || input[i] == '\'')
+		if (input[i] == '\"' && (buf == '\"' || buf == '\0'))
 		{
-			flag = 1;
-			buf = input[i];
-			i++;
+			dbl = 1 - dbl;
+			if (buf == '\"')
+				buf = '\0';
+			else
+				buf = '\"';
 		}
-		while (input[i] != buf && input[i] && buf != 0)
-			i++;
-		if (input[i] == buf)
+		if (input[i] == '\'' && (buf == '\'' || buf == '\0'))
 		{
-			flag = 0;
-			buf = 0;
+			dbl = 1 - dbl;
+			if (buf == '\'')
+				buf = '\0';
+			else
+				buf = '\'';
 		}
 	}
-	return (flag);
+	return (single + dbl);
 }
 
 t_lex	*lex(char *input)
@@ -47,10 +77,12 @@ t_lex	*lex(char *input)
 	int		i;
 	int		pos;
 
+	if (!input)
+		return (NULL);
 	i = -1;
 	pos = 0;
-	if (check_quotes(input))
-		return (NULL);
+	if (check_quotes(input, 0, 0))
+		return (printf("error\n"), NULL);
 	token_lst = NULL;
 	split = split_args(input);
 	if (!split)
@@ -97,15 +129,15 @@ t_lex	*create_token(char *split, int *pos)
 }
 
 // for testing lexer
- void	ft_show_tab(t_lex *list)
- {
- 	while (list)
- 	{
- 		ft_putstr_fd(list->value, 1);
- 		write(1, "\n", 1);
- 		printf("token: %c\n", list->token);
- 		// write(1, "\n", 1);
- 		list = list->next;
- 	}
- }
+// void	ft_show_tab(t_lex *list)
+// {
+// 	while (list)
+// 	{
+// 		ft_putstr_fd(list->value, 1);
+// 		write(1, "\n", 1);
+// 		printf("token: %c\n", list->token);
+// 		// write(1, "\n", 1);
+// 		list = list->next;
+// 	}
+// }
 // function to check for expansion
