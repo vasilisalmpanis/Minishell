@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 18:23:58 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/12 16:02:06 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/12 18:04:41 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ t_cmd	*parser(t_lex *lex_lst, t_env *env_lst)
 
 	cmd_lst = NULL;
 	env_paths = extract_paths(&env_lst);
-	// probably do fd allocation here; outside the cmd list / or in main.c after lexing?
 	if (parse_tokens(lex_lst, &cmd_lst, env_paths))
 		return (free_cmd_lex_env(&cmd_lst, &lex_lst, env_paths), NULL);
 	ft_lst_free(&lex_lst);
@@ -136,7 +135,7 @@ int	analyze_token(t_lex **lex_lst, t_cmd *new_cmd, int *arg_num, char **env_p)
 
 // TESTING //
 // gcc -fsanitize=address parse.c ../../libft/libft.a ../lexer/lexer.c ../utils/linked_lst.c ../lexer/expansion.c ../utils/utils.c ./analyze_word.c ./analyze_redir.c ./analyze_
-// cmd_utils.c ../utils/env_dict.c 
+// cmd_utils.c ../utils/env_dict.c ../utils/redir_spaces.c
 
 // char	**get_env_paths(char **envp)
 // {
@@ -216,8 +215,9 @@ int	analyze_token(t_lex **lex_lst, t_cmd *new_cmd, int *arg_num, char **env_p)
 // 	char	**temp;
 // 	t_env	*tmp;
 // 	t_env	*lst;
-// 	char	input[] = "<infile grep Hello | cat << eof | grep \"Hello World\" | ./script_dir/script.sh testarg | echo -nnnn lol | echo -nnn2 this | ls \"this is | a quote\"\0";
-// 	// char input[] = "<";
+// 	// char	input[] = "<infile grep Hello | cat << eof | grep \"Hello World\" | ./script_dir/script.sh testarg | echo -nnnn lol | echo -nnn2 this | ls \"this is | a quote\"\0";
+// 	// check this case: cat < "in.txt" grep "And" --> results in an error
+// 	char input[] = "cat<>file";
 
 // 	(void)argc;
 // 	(void)argv;
