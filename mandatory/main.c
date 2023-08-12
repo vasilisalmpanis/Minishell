@@ -37,6 +37,7 @@ int	main(void)
 		temp = prompt();
 		input = readline(temp);
 		lst = lex(input);
+		ft_show_tab(lst);
 		free(temp);
 		if (!input)
 			exit_min(input);
@@ -75,15 +76,7 @@ int	main(void)
 //		}
 //		cmd1.args[0] = temp[1];
 //		var = ft_split(cmd1.args[0], '=');
-//		if (!var[1])
-//			node = lst_env_node(var[0], var[1]);
-//		else
-//		{
-//			var[1] = ft_strtrim(var[1], "\"");
-//			node = lst_env_node(var[0], var[1]);
-//		}
-//		ft_env_addback(&(*lst),node);
-//		cmd1.args = NULL;
+//		export(lst, &cmd1);
 //	}
 //	else if (ft_strncmp(input, "unset", 5) == 0)
 //	{

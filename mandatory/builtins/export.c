@@ -38,7 +38,7 @@ int	export(t_env **lst, t_cmd *cmd)
  * the error code to be returned
  * @arg the argument list
  */
-int	check_arg(char *arg)
+int	check_arg(char *arg, char *name)
 {
 	int		i;
 	int		letter_flag;
@@ -59,9 +59,9 @@ int	check_arg(char *arg)
 		if ((letter_flag == 0) && (ft_isalpha(temp[i]) == 1))
 			letter_flag = 1;
 		if (letter_flag == 0 && ft_isdigit(temp[i]) == 1)
-			return (ft_printf(MINI"export: \'%s\'"ID, temp), 1);
+			return (ft_printf(MINI"%s: \'%s\'"ID, name, temp), 1);
 		if (ft_strchr("!@#$%^&*()+-", temp[i]) || ft_isspace(temp[i]) == 1)
-			return (ft_printf(MINI"export: \'%s\'"ID, temp), 1);
+			return (ft_printf(MINI"%s: \'%s\'"ID, name, temp), 1);
 	}
 	free(temp);
 	return (0);
@@ -125,7 +125,7 @@ int	export_args(t_env **lst, t_cmd *cmd)
 		ft_split_key_val(cmd->args[i], &key, &value);
 		if (!key || !value)
 			++i;
-		else if (check_arg(key) == 1)
+		else if (check_arg(key, "export") == 1)
 			er_code = 1;
 		else
 		{

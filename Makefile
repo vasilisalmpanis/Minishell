@@ -9,8 +9,8 @@ SRC =	mandatory/main.c \
 		mandatory/lexer/expansion.c \
 		mandatory/builtins/env.c \
 		mandatory/builtins/export.c \
-		mandatory/parser/parse.c \
-		mandatory/parser/analyze_word.c \
+#		mandatory/parser/parse.c \
+#		mandatory/parser/analyze_word.c \
 
 
 LIBFT = ./libft
