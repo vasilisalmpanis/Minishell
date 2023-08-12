@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 15:08:23 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/11 11:09:06 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/12 14:20:22 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	analyze_word(t_lex **lex_lst, t_cmd *new_cmd, int *arg_num, char **env_p)
 {
 	int	is_cmd;
 
-	is_cmd = check_word_type(*lex_lst, new_cmd->hd_flag);
+	is_cmd = check_word_type(*lex_lst, new_cmd->in_flag);
 	if (is_cmd)
 	{
 		if (analyze_cmd(lex_lst, new_cmd, arg_num, env_p))

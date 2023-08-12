@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valmpani <valmpani@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 11:02:47 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/08 11:02:51 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/08/12 14:24:40 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BUILTINS_H
 # define BUILTINS_H
+
 # include "minishell.h"
 
 typedef struct s_env

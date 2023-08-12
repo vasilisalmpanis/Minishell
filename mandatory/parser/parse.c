@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 18:23:58 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/12 11:41:11 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/12 14:24:20 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,45 @@
 // echo hello | grep hello | << cat | grep this vs echo hello | grep hello | << eof
 // in the executor we can just check if there is another node after the here_doc cmd_node
 
-t_cmd	*parser(t_lex *lex_lst, char **env_paths)
+t_cmd	*parser(t_lex *lex_lst, t_env *env_lst)
 {
 	t_cmd	*cmd_lst;
 	t_cmd	*cmd_lst_start;
+	char	**env_paths;
 
 	cmd_lst = NULL;
 	cmd_lst_start = cmd_lst;
+	env_paths = extract_paths(&env_lst);
+	printf("test: %s\n", env_paths[0]);
 	// probably do fd allocation here; outside the cmd list / or in main.c after lexing?
 	if (parse_tokens(lex_lst, &cmd_lst, env_paths))
-		return (free_cmd_and_lex(&cmd_lst_start, &lex_lst), NULL);
+		return (free_cmd_lex_env(&cmd_lst_start, &lex_lst, env_paths), NULL);
 	ft_lst_free(&lex_lst);
+	if (env_paths)
+		ft_free(env_paths);
 	return (cmd_lst);
+}
+
+char	**extract_paths(t_env **env_lst)
+{
+	char	*path_values;
+	char	**env_paths;
+
+	path_values = NULL;
+	while (*env_lst)
+	{
+		if (!(ft_strncmp((*env_lst)->key, "PATH", ft_strlen((*env_lst)->key))))
+		{
+			path_values = strdup((*env_lst)->value);
+			break ;
+		}
+		env_lst = &((*env_lst)->next);
+	}
+	env_paths = ft_split(path_values, ':');
+	if (!env_paths)
+		return (NULL);
+	free(path_values);
+	return (env_paths);
 }
 
 int	parse_tokens(t_lex *lex_lst, t_cmd **cmd_lst, char **env_paths)
@@ -39,7 +66,7 @@ int	parse_tokens(t_lex *lex_lst, t_cmd **cmd_lst, char **env_paths)
 	id = 0;
 	while (lex_lst)
 	{
-		new_cmd = ft_new_cmd(id++);
+		new_cmd = ft_new_cmd(id++, env_paths);
 		if (!new_cmd)
 			return (1);
 		arg_num = 0;
@@ -179,26 +206,40 @@ int	analyze_token(t_lex **lex_lst, t_cmd *new_cmd, int *arg_num, char **env_p)
 // 	}
 // }
 
-// int	main(int argc, char **argv, char **envp)
+// int	main(int argc, char **argv, char **en)
 // {
 // 	t_lex 	*lex_lst;
 // 	t_cmd	*cmd_lst;
 // 	t_cmd	*start_lst;
 // 	int		i = 1;
+// 	int		j = 0;
 // 	char	**env_paths;
+// 	char	**temp;
+// 	t_env	*tmp;
+// 	t_env	*lst;
 // 	char	input[] = "<infile grep Hello | cat << eof | grep \"Hello World\" | ./script_dir/script.sh testarg | echo -nnnn lol | echo -nnn2 this | ls \"this is | a quote\"\0";
 // 	// char input[] = "<";
 
 // 	(void)argc;
 // 	(void)argv;
+	
+// 	temp = ft_split(en[j], '=');
+// 	lst = lst_env_node(temp[0], temp[1]);
+// 	ft_free(temp);
+// 	while (en[++j])
+// 	{
+// 		temp = ft_split(en[j], '=');
+// 		tmp = lst_env_node(temp[0], temp[1]);
+// 		ft_env_addback(&lst, tmp);
+// 		ft_free(temp);
+// 	}
+	
 // 	lex_lst = lex(input);
 // 	ft_show_tab(lex_lst);
 
-// 	ft_lst_free(&lex_lst);
-// 	// env_paths = get_env_paths(envp);
-// 	// cmd_lst = parser(lex_lst, env_paths);
-// 	// start_lst = cmd_lst;
-// 	// ft_show_tab2(cmd_lst);
+// 	cmd_lst = parser(lex_lst, lst);
+// 	start_lst = cmd_lst;
+// 	ft_show_tab2(cmd_lst);
 
 // 	// while (env_paths[++i])
 // 	// 	free(env_paths[i]);

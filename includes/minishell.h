@@ -6,12 +6,13 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 14:26:53 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/08 11:43:08 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/12 13:38:20 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+
 # include <limits.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -22,7 +23,6 @@
 # include "parser.h"
 # include "utils.h"
 # include "builtins.h"
-# include "parser.h"
 # include "errors.h"
 # include "../libft/libft.h"
 # include "../includes/colors.h"
