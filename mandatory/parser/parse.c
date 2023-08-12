@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 18:23:58 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/10 17:10:50 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/11 16:22:50 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,8 @@ int	analyze_token(t_lex **lex_lst, t_cmd *new_cmd, int *arg_num, char **env_p)
 }
 
 // TESTING //
-// gcc -fsanitize=address parse.c ../../libft/libft.a ../lexer/lexer.c ../utils/linked_lst.c ../lexer/expansion.c ../utils/utils.c ./analyze_word.c 
+// gcc -fsanitize=address parse.c ../../libft/libft.a ../lexer/lexer.c ../utils/linked_lst.c ../lexer/expansion.c ../utils/utils.c ./analyze_word.c ./analyze_redir.c ./analyze_
+// cmd_utils.c 
 
 // char	**get_env_paths(char **envp)
 // {
@@ -185,20 +186,21 @@ int	analyze_token(t_lex **lex_lst, t_cmd *new_cmd, int *arg_num, char **env_p)
 // 	t_cmd	*start_lst;
 // 	int		i = 1;
 // 	char	**env_paths;
-// 	char	input[] = "echo -n What | cat << eof | grep \"Hello World\" | ./script_dir/script.sh testarg | echo -nnnn lol | echo -nnn2 this | ls \"this is | a quote\"\0";
+// 	char	input[] = "echo -n ${USER}}T Hello | cat << eof | grep \"Hello World\" | ./script_dir/script.sh testarg | echo -nnnn lol | echo -nnn2 this | ls \"this is | a quote\"\0";
+
 
 // 	(void)argc;
 // 	(void)argv;
 // 	lex_lst = lex(input);
-// 	// ft_show_tab(lex_lst);
+// 	ft_show_tab(lex_lst);
 
-// 	env_paths = get_env_paths(envp);
-// 	cmd_lst = parser(lex_lst, env_paths);
-// 	start_lst = cmd_lst;
-// 	ft_show_tab2(cmd_lst);
+	// env_paths = get_env_paths(envp);
+	// cmd_lst = parser(lex_lst, env_paths);
+	// start_lst = cmd_lst;
+	// ft_show_tab2(cmd_lst);
 
-// 	while (env_paths[++i])
-// 		free(env_paths[i]);
-// 	free(env_paths);
-// 	ft_cmd_lst_free(&start_lst);
+	// while (env_paths[++i])
+	// 	free(env_paths[i]);
+	// free(env_paths);
+	// ft_cmd_lst_free(&start_lst);
 // }

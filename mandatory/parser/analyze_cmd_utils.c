@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 16:56:18 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/10 16:59:37 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/11 11:10:04 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,21 @@
 
 int	check_for_builtin(t_lex **lex_lst, t_cmd *new_cmd)
 {
-	if (!(strncmp((*lex_lst)->value, "echo", ft_strlen((*lex_lst)->value))))
+	if (!(ft_strncmp((*lex_lst)->value, "echo", ft_strlen((*lex_lst)->value))))
 		new_cmd->builtin = 1;
-	else if (!(strncmp((*lex_lst)->value, "cd", ft_strlen((*lex_lst)->value))))
+	else if (!(ft_strncmp((*lex_lst)->value, "cd", ft_strlen((*lex_lst)->value))))
 		new_cmd->builtin = 1;
-	else if (!(strncmp((*lex_lst)->value, "pwd", ft_strlen((*lex_lst)->value))))
+	else if (!(ft_strncmp((*lex_lst)->value, "pwd", ft_strlen((*lex_lst)->value))))
 		new_cmd->builtin = 1;
-	else if (!(strncmp((*lex_lst)->value, 
+	else if (!(ft_strncmp((*lex_lst)->value, 
 				"export", ft_strlen((*lex_lst)->value))))
 		new_cmd->builtin = 1;
-	else if (!(strncmp((*lex_lst)->value, 
+	else if (!(ft_strncmp((*lex_lst)->value, 
 				"unset", ft_strlen((*lex_lst)->value))))
 		new_cmd->builtin = 1;
-	else if (!(strncmp((*lex_lst)->value, "env", ft_strlen((*lex_lst)->value))))
+	else if (!(ft_strncmp((*lex_lst)->value, "env", ft_strlen((*lex_lst)->value))))
 		new_cmd->builtin = 1;
-	else if (!(strncmp((*lex_lst)->value, 
+	else if (!(ft_strncmp((*lex_lst)->value, 
 				"exit", ft_strlen((*lex_lst)->value))))
 		new_cmd->builtin = 1;
 	if (new_cmd->builtin == 1)
