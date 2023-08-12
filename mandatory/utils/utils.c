@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:52:47 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/11 15:06:22 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/12 11:40:40 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ char	**split_args(char *input)
 	if (!input)
 		return (NULL);
 	split = ft_split(input, 26);
+	free(input); // add new variable in the main for copy
 	return (split);
 }
 
@@ -46,7 +47,7 @@ char	*handle_redirects(char *input, int j)
 
 	i = -1;
 	red_no_sp = calc_redir_wo_space(input);
-	new_input = malloc((ft_strlen(input) + red_no_sp + 1) * sizeof(*new_input));
+	new_input = ft_calloc((ft_strlen(input) + red_no_sp + 1), sizeof(*new_input));
 	if (!new_input)
 		return (NULL);
 	while (input[++i])
@@ -56,14 +57,13 @@ char	*handle_redirects(char *input, int j)
 			&& (input[i + 1] != '<' && input[i + 1] != '>'
 				&& !(ft_isspace(input[i + 1]))))
 		{
-			new_input[j++] = ' ';
+			new_input[j++] = 26;
 			if (i > 0 && (input[i] == '<' && input[i - 1] == '>')
 				|| (input[i] == '>' && input[i - 1] == '<'))
-				j--; //alternatively give a syntax error
+				j--; //will be done in lexer
 		}
 	}
-	new_input[j] = '\0';
-	// free(input) ???
+	// free(input);
 	return (new_input);
 }
 
