@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 16:03:16 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/12 14:22:25 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/12 15:45:30 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@ void	ft_cmd_lstadd_end(t_cmd **lst, t_cmd *new)
 
 void	free_cmd_lex_env(t_cmd **cmd_lst, t_lex **lex_lst, char **env_paths)
 {
-	if (env_paths)
-		ft_free(env_paths);
 	ft_cmd_lst_free(cmd_lst);
 	ft_lst_free(lex_lst);
+	if (env_paths)
+		ft_free(env_paths);
 	
 }
 

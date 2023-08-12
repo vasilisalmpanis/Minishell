@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:52:47 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/12 11:40:40 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/12 15:26:38 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char	*handle_redirects(char *input, int j)
 		new_input[j++] = input[i];
 		if ((input[i] == '<' || input[i] == '>')
 			&& (input[i + 1] != '<' && input[i + 1] != '>'
-				&& !(ft_isspace(input[i + 1])) && input[i + 1]))
+				&& !(input[i + 1] == 26) && input[i + 1]))
 		{
 			new_input[j++] = 26;
 			if (i > 0 && (input[i] == '<' && input[i - 1] == '>')
@@ -78,7 +78,7 @@ int	calc_redir_wo_space(char *input)
 	{
 		if ((input[i] == '<' || input[i] == '>')
 			&& (input[i + 1] != '<' && input[i + 1] != '>'
-				&& !(ft_isspace(input[i + 1]) && input[i + 1])))
+				&& !(input[i + 1] == 26) && input[i + 1]))
 		{
 			redir_no_sp++;
 			if (i > 0 && (input[i] == '<' && input[i - 1] == '>')

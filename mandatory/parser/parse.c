@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 18:23:58 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/12 14:24:20 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/12 16:02:06 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,13 @@
 t_cmd	*parser(t_lex *lex_lst, t_env *env_lst)
 {
 	t_cmd	*cmd_lst;
-	t_cmd	*cmd_lst_start;
 	char	**env_paths;
 
 	cmd_lst = NULL;
-	cmd_lst_start = cmd_lst;
 	env_paths = extract_paths(&env_lst);
-	printf("test: %s\n", env_paths[0]);
 	// probably do fd allocation here; outside the cmd list / or in main.c after lexing?
 	if (parse_tokens(lex_lst, &cmd_lst, env_paths))
-		return (free_cmd_lex_env(&cmd_lst_start, &lex_lst, env_paths), NULL);
+		return (free_cmd_lex_env(&cmd_lst, &lex_lst, env_paths), NULL);
 	ft_lst_free(&lex_lst);
 	if (env_paths)
 		ft_free(env_paths);
@@ -106,9 +103,12 @@ int	allocate_args(t_lex *lex_lst, t_cmd *new_cmd)
 		}
 		start_lst = &(*start_lst)->next;
 	}
-	new_cmd->args = malloc((arg_num + 1) * sizeof(char *)); // probably allocated too much memory in case of builtin
-	if (!new_cmd->args)
-		return (1);
+	if (arg_num >= 0)
+	{
+		new_cmd->args = malloc((arg_num + 1) * sizeof(char *)); // probably allocated too much memory in case of builtin
+		if (!new_cmd->args)
+			return (1);
+	}
 	return (0);
 }
 
@@ -136,7 +136,7 @@ int	analyze_token(t_lex **lex_lst, t_cmd *new_cmd, int *arg_num, char **env_p)
 
 // TESTING //
 // gcc -fsanitize=address parse.c ../../libft/libft.a ../lexer/lexer.c ../utils/linked_lst.c ../lexer/expansion.c ../utils/utils.c ./analyze_word.c ./analyze_redir.c ./analyze_
-// cmd_utils.c 
+// cmd_utils.c ../utils/env_dict.c 
 
 // char	**get_env_paths(char **envp)
 // {
@@ -162,7 +162,7 @@ int	analyze_token(t_lex **lex_lst, t_cmd *new_cmd, int *arg_num, char **env_p)
 // 	}
 // 	return (NULL);
 // }
-
+// 
 // void	ft_show_tab(t_lex *list)
 // {
 // 	while (list)
@@ -210,7 +210,6 @@ int	analyze_token(t_lex **lex_lst, t_cmd *new_cmd, int *arg_num, char **env_p)
 // {
 // 	t_lex 	*lex_lst;
 // 	t_cmd	*cmd_lst;
-// 	t_cmd	*start_lst;
 // 	int		i = 1;
 // 	int		j = 0;
 // 	char	**env_paths;
@@ -233,13 +232,14 @@ int	analyze_token(t_lex **lex_lst, t_cmd *new_cmd, int *arg_num, char **env_p)
 // 		ft_env_addback(&lst, tmp);
 // 		ft_free(temp);
 // 	}
-	
 // 	lex_lst = lex(input);
 // 	ft_show_tab(lex_lst);
 
 // 	cmd_lst = parser(lex_lst, lst);
-// 	start_lst = cmd_lst;
+// 	// start_lst = cmd_lst;
 // 	ft_show_tab2(cmd_lst);
+
+// 	ft_cmd_lst_free(&cmd_lst);
 
 // 	// while (env_paths[++i])
 // 	// 	free(env_paths[i]);
