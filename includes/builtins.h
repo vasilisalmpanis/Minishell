@@ -46,6 +46,6 @@ int		check_arg(char *arg, char *name);
 void	ft_split_key_val(char *arg, char **key, char **value);
 
 // unset
-int	unset(t_env **lst, t_cmd *cmd)
+int	unset(t_env **lst, t_cmd *cmd);
 
 #endif
