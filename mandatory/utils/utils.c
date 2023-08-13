@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:52:47 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/12 17:12:18 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/13 18:36:42 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,15 @@ char	**split_args(char *input)
 		{
 			buf = input[j];
 			++j;
-			while (input[j] != buf && input[j])
+			while (input[j] && input[j] != buf)
 				j++;
 		}
 	}
-	j = -1;
-//	ft_putstr_fd(input,1);
+	input = handle_redirects(input, 0);
+	if (!input)
+		return (NULL);
 	split = ft_split(input, 26);
-//	free(input); // add new variable in the main for copy
-	while (split[++j])
-		handle_redirects(&split[j], 0);
+	// free(input); // add new variable in the main for copy
 	return (split);
 }
 
