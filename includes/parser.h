@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 17:20:07 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/10 17:01:27 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/12 18:04:52 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,18 @@
 
 # include "minishell.h"
 
-// typedef struct s_parse_vars
+// typedef struct s_env
 // {
-// 	int	id;
-// 	int	arg_num;
-// }				t_vars;
-
+// 	char			*key;
+// 	char			*value;
+// 	struct s_env	*next;
+// }		t_env;
 
 typedef struct s_cmd
 {
 	char			*cmd;
 	char			*path;
-	int				opt; // make it an int
+	int				opt;
 	char			**args;
 	int				builtin;
 	int				path_known;
@@ -38,16 +38,17 @@ typedef struct s_cmd
 	int				out_flag;
 	int				app_flag;
 	int				hd_flag;
+	int				env_flag;
 	char			*delim;
 	char			*file;
-	char			**env;
 	struct s_cmd	*next;
 }				t_cmd;
 
-t_cmd	*parser(t_lex *lex_lst, char **env_paths);
+t_cmd	*parser(t_lex *lex_lst, t_env *env_lst);
 int		parse_tokens(t_lex *lex_lst, t_cmd **cmd_lst, char **env_paths);
 int		allocate_args(t_lex *lex_lst, t_cmd *new_cmd);
 int		analyze_token(t_lex **lex_lst, t_cmd *new_cmd, int *arg_num, char **env_p);
+char	**extract_paths(t_env **env_lst);
 
 int		set_here_doc_flag(t_lex **lex_lst, t_cmd *new_cmd);
 int		set_redir_flags(t_lex **lex_lst, t_cmd *new_cmd);
