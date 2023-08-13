@@ -5,12 +5,14 @@ SRC =	mandatory/main.c \
 		mandatory/utils/utils.c \
 		mandatory/utils/linked_lst.c \
 		mandatory/utils/env_dict.c \
+		mandatory/utils/redir_spaces.c \
 		mandatory/lexer/lexer.c \
 		mandatory/lexer/expansion.c \
 		mandatory/builtins/env.c \
 		mandatory/builtins/export.c \
 #		mandatory/parser/parse.c \
 #		mandatory/parser/analyze_word.c \
+
 
 
 LIBFT = ./libft

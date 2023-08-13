@@ -22,6 +22,8 @@
 // 	struct s_env	*next;
 // }		t_env;
 
+typedef struct s_env t_env;
+
 typedef struct s_cmd
 {
 	char			*cmd;

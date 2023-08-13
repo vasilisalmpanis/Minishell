@@ -145,15 +145,15 @@ int	check_syntax_err(char *word)
 }
 
 // for testing lexer
-// void	ft_show_tab(t_lex *list)
-//  {
-//  	while (list)
-//  	{
-//  		ft_putstr_fd(list->value, 1);
-//  		write(1, "\n", 1);
-//  		printf("token: %c\n", list->token);
-//  		// write(1, "\n", 1);
-//  		list = list->next;
-//  	}
-//  }
+ void	ft_show_tab(t_lex *list)
+  {
+  	while (list)
+  	{
+  		ft_putstr_fd(list->value, 1);
+  		write(1, "\n", 1);
+  		printf("token: %c\n", list->token);
+  		// write(1, "\n", 1);
+  		list = list->next;
+  	}
+  }
 // function to check for expansion
