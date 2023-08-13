@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:31:53 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/11 15:46:56 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/12 17:39:04 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,6 @@ char	*check_expand(char *word);
 char	*trim_word(char *word);
 char	*determine_exp_var(char *temp);
 int		calc_offset(char *word, int start, int *i);
+int		check_syntax_err(char *word);
 
 #endif

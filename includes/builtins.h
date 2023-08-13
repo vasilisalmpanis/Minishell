@@ -3,16 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valmpani <valmpani@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 11:02:47 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/08 11:02:51 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/08/12 18:04:56 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BUILTINS_H
 # define BUILTINS_H
+
 # include "minishell.h"
+
+typedef struct s_cmd	t_cmd;
 
 typedef struct s_env
 {
@@ -46,6 +49,6 @@ int		check_arg(char *arg, char *name);
 void	ft_split_key_val(char *arg, char **key, char **value);
 
 // unset
-int	unset(t_env **lst, t_cmd *cmd);
+int		unset(t_env **lst, t_cmd *cmd);
 
 #endif

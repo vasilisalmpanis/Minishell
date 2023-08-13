@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 16:46:21 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/10 16:47:18 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/12 15:57:09 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,10 @@ int	set_redir_flags(t_lex **lex_lst, t_cmd *new_cmd)
 	else if ((*lex_lst)->token == TK_OUT_R)
 		new_cmd->out_flag = 1;
 	*lex_lst = (*lex_lst)->next;
-	if ((*lex_lst)->token != TK_WORD)
+	if (!(*lex_lst) || (*lex_lst)->token != TK_WORD)
 	{
 		ft_putstr_fd("Error: No filename provided after redirect\n", 2);
+		free(new_cmd);
 		return (1);
 	}
 	new_cmd->file = strdup((*lex_lst)->value);

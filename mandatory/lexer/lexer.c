@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 16:15:37 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/11 17:24:05 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/12 17:36:19 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,8 @@ t_lex	*create_token(char *split, int *pos)
 		new_token = ft_new_tk(split, TK_HERE_DOC, *pos);
 	else
 	{
-		// do error handling for >< case here; also define behavior for <>
+		if (check_syntax_err(split))
+			return ((ft_putstr_fd("Syntax error near '><'", 2)), NULL);
 		word = check_expand(split); 
 		if (!word)
 			return (NULL);
@@ -129,16 +130,30 @@ t_lex	*create_token(char *split, int *pos)
 	return (new_token);
 }
 
+int	check_syntax_err(char *word)
+{
+	int	i;
+
+	i = 0;
+	while (word[i + 1])
+	{
+		if (word[0] != '"' && word[i] == '>' && word[i + 1] == '<')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 // for testing lexer
  void	ft_show_tab(t_lex *list)
- {
- 	while (list)
- 	{
- 		ft_putstr_fd(list->value, 1);
- 		write(1, "\n", 1);
- 		printf("token: %c\n", list->token);
- 		// write(1, "\n", 1);
- 		list = list->next;
- 	}
- }
+  {
+  	while (list)
+  	{
+  		ft_putstr_fd(list->value, 1);
+  		write(1, "\n", 1);
+  		printf("token: %c\n", list->token);
+  		// write(1, "\n", 1);
+  		list = list->next;
+  	}
+  }
 // function to check for expansion
