@@ -91,10 +91,10 @@ int	main(void)
 //	if (strcmp(input, "cd") == 0)
 //		chdir("test");
 //	if (!input)
-//		exit_min(input);
+//		exit_min(input, NULL);
 //	if (strcmp(input, "exit") == 0)
 //	{
-//		exit_min(input);
+//		exit_min(input, NULL);
 //	}
 //}
 //

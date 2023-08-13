@@ -44,7 +44,7 @@ char	*git_traversal(void);
 
 //UTILS
 char	*add_space_pre_redir(char *input, int j);
-char	*handle_redirects(char *input, int j);
+void	handle_redirects(char **input, int j);
 char	*add_space_post_redir(char *input, int j);
 int		calc_redir_wo_space2(char *input);
 int		calc_redir_wo_space(char *input);

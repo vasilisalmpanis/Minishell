@@ -31,11 +31,12 @@ char	**split_args(char *input)
 				j++;
 		}
 	}
-	input = handle_redirects(input, 0);
-	if (!input)
-		return (NULL);
+	j = -1;
+//	ft_putstr_fd(input,1);
 	split = ft_split(input, 26);
-	free(input); // add new variable in the main for copy
+//	free(input); // add new variable in the main for copy
+	while (split[++j])
+		handle_redirects(&split[j], 0);
 	return (split);
 }
 

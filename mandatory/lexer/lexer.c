@@ -85,6 +85,7 @@ t_lex	*lex(char *input)
 		return (printf("error\n"), NULL);
 	token_lst = NULL;
 	split = split_args(input);
+
 	if (!split)
 		return (NULL);
 	while (split[++i])
