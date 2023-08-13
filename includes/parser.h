@@ -15,14 +15,7 @@
 
 # include "minishell.h"
 
-// typedef struct s_env
-// {
-// 	char			*key;
-// 	char			*value;
-// 	struct s_env	*next;
-// }		t_env;
-
-typedef struct s_env t_env;
+typedef struct s_env	t_env;
 
 typedef struct s_cmd
 {
@@ -49,21 +42,23 @@ typedef struct s_cmd
 t_cmd	*parser(t_lex *lex_lst, t_env *env_lst);
 int		parse_tokens(t_lex *lex_lst, t_cmd **cmd_lst, char **env_paths);
 int		allocate_args(t_lex *lex_lst, t_cmd *new_cmd);
-int		analyze_token(t_lex **lex_lst, t_cmd *new_cmd, int *arg_num, char **env_p);
+int		analyze_token(t_lex **lex_lst, t_cmd *new_cmd, \
+						int *arg_num, char **env_p);
 char	**extract_paths(t_env **env_lst);
 
 int		set_here_doc_flag(t_lex **lex_lst, t_cmd *new_cmd);
 int		set_redir_flags(t_lex **lex_lst, t_cmd *new_cmd);
 
-int		analyze_word(t_lex **lex_lst, t_cmd *new_cmd, int *arg_num, char **env_p);
+int		analyze_word(t_lex **lex_lst, t_cmd *new_cmd, \
+						int *arg_num, char **env_p);
 int		check_word_type(t_lex *lex_lst, int in_flag);
-int		analyze_cmd(t_lex **lex_lst, t_cmd *new_cmd, int *arg_num, char **env_p);
+int		analyze_cmd(t_lex **lex_lst, t_cmd *new_cmd, \
+						int *arg_num, char **env_p);
 int		analyze_opt(t_lex **lex_lst, t_cmd *new_cmd);
 
 int		check_for_builtin(t_lex **lex_lst, t_cmd *new_cmd);
 void	check_for_path(t_lex **lex_lst, t_cmd *new_cmd);
 int		get_cmd_name(t_lex **lex_lst, t_cmd *new_cmd);
 char	*get_path_name(t_cmd *new_cmd, char **env_paths);
-
 
 #endif
