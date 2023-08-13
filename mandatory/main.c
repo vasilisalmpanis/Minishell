@@ -12,9 +12,10 @@
 
 #include "../includes/minishell.h"
 
-void	exit_min(char *input)
+void	exit_min(char *input, t_lex **lst)
 {
 	printf("Exiting minishell\n");
+	ft_lst_free(lst);
 	if (input)
 		free(input);
 	exit(1);
@@ -36,13 +37,13 @@ int	main(void)
 	{
 		temp = prompt();
 		input = readline(temp);
+		free(temp);
 		lst = lex(input);
 		ft_show_tab(lst);
-		free(temp);
 		if (!input)
-			exit_min(input);
+			exit_min(input, &lst);
 		if (strcmp(input, "exit") == 0)
-			exit_min(input);
+			exit_min(input, &lst);
 		add_history(input);
 		free(input);
 		ft_lst_free(&lst); // probably only need to free the cmd lst and not lex as we pass the token values to that one
