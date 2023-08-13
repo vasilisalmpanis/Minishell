@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 11:02:47 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/13 17:13:52 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/13 18:38:15 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "minishell.h"
 
-typedef struct s_cmd t_cmd;
+typedef struct s_cmd	t_cmd;
 
 typedef struct s_env
 {
@@ -49,6 +49,6 @@ int		check_arg(char *arg, char *name);
 void	ft_split_key_val(char *arg, char **key, char **value);
 
 // unset
-int	unset(t_env **lst, t_cmd *cmd);
+int		unset(t_env **lst, t_cmd *cmd);
 
 #endif

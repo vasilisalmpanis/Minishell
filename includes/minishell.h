@@ -20,9 +20,9 @@
 # include <string.h>
 # include <signal.h>
 # include "lexer.h"
+# include "builtins.h"
 # include "parser.h"
 # include "utils.h"
-# include "builtins.h"
 # include "errors.h"
 # include "../libft/libft.h"
 # include "../includes/colors.h"
@@ -43,6 +43,11 @@ char	*current_dir(void);
 char	*git_traversal(void);
 
 //UTILS
+char	*add_space_pre_redir(char *input, int j);
+char	*handle_redirects(char *input, int j);
+char	*add_space_post_redir(char *input, int j);
+int		calc_redir_wo_space2(char *input);
+int		calc_redir_wo_space(char *input);
 
 //BUILTINS
 
