@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 16:15:37 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/12 17:36:19 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/13 18:36:48 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ t_lex	*lex(char *input)
 	t_lex	*token_lst;
 	t_lex	*new_token;
 	int		i;
+	int		j = 0;
 	int		pos;
 
 	if (!input)

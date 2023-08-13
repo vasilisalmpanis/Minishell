@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 16:13:07 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/12 17:12:32 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/13 18:16:11 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,7 @@ char	*add_space_pre_redir(char *input, int j);
 char	*add_space_post_redir(char *input, int j);
 int		calc_redir_wo_space(char *input);
 int		calc_redir_wo_space2(char *input);
+void	skip_quotes(char *input, int *i, char **new_input, int *j);
+void	skip_quotes2(char *input, int *i);
 
 #endif
