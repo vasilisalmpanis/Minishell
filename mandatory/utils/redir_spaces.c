@@ -13,19 +13,15 @@
 #include "../../includes/minishell.h"
 #include "../../libft/libft.h"
 
-void	handle_redirects(char **input, int j)
+char	*handle_redirects(char *input)
 {
 	char	*new_input;
 	char	*temp;
-	char 	**tmp;
 
-	if (input[0][0] != '\"' && input[0][0] != '\'' && (input[0][0] == '|' || input[0][0] == '>'  || input[0][0] == '<') )
-	{
-		temp = add_space_pre_redir(*input, 0);
-		new_input = add_space_post_redir(temp, 0);
-		free(temp);
-
-	}
+	temp = add_space_pre_redir(input, 0);
+	new_input = add_space_post_redir(temp, 0);
+	free(temp);
+	return (new_input);
 }
 
 void	skip_quotes(char *input, int *i, char **new_input, int *j)
@@ -75,9 +71,9 @@ char	*add_space_pre_redir(char *input, int j)
 	{
 		skip_quotes(input, &i, &new_input, &j);
 		if (i > 0 && (input[i] == '<' || input[i] == '>')
-			&& input[i - 1] != 26)
+			&& !(input[i - 1] == 26))
 		{
-			new_input[j++] = ' ';
+			new_input[j++] = 26;
 			if ((input[i] == '<' && input[i + 1] == '>')
 				|| (input[i] == '>' && input[i + 1] == '<')
 				|| (input[i - 1] == '<' || input[i - 1] == '>'))
@@ -106,10 +102,10 @@ char	*add_space_post_redir(char *input, int j)
 		new_input[j++] = input[i];
 		if ((input[i] == '<' || input[i] == '>')
 			&& (input[i + 1] != '<' && input[i + 1] != '>'
-				&& input[i + 1] != 26 && input[i + 1]))
+				&& !(input[i + 1] == 26) && input[i + 1]))
 		{
-			new_input[j++] = ' ';
-			if (i > 0 && (input[i] == '<' && input[i - 1] == '>')
+			new_input[j++] = 26;
+			if ((i > 0 && (input[i] == '<' && input[i - 1] == '>'))
 				|| (input[i] == '>' && input[i - 1] == '<'))
 				j--;
 		}
@@ -121,7 +117,6 @@ int	calc_redir_wo_space2(char *input)
 {
 	int		redir_no_sp;
 	int		i;
-	char	buf;
 
 	redir_no_sp = 0;
 	i = -1;
@@ -145,7 +140,6 @@ int	calc_redir_wo_space(char *input)
 {
 	int		redir_no_sp;
 	int		i;
-	char	buf;
 
 	redir_no_sp = 0;
 	i = -1;
@@ -157,7 +151,7 @@ int	calc_redir_wo_space(char *input)
 				&& input[i + 1] != 26 && input[i + 1]))
 		{
 			redir_no_sp++;
-			if (i > 0 && (input[i] == '<' && input[i - 1] == '>')
+			if ((i > 0 && (input[i] == '<' && input[i - 1] == '>'))
 				|| (input[i] == '>' && input[i - 1] == '<'))
 				redir_no_sp--;
 		}

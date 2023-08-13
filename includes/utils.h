@@ -26,7 +26,7 @@ char	**split_args(char *input);
 char	*ft_charjoin_mod(char *s1, char s2);
 char	*ft_strjoin_mod(char *s1, char *s2);
 
-void	handle_redirects(char **input, int j);
+char	*handle_redirects(char *input);
 char	*add_space_pre_redir(char *input, int j);
 char	*add_space_post_redir(char *input, int j);
 int		calc_redir_wo_space(char *input);

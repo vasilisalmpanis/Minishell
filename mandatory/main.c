@@ -40,6 +40,7 @@ int	main(void)
 		free(temp);
 		lst = lex(input);
 		ft_show_tab(lst);
+		ft_lst_free(&lst);
 		if (!input)
 			exit_min(input, &lst);
 		if (strcmp(input, "exit") == 0)
