@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 17:20:07 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/12 18:04:52 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/13 17:14:07 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,7 @@
 
 # include "minishell.h"
 
-// typedef struct s_env
-// {
-// 	char			*key;
-// 	char			*value;
-// 	struct s_env	*next;
-// }		t_env;
+typedef struct s_env t_env;
 
 typedef struct s_cmd
 {

@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 18:23:58 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/12 18:04:41 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/13 18:36:16 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,7 +217,8 @@ int	analyze_token(t_lex **lex_lst, t_cmd *new_cmd, int *arg_num, char **env_p)
 // 	t_env	*lst;
 // 	// char	input[] = "<infile grep Hello | cat << eof | grep \"Hello World\" | ./script_dir/script.sh testarg | echo -nnnn lol | echo -nnn2 this | ls \"this is | a quote\"\0";
 // 	// check this case: cat < "in.txt" grep "And" --> results in an error
-// 	char input[] = "cat<>file";
+// 	char input[] = "Hello   >|  ";
+// 	// char	input[] = "cat<file1";
 
 // 	(void)argc;
 // 	(void)argv;
@@ -235,14 +236,14 @@ int	analyze_token(t_lex **lex_lst, t_cmd *new_cmd, int *arg_num, char **env_p)
 // 	lex_lst = lex(input);
 // 	ft_show_tab(lex_lst);
 
-// 	cmd_lst = parser(lex_lst, lst);
-// 	// start_lst = cmd_lst;
-// 	ft_show_tab2(cmd_lst);
+// 	// cmd_lst = parser(lex_lst, lst);
+// 	// // start_lst = cmd_lst;
+// 	// ft_show_tab2(cmd_lst);
 
-// 	ft_cmd_lst_free(&cmd_lst);
+// 	// ft_cmd_lst_free(&cmd_lst);
 
-// 	// while (env_paths[++i])
-// 	// 	free(env_paths[i]);
-// 	// free(env_paths);
-// 	// ft_cmd_lst_free(&start_lst);
+// // 	// while (env_paths[++i])
+// // 	// 	free(env_paths[i]);
+// // 	// free(env_paths);
+// // 	// ft_cmd_lst_free(&start_lst);
 // }

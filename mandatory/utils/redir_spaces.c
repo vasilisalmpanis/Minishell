@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 17:11:39 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/12 18:05:26 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/13 18:36:27 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,38 @@ char	*handle_redirects(char *input, int j)
 	return (new_input);
 }
 
+void	skip_quotes(char *input, int *i, char **new_input, int *j)
+{
+	char	buf;
+
+	buf = '\0';
+	if (input[*i] == '"' || input[*i] == '\'')
+	{
+		buf = input[*i];
+		(*new_input)[(*j)++] = input[*i];
+		(*i)++;
+		while (input[*i] && input[*i] != buf)
+		{
+			(*new_input)[(*j)++] = input[*i];
+			(*i)++;
+		}
+	}
+}
+
+void	skip_quotes2(char *input, int *i)
+{
+	char	buf;
+
+	buf = '\0';
+	if (input[*i] == '"' || input[*i] == '\'')
+	{
+		buf = input[*i];
+		(*i)++;
+		while (input[*i] && input[*i] != buf)
+			(*i)++;
+	}
+}
+
 char	*add_space_pre_redir(char *input, int j)
 {
 	int		i;
@@ -36,6 +68,7 @@ char	*add_space_pre_redir(char *input, int j)
 		return (NULL);
 	while (input[++i])
 	{
+		skip_quotes(input, &i, &new_input, &j);
 		if (i > 0 && (input[i] == '<' || input[i] == '>')
 			&& !(input[i - 1] == 26))
 		{
@@ -64,6 +97,7 @@ char	*add_space_post_redir(char *input, int j)
 		return (NULL);
 	while (input[++i])
 	{
+		skip_quotes(input, &i, &new_input, &j);
 		new_input[j++] = input[i];
 		if ((input[i] == '<' || input[i] == '>')
 			&& (input[i + 1] != '<' && input[i + 1] != '>'
@@ -80,13 +114,15 @@ char	*add_space_post_redir(char *input, int j)
 
 int	calc_redir_wo_space2(char *input)
 {
-	int	redir_no_sp;
-	int	i;
+	int		redir_no_sp;
+	int		i;
+	char	buf;
 
 	redir_no_sp = 0;
 	i = -1;
-	while (input[++i + 1])
+	while (input[++i])
 	{
+		skip_quotes2(input, &i);
 		if (i > 0 && (input[i] == '<' || input[i] == '>')
 			&& !(input[i - 1] == 26))
 		{
@@ -102,13 +138,15 @@ int	calc_redir_wo_space2(char *input)
 
 int	calc_redir_wo_space(char *input)
 {
-	int	redir_no_sp;
-	int	i;
+	int		redir_no_sp;
+	int		i;
+	char	buf;
 
 	redir_no_sp = 0;
 	i = -1;
-	while (input[++i + 1])
+	while (input[++i])
 	{
+		skip_quotes2(input, &i);
 		if ((input[i] == '<' || input[i] == '>')
 			&& (input[i + 1] != '<' && input[i + 1] != '>'
 				&& !(input[i + 1] == 26) && input[i + 1]))

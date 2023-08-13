@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 11:02:47 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/12 18:04:56 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/13 17:13:52 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define BUILTINS_H
 
 # include "minishell.h"
+
+typedef struct s_cmd t_cmd;
 
 typedef struct s_env
 {
