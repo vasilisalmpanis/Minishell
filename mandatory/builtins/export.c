@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valmpani <valmpani@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 11:59:44 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/10 11:59:44 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/08/14 17:36:28 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
  */
 int	export(t_env **lst, t_cmd *cmd)
 {
-	if (!cmd->args)
+	if (!cmd->args[0])
 	{
 		export_print(*lst);
 		return (0);
@@ -157,11 +157,6 @@ void	export_print(t_env *lst)
 		{
 			ft_putstr_fd("=\"", 1);
 			ft_putstr_fd(exp->value, 1);
-			ft_putstr_fd("\"\n", 1);
-		}
-		else if (exp->value[0] == '\0')
-		{
-			ft_putstr_fd("=\"", 1);
 			ft_putstr_fd("\"\n", 1);
 		}
 		else

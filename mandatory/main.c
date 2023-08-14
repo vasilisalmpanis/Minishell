@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 18:26:28 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/08 12:26:52 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/14 15:30:32 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,41 +15,90 @@
 void	exit_min(char *input, t_lex **lst)
 {
 	printf("Exiting minishell\n");
-	ft_lst_free(lst);
+	(void)lst;
+	// ft_lst_free(lst);
 	if (input)
 		free(input);
 	exit(1);
 }
 
-int	main(void)
+int	main(int argc, char **argv, char **envp)
 {
-	char				*input;
+	char				*input; // idea: do *input[2] instead of using temp
 	char				*temp;
 	struct sigaction	sa;
-	t_lex				*lst;
+	t_lex				*lex_lst;
+	t_env				*env_lst;
+	t_cmd				*cmd_lst;
+	
 
+	if (argc > 1)
+		return (1);
+	(void)argv;
 	sa.sa_handler = &handle_sigint;
 	sigemptyset(&sa.sa_mask);
 	sa.sa_flags = 0;
 	sigaction(SIGINT, &sa, NULL);
 	sigaction(SIGQUIT, &sa, NULL);
+	env_lst = create_env(envp);
+	if (!env_lst)
+		return (1);
 	while (1)
 	{
 		temp = prompt();
 		input = readline(temp);
 		free(temp);
-		lst = lex(input);
-		ft_show_tab(lst);
-		ft_lst_free(&lst);
-		if (!input)
-			exit_min(input, &lst);
+		// if (!input)
+		// 	exit_min(input);
+		temp = ft_strdup(input);
+		if (!temp)
+			return (1);
+		lex_lst = lex(temp); // maybe check for null or in parser
+		cmd_lst = parser(lex_lst, env_lst);
+		// ft_show_tab2(cmd_lst);
+		
+		execute(cmd_lst, env_lst);
 		if (strcmp(input, "exit") == 0)
-			exit_min(input, &lst);
-		add_history(input);
-		free(input);
-		ft_lst_free(&lst); // probably only need to free the cmd lst and not lex as we pass the token values to that one
+			exit_min(input, &lex_lst);
+		// add_history(input);
+		// free(input);
+		// ft_lst_free(&lst); // probably only need to free the cmd lst and not lex as lex is freed when parsing
 	}
 }
+
+// ft_show_tab(lst);
+
+void	ft_show_tab2(t_cmd *list)
+{
+	int	i;
+
+	write(1, "\n", 1);
+	while (list)
+	{
+		printf("cmd id: %d\n", list->cmd_id);
+		printf("hd_flag: %d\n", list->hd_flag);
+		printf("in_flag: %d\n", list->in_flag);
+		printf("out_flag: %d\n", list->out_flag);
+		printf("infile: %s\n", list->file);
+		// printf("outfile: %s\n", list->out_file);
+		printf("delim: %s\n", list->delim);
+		printf("opts: %d\n", list->opt);
+		printf("cmd: %s\n", list->cmd);
+		printf("builtin: %d\n", list->builtin);
+		printf("path: %s\n", list->path);
+		i = 0;
+		while (list->args[i])
+		{
+			printf("args[%d]: %s\n", i, list->args[i]);
+			i++;
+		}
+		printf("args[%d]: %s\n", i, list->args[i]);
+		// printf("args[1]: %s\n", list->args[1]);
+		write(1, "\n", 1);
+		list = list->next;
+	}
+}
+
 
 
 /* ----------------------TEST MAIM---------------------- */
