@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valmpani <valmpani@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 16:21:30 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/09 16:21:30 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/08/14 16:58:17 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,19 @@
  * @lst	Reference to the env list
  * @cmd Reference to the command given by lexer
  */
-int	env(t_env *lst, t_cmd cmd)
+int	env(t_env *lst, t_cmd *cmd)
 {
 	t_env	*env;
 
 	env = lst;
-	if (cmd.args != NULL)
+	if (cmd->args[0])
 	{
 		ft_putstr_fd("env: ", 1);
-		ft_putstr_fd(cmd.args[0], 1);
-		ft_putstr_fd(": No such file or directory", 1);
+		ft_putstr_fd(cmd->args[0], 1);
+		ft_putstr_fd(": No such file or directory\n", 1);
 		return (1);
 	}
-	while (env != NULL)
+	while (env)
 	{
 		if (env->value[0] != '\0')
 			printf("%s=%s\n", env->key, env->value);

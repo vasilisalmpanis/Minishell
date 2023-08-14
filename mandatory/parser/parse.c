@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 18:23:58 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/13 18:36:16 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/14 17:33:31 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,14 +67,14 @@ int	parse_tokens(t_lex *lex_lst, t_cmd **cmd_lst, char **env_paths)
 			return (1);
 		arg_num = 0;
 		if (allocate_args(lex_lst, new_cmd))
-			return (1);
+			return (free(new_cmd), 1);
 		while (lex_lst && lex_lst->token != TK_PIPE)
 		{
 			if (analyze_token(&lex_lst, new_cmd, &arg_num, env_paths))
-				return (1);
+				return (1); // probably need to free new_cmd here as it does not get add to the list
 			lex_lst = lex_lst->next;
 		}
-		(new_cmd->args)[arg_num] = NULL;
+		(new_cmd->args)[arg_num] = NULL; // if problem; may check that arg_num is not 0
 		ft_cmd_lstadd_end(cmd_lst, new_cmd);
 		if (lex_lst)
 			lex_lst = lex_lst->next;
@@ -217,7 +217,7 @@ int	analyze_token(t_lex **lex_lst, t_cmd *new_cmd, int *arg_num, char **env_p)
 // 	t_env	*lst;
 // 	// char	input[] = "<infile grep Hello | cat << eof | grep \"Hello World\" | ./script_dir/script.sh testarg | echo -nnnn lol | echo -nnn2 this | ls \"this is | a quote\"\0";
 // 	// check this case: cat < "in.txt" grep "And" --> results in an error
-// 	char input[] = "Hello   >|  ";
+// 	char input[] = "Hello '  >|  ' | echo World";
 // 	// char	input[] = "cat<file1";
 
 // 	(void)argc;
@@ -236,11 +236,11 @@ int	analyze_token(t_lex **lex_lst, t_cmd *new_cmd, int *arg_num, char **env_p)
 // 	lex_lst = lex(input);
 // 	ft_show_tab(lex_lst);
 
-// 	// cmd_lst = parser(lex_lst, lst);
-// 	// // start_lst = cmd_lst;
-// 	// ft_show_tab2(cmd_lst);
+// 	cmd_lst = parser(lex_lst, lst);
+// 	// start_lst = cmd_lst;
+// 	ft_show_tab2(cmd_lst);
 
-// 	// ft_cmd_lst_free(&cmd_lst);
+// 	ft_cmd_lst_free(&cmd_lst);
 
 // // 	// while (env_paths[++i])
 // // 	// 	free(env_paths[i]);

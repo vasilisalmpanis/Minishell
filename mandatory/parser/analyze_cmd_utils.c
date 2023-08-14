@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 16:56:18 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/11 11:10:04 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/14 11:51:01 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	get_cmd_name(t_lex **lex_lst, t_cmd *new_cmd)
 	return (0);
 }
 
-char	*get_path_name(t_cmd *new_cmd, char **env_paths)
+int	get_path_name(t_cmd *new_cmd, char **env_paths)
 {
 	char	*cmd_path;
 	char	*cmd_mod;
@@ -95,17 +95,21 @@ char	*get_path_name(t_cmd *new_cmd, char **env_paths)
 	i = 0;
 	cmd_mod = ft_strjoin("/", new_cmd->cmd);
 	if (!cmd_mod)
-		return (NULL);
+		return (1);
 	while (env_paths[i])
 	{
 		cmd_path = ft_strjoin(env_paths[i], cmd_mod);
 		if (!cmd_path)
-			return (free(cmd_mod), NULL);
+			return (free(cmd_mod), 1);
 		if (access(cmd_path, X_OK) == 0)
-			return (free(cmd_mod), cmd_path);
+		{
+			new_cmd->path = cmd_path;
+			return (free(cmd_mod), 0);
+		}
 		free(cmd_path);
 		i++;
 	}
 	free(cmd_mod);
-	return (NULL);
+	// printf("%s: Command not found\n", new_cmd->cmd); // probably handled in executor, otherwise here and provide specific error code
+	return (0);
 }

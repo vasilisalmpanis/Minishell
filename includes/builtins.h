@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 11:02:47 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/13 18:38:15 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/14 17:19:29 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,13 @@ typedef struct s_env
 int		pwd(void);
 
 // echo
-int		echo(t_cmd cmd);
+int		echo(t_cmd *cmd);
 
 // cd
 int	cd_dir(t_cmd cmd, t_env *env);
 
 // env_list
-int		env(t_env *lst, t_cmd cmd);
+int		env(t_env *lst, t_cmd *cmd);
 t_env	*lst_env_node(char *key, char *value);
 void	ft_env_addback(t_env **lst, t_env *new);
 void	ft_env_free(t_env **lst);
