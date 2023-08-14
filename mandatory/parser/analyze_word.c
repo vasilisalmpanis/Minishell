@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 15:08:23 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/12 14:20:22 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/14 11:51:40 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,7 @@ int	analyze_cmd(t_lex **lex_lst, t_cmd *new_cmd, int *arg_num, char **env_p)
 		}
 		else
 		{
-			new_cmd->path = get_path_name(new_cmd, env_p);
-			if (!new_cmd->path)
+			if (get_path_name(new_cmd, env_p))
 				return (1);
 		}
 		(new_cmd->args)[(*arg_num)] = ft_strdup(new_cmd->cmd);

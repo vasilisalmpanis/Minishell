@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 17:20:07 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/13 18:38:37 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/14 11:49:16 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,6 @@ int		analyze_opt(t_lex **lex_lst, t_cmd *new_cmd);
 int		check_for_builtin(t_lex **lex_lst, t_cmd *new_cmd);
 void	check_for_path(t_lex **lex_lst, t_cmd *new_cmd);
 int		get_cmd_name(t_lex **lex_lst, t_cmd *new_cmd);
-char	*get_path_name(t_cmd *new_cmd, char **env_paths);
+int		get_path_name(t_cmd *new_cmd, char **env_paths);
 
 #endif

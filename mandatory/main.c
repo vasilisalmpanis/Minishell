@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 18:26:28 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/08 12:26:52 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/14 12:02:00 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,24 @@ int	main(void)
 	{
 		temp = prompt();
 		input = readline(temp);
-		lst = lex(input);
-		ft_show_tab(lst);
 		free(temp);
 		if (!input)
 			exit_min(input);
+		// get env vars
+		// create a copy of input to pass to lex
+		lst = lex(input);
+		// ft_show_tab(lst);
+		// parse input
+		// allocate memory for fds
+		// create pipes --> creates list of cmds
+		// execute commands --> return process ids
 		if (strcmp(input, "exit") == 0)
 			exit_min(input);
 		add_history(input);
+		//close fds
+		//wait for children and handle exit status
 		free(input);
-		ft_lst_free(&lst); // probably only need to free the cmd lst and not lex as we pass the token values to that one
+		ft_lst_free(&lst); // probably only need to free the cmd lst and not lex as lex is freed when parsing
 	}
 }
 
