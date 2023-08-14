@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 13:38:10 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/14 15:39:37 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/14 17:37:54 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ pid_t	execute_cmd(t_cmd *cmd_lst, t_env *env_lst, int **fd, int count_cmds)
 	pid_t	pid;
 	
 	if (count_cmds == 1 && cmd_lst->builtin)
-		return (-1); // don't create child process; execute builtin return -1?
+		return (exec_builtin(cmd_lst, env_lst), -1); // don't create child process; execute builtin return -1?
 	else 
 	{
 		pid = fork();
@@ -56,6 +56,48 @@ pid_t	execute_cmd(t_cmd *cmd_lst, t_env *env_lst, int **fd, int count_cmds)
 			///
 	}
 	return (pid);
+}
+
+int	exec_builtin(t_cmd *cmd, t_env *env_lst)
+{
+	int	fd_temp;
+	int	exit_code;
+
+	if (cmd->in_flag)
+	{
+		fd_temp = open(cmd->file, O_RDONLY);
+		if (fd_temp == -1)
+			return (printf("Error\n"), 1); // add proper err msg
+		if (dup2(fd_temp, STDIN_FILENO) == -1) // reset after exec
+			return (1);
+		close(fd_temp);
+	}
+	if (cmd->out_flag) // check for append, open depends on it
+	{
+		fd_temp = open(cmd->file, O_RDWR | O_CREAT | O_TRUNC, 00644);
+		if (fd_temp == -1)
+			return (printf("Error\n"), 1); // add proper err msg
+		if (dup2(fd_temp, STDOUT_FILENO) == -1)
+			return (1);
+		close(fd_temp);
+	}
+	if (!ft_strncmp(cmd->cmd, "echo", ft_strlen(cmd->cmd)))
+		exit_code = echo(cmd);
+	else if (!ft_strncmp(cmd->cmd, "pwd", ft_strlen(cmd->cmd)))
+		exit_code = pwd();
+	else if (!ft_strncmp(cmd->cmd, "env", ft_strlen(cmd->cmd)))
+		exit_code = env(env_lst, cmd);
+	else if (!ft_strncmp(cmd->cmd, "cd", ft_strlen(cmd->cmd)))
+		exit_code = cd_dir(cmd);
+	else if (!ft_strncmp(cmd->cmd, "export", ft_strlen(cmd->cmd)))
+		exit_code = export(&env_lst, cmd);
+	else if (!ft_strncmp(cmd->cmd, "unset", ft_strlen(cmd->cmd)))
+		exit_code = unset(&env_lst, cmd);
+	if (dup2(0, STDIN_FILENO) == -1)
+			return (1);
+	if (dup2(1, STDOUT_FILENO) == -1)
+			return (1);
+	return (0);
 }
 
 int	child_process(t_cmd *cmd_lst, t_env *env_lst, int **fd, int count)
@@ -130,16 +172,20 @@ void	wait_for_children(t_cmd *start)
 	exit_code = 0;
 	while (start->next)
 	{
-		waitpid(start->pid, NULL, 0);
+		if (start->pid != -1)
+			waitpid(start->pid, NULL, 0);
 		start = start->next;
 	}
-	if (waitpid(start->pid, &status, 0) == -1)
-		exit(EXIT_FAILURE); // store that in some variable
-	if (WIFEXITED(status))
+	if (start->pid != -1)
 	{
-		exit_code = WEXITSTATUS(status);
-		if (exit_code != 0)
-			exit(exit_code); // store that in some variable
+		if (waitpid(start->pid, &status, 0) == -1)
+			exit(EXIT_FAILURE); // store that in some variable
+		if (WIFEXITED(status))
+		{
+			exit_code = WEXITSTATUS(status);
+			if (exit_code != 0)
+				exit(exit_code); // store that in some variable
+		}
 	}
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valmpani <valmpani@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 11:58:26 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/08 11:58:32 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/08/14 16:39:01 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@
  * and set the error code accordingly
  * @cmd Reference to the command given by lexer
  */
-int	cd_dir(t_cmd cmd)
+int	cd_dir(t_cmd *cmd)
 {
-	const char	*target_dir = cmd.args[1];
+	const char	*target_dir = cmd->args[1];
 
 	if (target_dir == NULL)
 	{

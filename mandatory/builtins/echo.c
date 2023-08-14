@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
+/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 11:23:37 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/08 11:36:47 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/08/14 17:29:15 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,19 @@
  * print a newline.
  * @cmd Reference to the command given by lexer
  */
-int	echo(t_cmd *cmd)
+int	echo(t_cmd *cmd) // currently prints -n from arguments
 {
 	int	i;
 
-	i = -1;
-	while (cmd->args[++i])
+	i = 0;
+	while (cmd->args[i])
 	{
 		ft_putstr_fd(cmd->args[i], 1);
 		if (cmd->args[i + 1])
 			ft_putchar_fd(' ', 1);
+		i++;
 	}
-	if (cmd->opts == NULL)
+	if (cmd->opt == 0)
 		ft_putchar_fd('\n', 1);
 	return (0);
 }

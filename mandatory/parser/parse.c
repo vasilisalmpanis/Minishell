@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 18:23:58 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/14 12:20:10 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/14 17:33:31 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	parse_tokens(t_lex *lex_lst, t_cmd **cmd_lst, char **env_paths)
 				return (1); // probably need to free new_cmd here as it does not get add to the list
 			lex_lst = lex_lst->next;
 		}
-		(new_cmd->args)[arg_num] = NULL;
+		(new_cmd->args)[arg_num] = NULL; // if problem; may check that arg_num is not 0
 		ft_cmd_lstadd_end(cmd_lst, new_cmd);
 		if (lex_lst)
 			lex_lst = lex_lst->next;
