@@ -58,28 +58,28 @@ t_env	*lst_env_node(char *key, char *value)
  */
 void	ft_env_addback(t_env **lst, t_env *new)
 {
-	t_env	**ptr;
+		t_env	**ptr;
 
-	ptr = lst;
-	while (*ptr)
-	{
-		if (ft_strncmp((*ptr)->key, new->key, ft_strlen(new->key)) == 0 \
-		&& ft_strlen(new->key) == ft_strlen((*ptr)->key))
+		ptr = lst;
+		while (*ptr)
 		{
-			if ((*ptr)->value)
-				free((*ptr)->value);
-			if (!new->value)
-				(*ptr)->value = ft_strdup("");
-			else
-				(*ptr)->value = ft_strdup(new->value);
-			free(new->value);
-			free(new->key);
-			free(new);
-			return ;
+			if (ft_strncmp((*ptr)->key, new->key, ft_strlen(new->key)) == 0 \
+			&& ft_strlen(new->key) == ft_strlen((*ptr)->key))
+			{
+				if ((*ptr)->value)
+					free((*ptr)->value);
+				if (!new->value)
+					(*ptr)->value = ft_strdup("");
+				else
+					(*ptr)->value = ft_strdup(new->value);
+				free(new->value);
+				free(new->key);
+				free(new);
+				return ;
+			}
+			ptr = &(*ptr)->next;
 		}
-		ptr = &(*ptr)->next;
-	}
-	*ptr = new;
+		*ptr = new;
 }
 
 /*

@@ -12,6 +12,52 @@
 
 #include "../../includes/minishell.h"
 
+int	ft_change_env(t_env *env, char *target_dir)
+{
+	char	*pwd;
+	t_env	*tmp;
+
+	tmp = env;
+	while (env)
+	{
+		if (ft_strncmp(env->key, "PWD", ft_strlen(env->key)) == 0)
+		{
+			pwd = ft_strdup(env->value);
+			if (!pwd)
+				return (1);
+		}
+		env = env->next;
+	}
+	env = tmp;
+	while (tmp)
+	{
+		if (ft_strncmp(tmp->key, "OLDPWD", ft_strlen(tmp->key)) == 0)
+		{
+			if (tmp->value[0])
+				free(tmp->value);
+			tmp->value = ft_strdup(pwd);
+			if (!tmp->value)
+				return (1);
+		}
+		tmp = tmp->next;
+	}
+	while (env)
+	{
+		if (ft_strncmp(env->key, "PWD", ft_strlen(env->key)) == 0)
+		{
+			if (env->value[0])
+				free(env->value);
+			env->value = ft_strdup(target_dir);
+			if (!env->value)
+				return (1);
+		}
+		env = env->next;
+	}
+	if (pwd)
+		free(pwd);
+	return (0);
+}
+
 /*
  * Function:  cd
  * --------------------
@@ -20,37 +66,63 @@
  * and set the error code accordingly
  * @cmd Reference to the command given by lexer
  */
-int	cd_dir(t_cmd *cmd)
+int	cd_dir(t_cmd cmd, t_env *env)
 {
-	const char	*target_dir = cmd->args[1];
+	const char	*target_dir;
+	char		*home;
 
-	if (target_dir == NULL)
+	if (!cmd.args)
 	{
-		target_dir = getenv("HOME");
-		if (target_dir == NULL)
+		home = getenv("HOME");
+		if (!home)
+			return (printf("error\n"), 1);
+		ft_change_env(env, home);
+		chdir(home);
+		free(home);
+	}
+	else
+	{
+		if (ft_strncmp(cmd.args[0], "~", ft_strlen(cmd.args[0])) == 0)
 		{
-			ft_putstr_fd("cd: Could not retrieve home directory\n", 2);
+			ft_printf("cd: ~: Not handled by minishell\n");
 			return (1);
 		}
-	}
-	if (chdir(target_dir) != 0)
-	{
-		perror("cd");
-		return (1);
+		else
+		{
+			if (chdir(cmd.args[0]) == 0)
+			{
+				home = getcwd(NULL, 0);
+				ft_change_env(env, home);
+				free(home);
+			}
+			else
+				return (1);
+		}
 	}
 	return (0);
 }
 
-//int main(void)
+//int main(int argc, char **argv, char **en)
 //{
 //	t_cmd	cmd;
+//	t_env *lst;
 //
-//	cmd.args = (char **)malloc(3 * sizeof(char *));
-//	cmd.args[1] = "..";
-//	cmd.args[2] = NULL;
-//	cmd.opts = "-n";
+//	lst = create_env(en);
+//	cmd.args = (char **)malloc(2 * sizeof(char *));
+//	cmd.args[0] = "..";
+//	cmd.args[1] = NULL;
 //
-//	cd_dir(cmd);
+//	cd_dir(cmd, lst);
 //	free(cmd.args);
+//	cmd.args = NULL;
+////	int i = -1;
+////	while (en[++i])
+////	{
+////		ft_putstr_fd(en[i], 1);
+////		ft_putstr_fd("\n", 1);
+////	}
+//
+//	env(lst, cmd);
+//	ft_env_free(&lst);
 //	return (0);
 //}
