@@ -12,35 +12,8 @@
 
 #include "../../includes/minishell.h"
 
-//int	check_quotes(char *input)
-//{
-//	int		i;
-//	int		flag;
-//	char	buf;
-//
-//	i = -1;
-//	flag = 0;
-//	buf = 1;
-//	while (input[++i])
-//	{
-//		if (input[i] == '"' || input[i] == '\'')
-//		{
-//			flag = 1;
-//			buf = input[i];
-//			++i;
-//		}
-//		while (input[i] != buf && input[i + 1] && buf != 0)
-//			++i;
-//		if (input[i] == buf)
-//		{
-//			flag = 0;
-//			buf = 0;
-//		}
-//	}
-//	return (flag);
-//}
 
-int	check_quotes(char *input, int single, int dbl)
+int	check_quotes(const char *input, int single, int dbl)
 {
 	int		i;
 	char	buf;
@@ -75,7 +48,6 @@ t_lex	*lex(char *input)
 	t_lex	*token_lst;
 	t_lex	*new_token;
 	int		i;
-	int		j = 0;
 	int		pos;
 
 	if (!input)

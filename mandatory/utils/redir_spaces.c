@@ -13,7 +13,7 @@
 #include "../../includes/minishell.h"
 #include "../../libft/libft.h"
 
-char	*handle_redirects(char *input, int j)
+char	*handle_redirects(char *input)
 {
 	char	*new_input;
 	char	*temp;
@@ -105,7 +105,7 @@ char	*add_space_post_redir(char *input, int j)
 				&& !(input[i + 1] == 26) && input[i + 1]))
 		{
 			new_input[j++] = 26;
-			if (i > 0 && (input[i] == '<' && input[i - 1] == '>')
+			if ((i > 0 && (input[i] == '<' && input[i - 1] == '>'))
 				|| (input[i] == '>' && input[i - 1] == '<'))
 				j--;
 		}
@@ -117,7 +117,6 @@ int	calc_redir_wo_space2(char *input)
 {
 	int		redir_no_sp;
 	int		i;
-	char	buf;
 
 	redir_no_sp = 0;
 	i = -1;
@@ -125,7 +124,7 @@ int	calc_redir_wo_space2(char *input)
 	{
 		skip_quotes2(input, &i);
 		if (i > 0 && (input[i] == '<' || input[i] == '>')
-			&& !(input[i - 1] == 26))
+			&& input[i - 1] != 26)
 		{
 			redir_no_sp++;
 			if ((input[i] == '<' && input[i + 1] == '>')
@@ -141,7 +140,6 @@ int	calc_redir_wo_space(char *input)
 {
 	int		redir_no_sp;
 	int		i;
-	char	buf;
 
 	redir_no_sp = 0;
 	i = -1;
@@ -150,10 +148,10 @@ int	calc_redir_wo_space(char *input)
 		skip_quotes2(input, &i);
 		if ((input[i] == '<' || input[i] == '>')
 			&& (input[i + 1] != '<' && input[i + 1] != '>'
-				&& !(input[i + 1] == 26) && input[i + 1]))
+				&& input[i + 1] != 26 && input[i + 1]))
 		{
 			redir_no_sp++;
-			if (i > 0 && (input[i] == '<' && input[i - 1] == '>')
+			if ((i > 0 && (input[i] == '<' && input[i - 1] == '>'))
 				|| (input[i] == '>' && input[i - 1] == '<'))
 				redir_no_sp--;
 		}

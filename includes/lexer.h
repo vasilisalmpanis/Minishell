@@ -31,7 +31,7 @@ typedef struct s_lex
 	struct s_lex	*next;
 }				t_lex;
 
-int		check_quotes(char *input, int single, int dbl);
+int		check_quotes(const char *input, int single, int dbl);
 t_lex	*lex(char *input);
 t_lex	*create_token(char *split, int *pos);
 int		expand(char *word, int *i, int start, char **exp_word);

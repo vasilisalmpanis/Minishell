@@ -6,15 +6,16 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 18:26:28 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/14 12:02:00 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/14 12:05:17 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	exit_min(char *input)
+void	exit_min(char *input, t_lex **lst)
 {
 	printf("Exiting minishell\n");
+	ft_lst_free(lst);
 	if (input)
 		free(input);
 	exit(1);
@@ -48,7 +49,7 @@ int	main(void)
 		// create pipes --> creates list of cmds
 		// execute commands --> return process ids
 		if (strcmp(input, "exit") == 0)
-			exit_min(input);
+			exit_min(input, &lst);
 		add_history(input);
 		//close fds
 		//wait for children and handle exit status
@@ -98,10 +99,10 @@ int	main(void)
 //	if (strcmp(input, "cd") == 0)
 //		chdir("test");
 //	if (!input)
-//		exit_min(input);
+//		exit_min(input, NULL);
 //	if (strcmp(input, "exit") == 0)
 //	{
-//		exit_min(input);
+//		exit_min(input, NULL);
 //	}
 //}
 //
