@@ -10,8 +10,11 @@ SRC =	mandatory/main.c \
 		mandatory/lexer/expansion.c \
 		mandatory/builtins/env.c \
 		mandatory/builtins/export.c \
-#		mandatory/parser/parse.c \
-#		mandatory/parser/analyze_word.c \
+		mandatory/parser/parse.c \
+		mandatory/parser/analyze_word.c \
+		mandatory/parser/analyze_cmd_utils.c \
+		mandatory/parser/analyze_redir.c \
+		mandatory/executor/execute.c
 
 
 

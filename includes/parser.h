@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 17:20:07 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/14 11:49:16 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/14 14:51:14 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ typedef struct s_cmd
 	int				env_flag;
 	char			*delim;
 	char			*file;
+	// char			*in_file;
+	// char			*out_file;
 	struct s_cmd	*next;
 }				t_cmd;
 
