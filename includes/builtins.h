@@ -31,7 +31,7 @@ int		pwd(void);
 int		echo(t_cmd cmd);
 
 // cd
-int		cd_dir(t_cmd cmd);
+int	cd_dir(t_cmd cmd, t_env *env);
 
 // env_list
 int		env(t_env *lst, t_cmd cmd);
