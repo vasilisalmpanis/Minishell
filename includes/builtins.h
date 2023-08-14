@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 11:02:47 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/14 17:19:29 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/14 17:49:11 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int		pwd(void);
 int		echo(t_cmd *cmd);
 
 // cd
-int	cd_dir(t_cmd cmd, t_env *env);
+int	cd_dir(t_cmd *cmd, t_env *env);
 
 // env_list
 int		env(t_env *lst, t_cmd *cmd);

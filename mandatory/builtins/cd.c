@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 11:58:26 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/14 16:39:01 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/14 17:51:20 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,30 +66,29 @@ int	ft_change_env(t_env *env, char *target_dir)
  * and set the error code accordingly
  * @cmd Reference to the command given by lexer
  */
-int	cd_dir(t_cmd cmd, t_env *env)
+int	cd_dir(t_cmd *cmd, t_env *env)
 {
-	const char	*target_dir;
 	char		*home;
 
-	if (!cmd.args)
+	if (!cmd->args[0])
 	{
 		home = getenv("HOME");
 		if (!home)
 			return (printf("error\n"), 1);
 		ft_change_env(env, home);
 		chdir(home);
-		free(home);
+		// free(home);
 	}
 	else
 	{
-		if (ft_strncmp(cmd.args[0], "~", ft_strlen(cmd.args[0])) == 0)
+		if (ft_strncmp(cmd->args[0], "~", ft_strlen(cmd->args[0])) == 0)
 		{
 			ft_printf("cd: ~: Not handled by minishell\n");
 			return (1);
 		}
 		else
 		{
-			if (chdir(cmd.args[0]) == 0)
+			if (chdir(cmd->args[0]) == 0)
 			{
 				home = getcwd(NULL, 0);
 				ft_change_env(env, home);

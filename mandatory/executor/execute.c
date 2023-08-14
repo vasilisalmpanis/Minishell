@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 13:38:10 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/14 17:37:54 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/14 17:50:32 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int	exec_builtin(t_cmd *cmd, t_env *env_lst)
 	else if (!ft_strncmp(cmd->cmd, "env", ft_strlen(cmd->cmd)))
 		exit_code = env(env_lst, cmd);
 	else if (!ft_strncmp(cmd->cmd, "cd", ft_strlen(cmd->cmd)))
-		exit_code = cd_dir(cmd);
+		exit_code = cd_dir(cmd, env_lst);
 	else if (!ft_strncmp(cmd->cmd, "export", ft_strlen(cmd->cmd)))
 		exit_code = export(&env_lst, cmd);
 	else if (!ft_strncmp(cmd->cmd, "unset", ft_strlen(cmd->cmd)))
