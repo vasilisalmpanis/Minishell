@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 16:46:21 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/15 16:05:54 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/15 18:23:25 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ int	set_redir_flags(t_lex **lex_lst, t_cmd *new_cmd)
 	}
 	return (0);
 }
-
 
 int	set_filename(t_lex **lex_lst, t_cmd *new_cmd, int token)
 {
