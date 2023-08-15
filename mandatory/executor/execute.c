@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 13:38:10 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/15 12:43:43 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/15 13:10:54 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	execute(t_cmd *cmd_lst, t_env *env_lst)
 		cmd_lst = cmd_lst->next;
 	}
 	close_fds(fd, num_cmds);
-	// wait_for_children(cmd_lst_start, num_cmds);
+	wait_for_children(cmd_lst_start, num_cmds);
 	return (0); // probably rather return last exit code
 }
 
@@ -49,13 +49,63 @@ pid_t	execute_cmd(t_cmd *cmd_lst, t_env *env_lst, int **fd, int count_cmds)
 		if (pid == 0)
 		{
 			if (cmd_lst->builtin)
-				return (-1); // function for builtins
+				builtin_child(cmd_lst, env_lst, fd, count_cmds); // function for builtins
 			else
 				child_process(cmd_lst, env_lst, fd, count_cmds);
 		}
 			///
 	}
 	return (pid);
+}
+
+int	builtin_child(t_cmd *cmd, t_env *env_lst, int **fd, int count)
+{
+	int	fd_temp;
+	int	exit_code;
+	int	fd_stdout;
+
+	fd_stdout = dup(STDOUT_FILENO);
+	if (cmd->out_flag || cmd->app_flag) // check for append, open depends on it
+	{
+		if (cmd->out_flag)
+			fd_temp = open(cmd->out_file, O_RDWR | O_CREAT | O_TRUNC, 00644);
+		if (cmd->app_flag)
+		{
+			close(fd_temp);
+			fd_temp = open(cmd->app_file, O_RDWR | O_CREAT | O_APPEND, 00644);
+		}
+		if (fd_temp == -1)
+			exit(EXIT_FAILURE);
+		if (cmd->next)
+		{
+			if (dup2(fd[cmd->cmd_id][1], STDOUT_FILENO) == -1)
+				exit(EXIT_FAILURE);
+		}
+		else
+		{
+			if (dup2(fd_temp, STDOUT_FILENO) == -1)
+				exit(EXIT_FAILURE);
+		}
+		close(fd_temp);
+	}
+	close_fds(fd, count);
+	if (!cmd->args)
+		exit(EXIT_FAILURE);
+	if (!ft_strncmp(cmd->cmd, "echo", ft_strlen(cmd->cmd)))
+		exit_code = echo(cmd);
+	else if (!ft_strncmp(cmd->cmd, "pwd", ft_strlen(cmd->cmd)))
+		exit_code = pwd();
+	else if (!ft_strncmp(cmd->cmd, "env", ft_strlen(cmd->cmd)))
+		exit_code = env(env_lst, cmd);
+	else if (!ft_strncmp(cmd->cmd, "cd", ft_strlen(cmd->cmd)))
+		exit_code = cd_dir(cmd, env_lst);
+	else if (!ft_strncmp(cmd->cmd, "export", ft_strlen(cmd->cmd)))
+		exit_code = export(&env_lst, cmd);
+	else if (!ft_strncmp(cmd->cmd, "unset", ft_strlen(cmd->cmd)))
+		exit_code = unset(&env_lst, cmd);
+	if (dup2(fd_stdout, STDOUT_FILENO) == -1)
+		exit(EXIT_FAILURE);
+	exit(0);
 }
 
 int	exec_builtin(t_cmd *cmd, t_env *env_lst)
@@ -171,17 +221,20 @@ int	wait_for_children(t_cmd *start, int count_cmds)
 	(void)count_cmds;
 	while (start->next)
 	{
-		// if (count_cmds == 1 && start->builtin)
-		waitpid(start->pid, NULL, 0);
+		if (!(count_cmds == 1 && start->builtin))
+			waitpid(start->pid, NULL, 0);
 		start = start->next;
 	}
-	if (waitpid(start->pid, &status, 0) == -1)
-		return(EXIT_FAILURE); // store that in some variable
-	if (WIFEXITED(status))
+	if (!(count_cmds == 1 && start->builtin))
 	{
-		exit_code = WEXITSTATUS(status);
-		if (exit_code != 0)
-			return(exit_code); // store that in some variable
+		if (waitpid(start->pid, &status, 0) == -1)
+			return(EXIT_FAILURE); // store that in some variable
+		if (WIFEXITED(status))
+		{
+			exit_code = WEXITSTATUS(status);
+			if (exit_code != 0)
+				return(exit_code); // store that in some variable
+		}
 	}
 	return (0);
 }
