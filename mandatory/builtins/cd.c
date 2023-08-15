@@ -90,9 +90,8 @@ int	cd_dir(t_cmd *cmd, t_env *env)
 				home = getcwd(NULL, 0);
 				if (!home)
 				{
-					ft_printf(
-					"cd: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory\n";
-					home = ft_strdup("\\");
+					ft_printf("cd: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory\n");
+					home = ft_strdup(getenv("HOME"));
 				}
 				ft_change_env(env, home);
 				free(home);
