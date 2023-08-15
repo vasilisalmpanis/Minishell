@@ -93,10 +93,6 @@ int	exec_builtin(t_cmd *cmd, t_env *env_lst)
 		exit_code = export(&env_lst, cmd);
 	else if (!ft_strncmp(cmd->cmd, "unset", ft_strlen(cmd->cmd)))
 		exit_code = unset(&env_lst, cmd);
-	if (dup2(0, STDIN_FILENO) == -1)
-			return (1);
-	if (dup2(1, STDOUT_FILENO) == -1)
-			return (1);
 	return (0);
 }
 
@@ -163,7 +159,7 @@ void	close_fds(int **fd, int count)
 	}
 }
 
-void	wait_for_children(t_cmd *start)
+int	wait_for_children(t_cmd *start)
 {
 	int		status;
 	int		exit_code;
@@ -179,14 +175,15 @@ void	wait_for_children(t_cmd *start)
 	if (start->pid != -1)
 	{
 		if (waitpid(start->pid, &status, 0) == -1)
-			exit(EXIT_FAILURE); // store that in some variable
+			return (EXIT_FAILURE); // store that in some variable
 		if (WIFEXITED(status))
 		{
 			exit_code = WEXITSTATUS(status);
 			if (exit_code != 0)
-				exit(exit_code); // store that in some variable
+				return (exit_code); // store that in some variable
 		}
 	}
+	return (0);
 }
 
 

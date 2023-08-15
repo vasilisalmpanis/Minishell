@@ -82,15 +82,18 @@ int	cd_dir(t_cmd *cmd, t_env *env)
 	else
 	{
 		if (ft_strncmp(cmd->args[0], "~", ft_strlen(cmd->args[0])) == 0)
-		{
-			ft_printf("cd: ~: Not handled by minishell\n");
-			return (1);
-		}
+			return (ft_printf("cd: ~: Not handled by minishell\n"), 1);
 		else
 		{
 			if (chdir(cmd->args[0]) == 0)
 			{
 				home = getcwd(NULL, 0);
+				if (!home)
+				{
+					ft_printf(
+					"cd: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory\n";
+					home = ft_strdup("\\");
+				}
 				ft_change_env(env, home);
 				free(home);
 			}

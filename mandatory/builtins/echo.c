@@ -26,6 +26,8 @@ int	echo(t_cmd *cmd) // currently prints -n from arguments
 	i = 0;
 	while (cmd->args[i])
 	{
+		if (i == 0 && cmd->opt)
+			i++;
 		ft_putstr_fd(cmd->args[i], 1);
 		if (cmd->args[i + 1])
 			ft_putchar_fd(' ', 1);
@@ -33,6 +35,10 @@ int	echo(t_cmd *cmd) // currently prints -n from arguments
 	}
 	if (cmd->opt == 0)
 		ft_putchar_fd('\n', 1);
+	else
+	{
+		ft_putstr_fd("\033[47;30m%\033[0m\n", 1);
+	}
 	return (0);
 }
 

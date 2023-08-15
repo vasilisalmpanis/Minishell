@@ -22,5 +22,6 @@
 # define MAGENTA    "\001\x1B[35m\002"
 # define CYAN       "\001\x1B[36m\002"
 # define ESCAPE     "\001\x1B[0m\002"
+# define GREY		"\001\x1B[38;5;255m\002"
 
 #endif

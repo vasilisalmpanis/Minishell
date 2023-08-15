@@ -22,7 +22,7 @@ int	count_cmds(t_cmd *cmd_lst);
 void	create_pipes(int **fd, int count);
 int		child_process(t_cmd *cmd_lst, t_env *env_lst, int **fd, int count);
 void	close_fds(int **fd, int count);
-void	wait_for_children(t_cmd *start);
+int		wait_for_children(t_cmd *start);
 int	exec_builtin(t_cmd *cmd, t_env *env_lst);
 
 

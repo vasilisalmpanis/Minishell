@@ -120,6 +120,8 @@ char	*prompt(void)
 
 	temp = current_dir();
 	gcwd = getcwd(NULL, 0);
+	if (!gcwd)
+		return (ft_strdup(GREEN"→" BLUE"  / "ESCAPE));
 	if (temp == NULL || (ft_strncmp(gcwd, "/", ft_strlen(gcwd)) == 0))
 	{
 		free(gcwd);
