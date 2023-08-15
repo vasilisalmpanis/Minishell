@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 17:20:07 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/14 14:51:14 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/15 15:57:48 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,10 @@ typedef struct s_cmd
 	int				hd_flag;
 	int				env_flag;
 	char			*delim;
-	char			*file;
-	// char			*in_file;
-	// char			*out_file;
+	// char			*file;
+	char			*in_file;
+	char			*out_file;
+	char			*app_file;
 	struct s_cmd	*next;
 }				t_cmd;
 
@@ -50,10 +51,11 @@ char	**extract_paths(t_env **env_lst);
 
 int		set_here_doc_flag(t_lex **lex_lst, t_cmd *new_cmd);
 int		set_redir_flags(t_lex **lex_lst, t_cmd *new_cmd);
+int		set_filename(t_lex **lex_lst, t_cmd *new_cmd, int token);
 
 int		analyze_word(t_lex **lex_lst, t_cmd *new_cmd, \
 						int *arg_num, char **env_p);
-int		check_word_type(t_lex *lex_lst, int in_flag);
+int		check_word_type(t_lex *lex_lst, t_cmd *cmd);
 int		analyze_cmd(t_lex **lex_lst, t_cmd *new_cmd, \
 						int *arg_num, char **env_p);
 int		analyze_opt(t_lex **lex_lst, t_cmd *new_cmd);
