@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:31:53 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/12 17:39:04 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/15 17:09:52 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,11 @@ t_lex	*lex(char *input);
 t_lex	*create_token(char *split, int *pos);
 int		expand(char *word, int *i, int start, char **exp_word);
 void	ft_show_tab(t_lex *list);
-char	*check_expand(char *word);
+char	*check_expand(char *word, int i);
 char	*trim_word(char *word);
 char	*determine_exp_var(char *temp);
 int		calc_offset(char *word, int start, int *i);
 int		check_syntax_err(char *word);
+int		create_word_token(char *split, int *pos, t_lex **new_token);
 
 #endif

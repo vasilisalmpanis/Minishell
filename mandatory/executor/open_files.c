@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:45:22 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/15 15:31:08 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/15 16:41:06 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ int	open_infile(t_cmd *cmd, int **fd)
 	}
 	return (0);
 }
-
 
 // int	heredoc(t_cmd *cmd)
 // {

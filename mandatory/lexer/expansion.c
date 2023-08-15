@@ -6,19 +6,17 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 12:43:19 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/11 17:23:42 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/15 18:06:40 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char	*check_expand(char *word)
+char	*check_expand(char *word, int i)
 {
-	int		i;
 	int		start;
 	char	*exp_word;
 
-	i = -1;
 	exp_word = ft_calloc(1, 1);
 	if (!exp_word)
 		return (NULL);
@@ -66,7 +64,7 @@ int	expand(char *word, int *i, int start, char **exp_word)
 	int		offset;
 
 	while (word[*i] && word[*i] != '"' && word[*i] != '\'' 
-		&& word[*i] != '}' && !ft_isspace(word[*i]))
+		&& word[*i] != '}' && word[*i] != ')' && !ft_isspace(word[*i]))
 		(*i)++;
 	offset = calc_offset(word, start, i);
 	if (offset == -1)
@@ -87,12 +85,13 @@ int	expand(char *word, int *i, int start, char **exp_word)
 	return (0);
 }
 
-int		calc_offset(char *word, int start, int *i)
+int	calc_offset(char *word, int start, int *i)
 {
 	int	offset;
 
 	offset = 0;
-	if (word[start] == '{' && word[*i] == '}')
+	if ((word[start] == '{' && word[*i] == '}')
+		|| (word[start] == '(' && word[*i] == ')'))
 	{
 		offset++;
 		(*i)++;
