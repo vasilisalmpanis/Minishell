@@ -6,7 +6,7 @@
 /*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 13:38:10 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/15 21:17:11 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/08/15 21:18:52 by valmpani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,5 @@ int	child_process(t_cmd *cmd, t_env *env_lst, int **fd, int count)
 		return (printf("No args provided\n"), 1);
 	if (execve(cmd->path, cmd->args, NULL) == -1)
 		exit(EXIT_FAILURE);
-<<<<<<< HEAD
 	return (0);
 }

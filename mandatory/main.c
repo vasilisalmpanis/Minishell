@@ -6,7 +6,7 @@
 /*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 18:26:28 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/15 21:18:05 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/08/15 21:19:08 by valmpani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ void	silence(void)
 int	main(int argc, char **argv, char **envp)
 {
 	char				*input[2];
-	struct sigaction	sa;
 	t_lex				*lex_lst;
 	t_env				*env_lst;
 	t_cmd				*cmd_lst;
