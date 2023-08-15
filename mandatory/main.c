@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 18:26:28 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/14 15:30:32 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/15 21:11:12 by valmpani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,24 +22,54 @@ void	exit_min(char *input, t_lex **lst)
 	exit(1);
 }
 
-int	main(int argc, char **argv, char **envp)
+void	signals(void)
 {
-	char				*input; // idea: do *input[2] instead of using temp
-	char				*temp;
 	struct sigaction	sa;
-	t_lex				*lex_lst;
-	t_env				*env_lst;
-	t_cmd				*cmd_lst;
-	
 
-	if (argc > 1)
-		return (1);
-	(void)argv;
 	sa.sa_handler = &handle_sigint;
 	sigemptyset(&sa.sa_mask);
 	sa.sa_flags = 0;
 	sigaction(SIGINT, &sa, NULL);
 	sigaction(SIGQUIT, &sa, NULL);
+}
+
+void	silence(void)
+{
+	struct termios	term;
+
+	if (isatty(STDIN_FILENO))
+	{
+		tcgetattr(STDIN_FILENO, &term);
+		term.c_lflag = term.c_lflag & ~ECHOCTL;
+		tcsetattr(STDIN_FILENO, TCSANOW, &term);
+	}
+	else if (isatty(STDOUT_FILENO))
+	{
+		tcgetattr(STDOUT_FILENO, &term);
+		term.c_lflag = term.c_lflag & ~ECHOCTL;
+		tcsetattr(STDOUT_FILENO, TCSANOW, &term);
+	}
+	else if (isatty(STDERR_FILENO))
+	{
+		tcgetattr(STDERR_FILENO, &term);
+		term.c_lflag = term.c_lflag & ~ECHOCTL;
+		tcsetattr(STDERR_FILENO, TCSANOW, &term);
+	}
+}
+
+int	main(int argc, char **argv, char **envp)
+{
+	char				*input; // idea: do *input[2] instead of using temp
+	char				*temp;
+	t_lex				*lex_lst;
+	t_env				*env_lst;
+	t_cmd				*cmd_lst;
+
+	if (argc > 1)
+		return (1);
+	(void)argv;
+	signals();
+	silence();
 	env_lst = create_env(envp);
 	if (!env_lst)
 		return (1);
