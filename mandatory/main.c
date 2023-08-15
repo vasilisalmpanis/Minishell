@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 18:26:28 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/15 13:11:49 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/15 16:08:14 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@ void	exit_min(char *input, t_lex **lst)
 
 int	main(int argc, char **argv, char **envp)
 {
-	char				*input; // idea: do *input[2] instead of using temp
-	char				*temp;
+	char				*input[2];
 	struct sigaction	sa;
 	t_lex				*lex_lst;
 	t_env				*env_lst;
@@ -45,24 +44,23 @@ int	main(int argc, char **argv, char **envp)
 		return (1);
 	while (1)
 	{
-		temp = prompt();
-		input = readline(temp);
-		free(temp);
-		// if (!input)
-		// 	exit_min(input);
-		temp = ft_strdup(input);
-		if (!temp)
+		input[0] = prompt();
+		input[1] = readline(input[0]);
+		free(input[0]);
+		if (!input[1])
+			exit_min(input[1], &lex_lst);
+		input[0] = ft_strdup(input[1]);
+		if (!input[0])
 			return (1);
-		lex_lst = lex(temp); // maybe check for null or in parser
+		lex_lst = lex(input[0]); // maybe check for null or in parser
 		cmd_lst = parser(lex_lst, env_lst);
 		// ft_show_tab2(cmd_lst);
-		
 		execute(cmd_lst, env_lst);
-		if (strcmp(input, "exit") == 0)
-			exit_min(input, &lex_lst);
-		// add_history(input);
-		// free(input);
-		// ft_lst_free(&lst); // probably only need to free the cmd lst and not lex as lex is freed when parsing
+		if (strcmp(input[1], "exit") == 0)
+			exit_min(input[1], &lex_lst);
+		add_history(input[1]);
+		free(input[1]);
+		ft_cmd_lst_free(&cmd_lst);
 	}
 }
 

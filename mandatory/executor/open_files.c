@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:45:22 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/15 14:54:10 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/15 15:31:08 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,10 @@ int	open_infile(t_cmd *cmd, int **fd)
 	int	fd_temp;
 
 	fd_temp = 0;
+	// if (cmd->hd_flag)
+	// {
+	// 	fd_temp = heredoc(cmd);
+	// }
 	if (cmd->in_flag)
 	{
 		fd_temp = open(cmd->in_file, O_RDONLY);
@@ -75,6 +79,30 @@ int	open_infile(t_cmd *cmd, int **fd)
 	}
 	return (0);
 }
+
+
+// int	heredoc(t_cmd *cmd)
+// {
+// 	int		fd;
+// 	char	*buf;
+
+// 	fd = open("temp", O_CREAT | O_TRUNC, 00644);
+// 	if (fd == -1)
+// 		exit(EXIT_FAILURE);
+// 	while (1)
+// 	{
+// 		write(0, "> ", 2);
+// 		buf = get_next_line(0);
+// 		if (!buf)
+// 			exit(EXIT_FAILURE);
+// 		rm_newline(&buf);
+// 		write(fd, buf, ft_strlen(buf));
+// 		if (ft_memcmp(cmd->delim, buf, ft_strlen(cmd->delim) + 1) == 0)
+// 			break ;
+// 		free(buf);
+// 	}
+// 	return (fd);
+// }
 
 int	open_outfile(t_cmd *cmd, int **fd)
 {
