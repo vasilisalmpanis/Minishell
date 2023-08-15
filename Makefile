@@ -18,14 +18,17 @@ SRC =	mandatory/main.c \
 		mandatory/parser/analyze_word.c \
 		mandatory/parser/analyze_cmd_utils.c \
 		mandatory/parser/analyze_redir.c \
-		mandatory/executor/execute.c
+		mandatory/executor/execute.c \
+		mandatory/executor/open_files.c \
+		mandatory/executor/executor_utils1.c \
+		mandatory/executor/executor_utils2.c \
 
 
 
 LIBFT = ./libft
 RM = rm -rf
 CC = gcc
-CFLAGS = -g -Wall -Wextra -Werror
+CFLAGS = -g -Wall -Wextra -Werror -fsanitize=address
 OBJ = $(SRC:.c=.o)
 GREEN = \033[0;32m
 RED = \033[0;31m

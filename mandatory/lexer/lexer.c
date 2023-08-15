@@ -6,12 +6,11 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 16:15:37 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/13 18:36:48 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/15 17:09:41 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
 
 int	check_quotes(const char *input, int single, int dbl)
 {
@@ -74,7 +73,6 @@ t_lex	*lex(char *input)
 t_lex	*create_token(char *split, int *pos)
 {
 	t_lex	*new_token;
-	char	*word;
 
 	(*pos)++;
 	if (!(ft_strncmp(split, "|", ft_strlen(split))))
@@ -92,15 +90,24 @@ t_lex	*create_token(char *split, int *pos)
 		new_token = ft_new_tk(split, TK_HERE_DOC, *pos);
 	else
 	{
-		if (check_syntax_err(split))
-			return ((ft_putstr_fd("Syntax error near '><'", 2)), NULL);
-		word = check_expand(split); 
-		if (!word)
+		if (create_word_token(split, pos, &new_token))
 			return (NULL);
-		new_token = ft_new_tk(word, TK_WORD, *pos);
-		free(word);
 	}
 	return (new_token);
+}
+
+int	create_word_token(char *split, int *pos, t_lex **new_token)
+{
+	char	*word;
+
+	if (check_syntax_err(split))
+		return ((ft_putstr_fd("Syntax error near '><'", 2)), 1);
+	word = check_expand(split, -1); 
+	if (!word)
+		return (1);
+	*new_token = ft_new_tk(word, TK_WORD, *pos);
+	free(word);
+	return (0);
 }
 
 int	check_syntax_err(char *word)
@@ -118,15 +125,15 @@ int	check_syntax_err(char *word)
 }
 
 // for testing lexer
- void	ft_show_tab(t_lex *list)
-  {
-  	while (list)
-  	{
-  		ft_putstr_fd(list->value, 1);
-  		write(1, "\n", 1);
-  		printf("token: %c\n", list->token);
-  		// write(1, "\n", 1);
-  		list = list->next;
-  	}
-  }
+//  void	ft_show_tab(t_lex *list)
+//   {
+//   	while (list)
+//   	{
+//   		ft_putstr_fd(list->value, 1);
+//   		write(1, "\n", 1);
+//   		printf("token: %c\n", list->token);
+//   		// write(1, "\n", 1);
+//   		list = list->next;
+//   	}
+//   }
 // function to check for expansion
