@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 13:38:10 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/14 17:50:32 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/15 12:43:43 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	execute(t_cmd *cmd_lst, t_env *env_lst)
 		cmd_lst = cmd_lst->next;
 	}
 	close_fds(fd, num_cmds);
-	wait_for_children(cmd_lst_start);
+	// wait_for_children(cmd_lst_start, num_cmds);
 	return (0); // probably rather return last exit code
 }
 
@@ -62,19 +62,18 @@ int	exec_builtin(t_cmd *cmd, t_env *env_lst)
 {
 	int	fd_temp;
 	int	exit_code;
+	int	fd_stdout;
 
-	if (cmd->in_flag)
+	fd_stdout = dup(STDOUT_FILENO);
+	if (cmd->out_flag || cmd->app_flag) // check for append, open depends on it
 	{
-		fd_temp = open(cmd->file, O_RDONLY);
-		if (fd_temp == -1)
-			return (printf("Error\n"), 1); // add proper err msg
-		if (dup2(fd_temp, STDIN_FILENO) == -1) // reset after exec
-			return (1);
-		close(fd_temp);
-	}
-	if (cmd->out_flag) // check for append, open depends on it
-	{
-		fd_temp = open(cmd->file, O_RDWR | O_CREAT | O_TRUNC, 00644);
+		if (cmd->out_flag)
+			fd_temp = open(cmd->out_file, O_RDWR | O_CREAT | O_TRUNC, 00644);
+		if (cmd->app_flag)
+		{
+			close(fd_temp);
+			fd_temp = open(cmd->app_file, O_RDWR | O_CREAT | O_APPEND, 00644);
+		}
 		if (fd_temp == -1)
 			return (printf("Error\n"), 1); // add proper err msg
 		if (dup2(fd_temp, STDOUT_FILENO) == -1)
@@ -93,10 +92,8 @@ int	exec_builtin(t_cmd *cmd, t_env *env_lst)
 		exit_code = export(&env_lst, cmd);
 	else if (!ft_strncmp(cmd->cmd, "unset", ft_strlen(cmd->cmd)))
 		exit_code = unset(&env_lst, cmd);
-	if (dup2(0, STDIN_FILENO) == -1)
-			return (1);
-	if (dup2(1, STDOUT_FILENO) == -1)
-			return (1);
+	if (dup2(fd_stdout, STDOUT_FILENO) == -1)
+			return (ft_putstr_fd("Error stdout", 2), 1);
 	return (0);
 }
 
@@ -107,9 +104,9 @@ int	child_process(t_cmd *cmd_lst, t_env *env_lst, int **fd, int count)
 	(void)env_lst;
 	if (cmd_lst->in_flag)
 	{
-		fd_temp = open(cmd_lst->file, O_RDONLY);
+		fd_temp = open(cmd_lst->in_file, O_RDONLY);
 		if (fd_temp == -1)
-			return (printf("Error\n"), 1); // add proper err msg
+			return (printf("Error infile\n"), 1); // add proper err msg
 		if (dup2(fd_temp, STDIN_FILENO) == -1)
 			return (1);
 		close(fd_temp);
@@ -124,9 +121,9 @@ int	child_process(t_cmd *cmd_lst, t_env *env_lst, int **fd, int count)
 	}
 	if (cmd_lst->out_flag) // check for append, open depends on it
 	{
-		fd_temp = open(cmd_lst->file, O_RDWR | O_CREAT | O_TRUNC, 00644);
+		fd_temp = open(cmd_lst->out_file, O_RDWR | O_CREAT | O_TRUNC, 00644);
 		if (fd_temp == -1)
-			return (printf("Error\n"), 1); // add proper err msg
+			return (printf("Error outfile\n"), 1); // add proper err msg
 		if (dup2(fd_temp, STDOUT_FILENO) == -1)
 			return (1);
 		close(fd_temp);
@@ -140,8 +137,9 @@ int	child_process(t_cmd *cmd_lst, t_env *env_lst, int **fd, int count)
 		}
 	}
 	close_fds(fd, count);
-	if (!cmd_lst->path)
-		return (printf("Error: path not known\n"), 1);
+	// function to check if PATH exists; if not give error
+	// if (!cmd_lst->path)
+	// 	return (printf("Error: path not known\n"), 1);
 	if (!cmd_lst->args)
 		return (printf("No args provided\n"), 1);
 	if (execve(cmd_lst->path, cmd_lst->args, NULL) == -1)
@@ -163,30 +161,29 @@ void	close_fds(int **fd, int count)
 	}
 }
 
-void	wait_for_children(t_cmd *start)
+int	wait_for_children(t_cmd *start, int count_cmds)
 {
 	int		status;
 	int		exit_code;
 
 	status = 0;
 	exit_code = 0;
+	(void)count_cmds;
 	while (start->next)
 	{
-		if (start->pid != -1)
-			waitpid(start->pid, NULL, 0);
+		// if (count_cmds == 1 && start->builtin)
+		waitpid(start->pid, NULL, 0);
 		start = start->next;
 	}
-	if (start->pid != -1)
+	if (waitpid(start->pid, &status, 0) == -1)
+		return(EXIT_FAILURE); // store that in some variable
+	if (WIFEXITED(status))
 	{
-		if (waitpid(start->pid, &status, 0) == -1)
-			exit(EXIT_FAILURE); // store that in some variable
-		if (WIFEXITED(status))
-		{
-			exit_code = WEXITSTATUS(status);
-			if (exit_code != 0)
-				exit(exit_code); // store that in some variable
-		}
+		exit_code = WEXITSTATUS(status);
+		if (exit_code != 0)
+			return(exit_code); // store that in some variable
 	}
+	return (0);
 }
 
 

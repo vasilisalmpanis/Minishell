@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 18:26:28 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/14 15:30:32 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/15 12:44:52 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	main(int argc, char **argv, char **envp)
 			return (1);
 		lex_lst = lex(temp); // maybe check for null or in parser
 		cmd_lst = parser(lex_lst, env_lst);
-		// ft_show_tab2(cmd_lst);
+		ft_show_tab2(cmd_lst);
 		
 		execute(cmd_lst, env_lst);
 		if (strcmp(input, "exit") == 0)
@@ -79,8 +79,10 @@ void	ft_show_tab2(t_cmd *list)
 		printf("hd_flag: %d\n", list->hd_flag);
 		printf("in_flag: %d\n", list->in_flag);
 		printf("out_flag: %d\n", list->out_flag);
-		printf("infile: %s\n", list->file);
-		// printf("outfile: %s\n", list->out_file);
+		printf("app_flag: %d\n", list->app_flag);
+		printf("infile: %s\n", list->in_file);
+		printf("outfile: %s\n", list->out_file);
+		printf("appfile: %s\n", list->app_file);
 		printf("delim: %s\n", list->delim);
 		printf("opts: %d\n", list->opt);
 		printf("cmd: %s\n", list->cmd);

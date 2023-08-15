@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 16:46:21 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/15 11:06:05 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/15 12:41:56 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,13 @@ int	set_filename(t_lex **lex_lst, t_cmd *new_cmd, int token)
 		free(new_cmd);
 		return (1);
 	}
-	if (token == TK_APP_R || token == TK_OUT_R)
+	if (token == TK_APP_R)
+	{
+		new_cmd->app_file = strdup((*lex_lst)->value);
+		if (!new_cmd->app_file)
+			return (1);
+	}
+	if (token == TK_OUT_R)
 	{
 		new_cmd->out_file = strdup((*lex_lst)->value);
 		if (!new_cmd->out_file)
