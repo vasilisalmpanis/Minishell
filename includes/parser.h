@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 17:20:07 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/14 14:51:14 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/15 11:01:50 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ typedef struct s_cmd
 	int				hd_flag;
 	int				env_flag;
 	char			*delim;
-	char			*file;
-	// char			*in_file;
-	// char			*out_file;
+	// char			*file;
+	char			*in_file;
+	char			*out_file;
 	struct s_cmd	*next;
 }				t_cmd;
 
@@ -50,6 +50,7 @@ char	**extract_paths(t_env **env_lst);
 
 int		set_here_doc_flag(t_lex **lex_lst, t_cmd *new_cmd);
 int		set_redir_flags(t_lex **lex_lst, t_cmd *new_cmd);
+int		set_filename(t_lex **lex_lst, t_cmd *new_cmd, int token);
 
 int		analyze_word(t_lex **lex_lst, t_cmd *new_cmd, \
 						int *arg_num, char **env_p);

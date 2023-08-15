@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 16:03:16 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/12 15:45:30 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/15 11:03:45 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,10 @@ void	ft_cmd_lst_free(t_cmd **lst)
 			ft_free(temp->args);
 		if (temp->delim)
 			free(temp->delim);
-		if (temp->file)
-			free(temp->file);
+		if (temp->in_file)
+			free(temp->in_file);
+		if (temp->out_file)
+			free(temp->out_file);
 		//free env?
 		free(temp);
 	}
