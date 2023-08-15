@@ -18,7 +18,8 @@ SRC =	mandatory/main.c \
 		mandatory/parser/analyze_word.c \
 		mandatory/parser/analyze_cmd_utils.c \
 		mandatory/parser/analyze_redir.c \
-		mandatory/executor/execute.c
+		mandatory/executor/execute.c \
+		mandatory/executor/open_files.c
 
 
 
