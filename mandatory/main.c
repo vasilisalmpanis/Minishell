@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 18:26:28 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/16 18:34:47 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/16 19:08:28 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,45 @@ void	exit_min(char *input, t_lex **lst)
 	exit(1);
 }
 
+void	signals(void (*handler)(int))
+{
+	struct sigaction	sa;
+
+	sa.sa_handler = handler;
+	sigemptyset(&sa.sa_mask);
+	sa.sa_flags = 0;
+	sigaction(SIGINT, &sa, NULL);
+	sigaction(SIGQUIT, &sa, NULL);
+}
+
+void	silence(void)
+{
+	struct termios	term;
+
+	if (isatty(STDIN_FILENO))
+	{
+		tcgetattr(STDIN_FILENO, &term);
+		term.c_lflag = term.c_lflag & ~ECHOCTL;
+		tcsetattr(STDIN_FILENO, TCSANOW, &term);
+	}
+	else if (isatty(STDOUT_FILENO))
+	{
+		tcgetattr(STDOUT_FILENO, &term);
+		term.c_lflag = term.c_lflag & ~ECHOCTL;
+		tcsetattr(STDOUT_FILENO, TCSANOW, &term);
+	}
+	else if (isatty(STDERR_FILENO))
+	{
+		tcgetattr(STDERR_FILENO, &term);
+		term.c_lflag = term.c_lflag & ~ECHOCTL;
+		tcsetattr(STDERR_FILENO, TCSANOW, &term);
+	}
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	char				*input[2];
 	int					exit_code;
-	struct sigaction	sa;
 	t_lex				*lex_lst;
 	t_env				*env_lst;
 	t_cmd				*cmd_lst;
@@ -36,11 +70,8 @@ int	main(int argc, char **argv, char **envp)
 		return (1);
 	(void)argv;
 	exit_code = 0;
-	sa.sa_handler = &handle_sigint;
-	sigemptyset(&sa.sa_mask);
-	sa.sa_flags = 0;
-	sigaction(SIGINT, &sa, NULL);
-	sigaction(SIGQUIT, &sa, NULL);
+	signals(handle_sigint);
+	silence();
 	env_lst = create_env(envp);
 	if (!env_lst)
 		return (1);
