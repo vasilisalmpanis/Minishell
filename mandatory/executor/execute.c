@@ -95,8 +95,11 @@ int	child_process(t_cmd *cmd, t_env *env_lst, int **fd, int count)
 	// if (!cmd_lst->path)
 	// 	return (printf("Error: path not known\n"), 1);
 	if (!cmd->args)
-		return (printf("No args provided\n"), 1);
+	{
+		printf("No args provided\n");
+		exit(1);
+	}
 	if (execve(cmd->path, cmd->args, NULL) == -1)
 		exit(EXIT_FAILURE);
-	return (0);
+	exit (0);
 }

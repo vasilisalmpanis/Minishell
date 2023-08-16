@@ -22,11 +22,11 @@ void	exit_min(char *input, t_lex **lst)
 	exit(1);
 }
 
-void	signals(void)
+void	signals(void (*handler)(int))
 {
 	struct sigaction	sa;
 
-	sa.sa_handler = &handle_sigint;
+	sa.sa_handler = handler;
 	sigemptyset(&sa.sa_mask);
 	sa.sa_flags = 0;
 	sigaction(SIGINT, &sa, NULL);
@@ -67,7 +67,7 @@ int	main(int argc, char **argv, char **envp)
 	if (argc > 1)
 		return (1);
 	(void)argv;
-	signals();
+	signals(handle_sigint);
 	silence();
 	env_lst = create_env(envp);
 	if (!env_lst)

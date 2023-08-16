@@ -39,12 +39,12 @@ int	open_outfiles_builtin(t_cmd *cmd, int **fd)
 		if (cmd->next)
 		{
 			if (dup2(fd[cmd->cmd_id][1], STDOUT_FILENO) == -1)
-				exit(EXIT_FAILURE);
+				return (EXIT_FAILURE);
 		}
 		else
 		{
 			if (dup2(fd_temp, STDOUT_FILENO) == -1)
-				exit(EXIT_FAILURE);
+				return (EXIT_FAILURE);
 		}
 		close(fd_temp);
 	}
@@ -64,9 +64,12 @@ int	open_infile(t_cmd *cmd, int **fd)
 	{
 		fd_temp = open(cmd->in_file, O_RDONLY);
 		if (fd_temp == -1)
-			return (printf("Error infile\n"), 1); // add proper err msg
+		{
+			printf("minishell: %s: not file or directory\n", cmd->in_file);
+			exit(1); // add proper err msg
+		}
 		if (dup2(fd_temp, STDIN_FILENO) == -1)
-			return (1);
+			exit (1);
 		close(fd_temp);
 	}
 	else
@@ -74,7 +77,7 @@ int	open_infile(t_cmd *cmd, int **fd)
 		if (cmd->cmd_id > 0)
 		{
 			if (dup2(fd[cmd->cmd_id - 1][0], STDIN_FILENO) == -1)
-				return (1);
+				exit (1);
 		}
 	}
 	return (0);
