@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 16:15:37 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/16 12:17:32 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/16 16:38:56 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ t_lex	*lex(char *input, int exit_code)
 	{
 		new_token = create_token(split[i], &pos, exit_code);
 		if (!(new_token))
-			return (ft_lst_free(&token_lst), NULL);
+			return (ft_lst_free(&token_lst), NULL); // probably need to free split here
 		ft_lstadd_end(&token_lst, new_token);
 	}
 	ft_free(split);
@@ -102,10 +102,12 @@ int	create_word_token(char *split, int *pos, t_lex **new_token, int exit_code)
 
 	if (check_syntax_err(split))
 		return ((ft_putstr_fd("Syntax error near '><'", 2)), 1);
-	word = check_expand(split, -1, exit_code); 
+	word = check_expand(split, -1, exit_code, 1); 
 	if (!word)
 		return (1);
 	*new_token = ft_new_tk(word, TK_WORD, *pos);
+	if (!(*new_token))
+		return (free(word), 1);
 	free(word);
 	return (0);
 }

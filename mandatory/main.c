@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 18:26:28 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/16 12:47:08 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/16 18:34:47 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,14 @@ int	main(int argc, char **argv, char **envp)
 		lex_lst = lex(input[0], exit_code); // maybe check for null or in parser
 		if (!lex_lst)
 			exit_code = 1;
-		cmd_lst = parser(lex_lst, env_lst);
-		// ft_show_tab2(cmd_lst);
-		execute(cmd_lst, env_lst);
+		else
+		{
+			cmd_lst = parser(lex_lst, env_lst);
+			if (!cmd_lst)
+				exit_code = 1;
+			else
+				exit_code = execute(cmd_lst, env_lst, exit_code);
+		}
 		if (strcmp(input[1], "exit") == 0)
 			exit_min(input[1], &lex_lst);
 		add_history(input[1]);
@@ -68,7 +73,7 @@ int	main(int argc, char **argv, char **envp)
 	}
 }
 
-// ft_show_tab(lst);
+
 
 void	ft_show_tab2(t_cmd *list)
 {

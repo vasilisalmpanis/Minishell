@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:45:22 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/16 11:38:07 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/16 18:30:43 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,23 +31,29 @@ int	open_files(t_cmd *cmd)
 
 int	open_outfiles_builtin(t_cmd *cmd, int **fd)
 {
-	int	fd_temp;
+	// int	fd_temp;
 
-	if (cmd->out_flag || cmd->app_flag)
+	if (cmd->next)
 	{
-		fd_temp = open_files(cmd);
-		if (cmd->next)
-		{
-			if (dup2(fd[cmd->cmd_id][1], STDOUT_FILENO) == -1)
-				exit(EXIT_FAILURE);
-		}
-		else
-		{
-			if (dup2(fd_temp, STDOUT_FILENO) == -1)
-				exit(EXIT_FAILURE);
-		}
-		close(fd_temp);
+		if (dup2(fd[cmd->cmd_id][1], STDOUT_FILENO) == -1)
+			exit(EXIT_FAILURE);
 	}
+
+	// if (cmd->out_flag || cmd->app_flag)
+	// {
+	// 	fd_temp = open_files(cmd);
+	// 	if (cmd->next)
+	// 	{
+	// 		if (dup2(fd[cmd->cmd_id][1], STDOUT_FILENO) == -1)
+	// 			exit(EXIT_FAILURE);
+	// 	}
+	// 	else
+	// 	{
+	// 		if (dup2(fd_temp, STDOUT_FILENO) == -1)
+	// 			exit(EXIT_FAILURE);
+	// 	}
+	// 	close(fd_temp);
+	// }
 	return (0);
 }
 
@@ -113,7 +119,6 @@ int	heredoc(t_cmd *cmd)
 	char	*buf;
 	char	*buf2;
 
-	buf2 = malloc(100);
 	fd = open(HEREDOC, O_RDWR | O_CREAT | O_TRUNC, 00644);
 	if (fd == -1)
 		exit(EXIT_FAILURE);
@@ -126,8 +131,12 @@ int	heredoc(t_cmd *cmd)
 		rm_newline(&buf);
 		if (ft_memcmp(cmd->delim, buf, ft_strlen(cmd->delim) + 1) == 0)
 			break ;
-		ft_putstr_fd_mod(buf, fd);
+		buf2 = check_expand(buf, -1, 0, 0); // should include exit code as third param
+		if (!buf2)
+			exit(EXIT_FAILURE);
 		free(buf);
+		ft_putstr_fd_mod(buf2, fd);
+		free(buf2);
 	}
 	free(buf);
 	close(fd);
