@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 13:38:10 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/15 15:03:15 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/16 12:01:25 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,16 +87,59 @@ int	builtin_process(t_cmd *cmd, t_env *env_lst, int **fd)
 
 int	child_process(t_cmd *cmd, t_env *env_lst, int **fd, int count)
 {
-	(void)env_lst;
+	char	**env_array;
+	
 	open_infile(cmd, fd);
 	open_outfile(cmd, fd);
 	close_fds(fd, count);
-	// function to check if PATH exists; if not give error
-	// if (!cmd_lst->path)
-	// 	return (printf("Error: path not known\n"), 1);
+	if (!check_path_existence(env_lst))
+		exit(EXIT_FAILURE); // error message
+	env_array = new_env(env_lst);
+	if (!env_array)
+		exit(EXIT_FAILURE);
 	if (!cmd->args)
 		return (printf("No args provided\n"), 1);
-	if (execve(cmd->path, cmd->args, NULL) == -1)
+	if (execve(cmd->path, cmd->args, env_array) == -1)
 		exit(EXIT_FAILURE);
+	return (0);
+}
+
+char	**new_env(t_env *env_lst)
+{
+	char	**env_array;
+	char	*temp;
+	int		len;
+	int		i;
+
+	i = -1;
+	len = env_lst_size(env_lst);
+	env_array = ft_calloc(len + 1, sizeof(*env_array));
+	if (!env_array)
+		return (NULL);
+	while (env_lst)
+	{
+		if (env_lst->value[0] != '\0')
+		{
+			temp = ft_strjoin(env_lst->key, "=");
+			if (!temp)
+				return (ft_free(env_array), NULL);
+			env_array[++i] = ft_strjoin(temp, env_lst->value);
+			if (!env_array[i])
+				return (ft_free(env_array), NULL);
+			free(temp);
+		}
+		env_lst = env_lst->next;
+	}
+	return (env_array);
+}
+
+int	check_path_existence(t_env *env_lst)
+{
+	while (env_lst)
+	{
+		if (!(ft_strncmp(env_lst->key, "PATH", ft_strlen(env_lst->key))))
+			return (1);
+		env_lst = env_lst->next;
+	}
 	return (0);
 }

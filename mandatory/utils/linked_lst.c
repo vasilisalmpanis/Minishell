@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 16:03:16 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/15 12:42:16 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/16 11:48:11 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,3 +111,5 @@ void	ft_lst_free(t_lex **lst)
 		free(temp);
 	}
 }
+
+

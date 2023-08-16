@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 16:13:07 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/13 18:16:11 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/16 11:50:14 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,7 @@ int		calc_redir_wo_space(char *input);
 int		calc_redir_wo_space2(char *input);
 void	skip_quotes(char *input, int *i, char **new_input, int *j);
 void	skip_quotes2(char *input, int *i);
+
+int		env_lst_size(t_env *env_lst);
 
 #endif
