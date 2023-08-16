@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 16:46:21 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/15 18:23:25 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/16 14:52:37 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	set_filename(t_lex **lex_lst, t_cmd *new_cmd, int token)
 	*lex_lst = (*lex_lst)->next;
 	if (!(*lex_lst) || (*lex_lst)->token != TK_WORD)
 	{
-		ft_putstr_fd("Error: No filename provided after redirect\n", 2);
+		printf("Minishell: syntax error near unexpected token '%c'\n", (*lex_lst)->token);
 		free(new_cmd);
 		return (1);
 	}

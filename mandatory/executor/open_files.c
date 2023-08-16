@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:45:22 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/15 16:41:06 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/16 18:30:43 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,23 +31,29 @@ int	open_files(t_cmd *cmd)
 
 int	open_outfiles_builtin(t_cmd *cmd, int **fd)
 {
-	int	fd_temp;
+	// int	fd_temp;
 
-	if (cmd->out_flag || cmd->app_flag)
+	if (cmd->next)
 	{
-		fd_temp = open_files(cmd);
-		if (cmd->next)
-		{
-			if (dup2(fd[cmd->cmd_id][1], STDOUT_FILENO) == -1)
-				exit(EXIT_FAILURE);
-		}
-		else
-		{
-			if (dup2(fd_temp, STDOUT_FILENO) == -1)
-				exit(EXIT_FAILURE);
-		}
-		close(fd_temp);
+		if (dup2(fd[cmd->cmd_id][1], STDOUT_FILENO) == -1)
+			exit(EXIT_FAILURE);
 	}
+
+	// if (cmd->out_flag || cmd->app_flag)
+	// {
+	// 	fd_temp = open_files(cmd);
+	// 	if (cmd->next)
+	// 	{
+	// 		if (dup2(fd[cmd->cmd_id][1], STDOUT_FILENO) == -1)
+	// 			exit(EXIT_FAILURE);
+	// 	}
+	// 	else
+	// 	{
+	// 		if (dup2(fd_temp, STDOUT_FILENO) == -1)
+	// 			exit(EXIT_FAILURE);
+	// 	}
+	// 	close(fd_temp);
+	// }
 	return (0);
 }
 
@@ -56,11 +62,21 @@ int	open_infile(t_cmd *cmd, int **fd)
 	int	fd_temp;
 
 	fd_temp = 0;
-	// if (cmd->hd_flag)
-	// {
-	// 	fd_temp = heredoc(cmd);
-	// }
-	if (cmd->in_flag)
+	if (cmd->hd_flag)
+	{
+		heredoc(cmd);
+		fd_temp = open("temp", O_RDONLY);
+		if (fd_temp == -1)
+			exit(EXIT_FAILURE);
+		if (dup2(fd_temp, STDIN_FILENO) == -1)
+		{
+			printf("Error dup2\n");
+			return (1);
+		}
+		close(fd_temp);
+		unlink(HEREDOC);
+	}
+	else if (cmd->in_flag)
 	{
 		fd_temp = open(cmd->in_file, O_RDONLY);
 		if (fd_temp == -1)
@@ -80,28 +96,52 @@ int	open_infile(t_cmd *cmd, int **fd)
 	return (0);
 }
 
-// int	heredoc(t_cmd *cmd)
-// {
-// 	int		fd;
-// 	char	*buf;
+void	rm_newline(char **str)
+{
+	size_t	i;
 
-// 	fd = open("temp", O_CREAT | O_TRUNC, 00644);
-// 	if (fd == -1)
-// 		exit(EXIT_FAILURE);
-// 	while (1)
-// 	{
-// 		write(0, "> ", 2);
-// 		buf = get_next_line(0);
-// 		if (!buf)
-// 			exit(EXIT_FAILURE);
-// 		rm_newline(&buf);
-// 		write(fd, buf, ft_strlen(buf));
-// 		if (ft_memcmp(cmd->delim, buf, ft_strlen(cmd->delim) + 1) == 0)
-// 			break ;
-// 		free(buf);
-// 	}
-// 	return (fd);
-// }
+	i = 0;
+	while ((*str)[i] && (*str)[i] != '\n')
+		i++;
+	(*str)[i] = '\0';
+}
+
+void	ft_putstr_fd_mod(char *s, int fd)
+{
+	while (*s)
+		write(fd, s++, 1);
+	write(fd, "\n", 1);
+}
+
+int	heredoc(t_cmd *cmd)
+{
+	int		fd;
+	char	*buf;
+	char	*buf2;
+
+	fd = open(HEREDOC, O_RDWR | O_CREAT | O_TRUNC, 00644);
+	if (fd == -1)
+		exit(EXIT_FAILURE);
+	while (1)
+	{
+		write(0, "> ", 2);
+		buf = get_next_line(0);
+		if (!buf)
+			exit(EXIT_FAILURE);
+		rm_newline(&buf);
+		if (ft_memcmp(cmd->delim, buf, ft_strlen(cmd->delim) + 1) == 0)
+			break ;
+		buf2 = check_expand(buf, -1, 0, 0); // should include exit code as third param
+		if (!buf2)
+			exit(EXIT_FAILURE);
+		free(buf);
+		ft_putstr_fd_mod(buf2, fd);
+		free(buf2);
+	}
+	free(buf);
+	close(fd);
+	return (0);
+}
 
 int	open_outfile(t_cmd *cmd, int **fd)
 {

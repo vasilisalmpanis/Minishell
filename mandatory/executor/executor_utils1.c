@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:58:04 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/15 15:01:36 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/16 17:44:45 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	**allocate_fds(int count)
 	return (fd);
 }
 
-void	create_pipes(int **fd, int count)
+int	create_pipes(int **fd, int count)
 {
 	int	i;
 
@@ -51,9 +51,10 @@ void	create_pipes(int **fd, int count)
 	while (i < count - 1)
 	{
 		if (pipe(fd[i]) == -1)
-			exit(EXIT_FAILURE); // check what bash is doing in that case
+			return (printf("pipe failure\n"), 1);
 		i++;
 	}
+	return (0);
 }
 
 void	close_fds(int **fd, int count)

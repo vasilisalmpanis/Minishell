@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 16:15:37 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/15 17:09:41 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/16 16:38:56 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	check_quotes(const char *input, int single, int dbl)
 	return (single + dbl);
 }
 
-t_lex	*lex(char *input)
+t_lex	*lex(char *input, int exit_code)
 {
 	char	**split;
 	t_lex	*token_lst;
@@ -54,23 +54,23 @@ t_lex	*lex(char *input)
 	i = -1;
 	pos = 0;
 	if (check_quotes(input, 0, 0))
-		return (printf("error\n"), NULL);
+		return (printf("Uneven quote number\n"), NULL);
 	token_lst = NULL;
 	split = split_args(input);
 	if (!split)
 		return (NULL);
 	while (split[++i])
 	{
-		new_token = create_token(split[i], &pos);
+		new_token = create_token(split[i], &pos, exit_code);
 		if (!(new_token))
-			return (ft_lst_free(&token_lst), NULL);
+			return (ft_lst_free(&token_lst), NULL); // probably need to free split here
 		ft_lstadd_end(&token_lst, new_token);
 	}
 	ft_free(split);
 	return (token_lst);
 }
 
-t_lex	*create_token(char *split, int *pos)
+t_lex	*create_token(char *split, int *pos, int exit_code)
 {
 	t_lex	*new_token;
 
@@ -90,22 +90,24 @@ t_lex	*create_token(char *split, int *pos)
 		new_token = ft_new_tk(split, TK_HERE_DOC, *pos);
 	else
 	{
-		if (create_word_token(split, pos, &new_token))
+		if (create_word_token(split, pos, &new_token, exit_code))
 			return (NULL);
 	}
 	return (new_token);
 }
 
-int	create_word_token(char *split, int *pos, t_lex **new_token)
+int	create_word_token(char *split, int *pos, t_lex **new_token, int exit_code)
 {
 	char	*word;
 
 	if (check_syntax_err(split))
 		return ((ft_putstr_fd("Syntax error near '><'", 2)), 1);
-	word = check_expand(split, -1); 
+	word = check_expand(split, -1, exit_code, 1); 
 	if (!word)
 		return (1);
 	*new_token = ft_new_tk(word, TK_WORD, *pos);
+	if (!(*new_token))
+		return (free(word), 1);
 	free(word);
 	return (0);
 }

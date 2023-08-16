@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 14:26:53 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/14 15:13:04 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/16 11:28:39 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 # include "../readline/include/history.h"
 # include "../readline/include/readline.h"
 # include "../readline/include/rlstdc.h"
+# define HEREDOC "temp"
 
 //SIGNALS
 void	handle_sigquit(void);
