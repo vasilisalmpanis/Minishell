@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 11:58:26 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/14 17:51:20 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/16 19:07:36 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,15 +82,17 @@ int	cd_dir(t_cmd *cmd, t_env *env)
 	else
 	{
 		if (ft_strncmp(cmd->args[0], "~", ft_strlen(cmd->args[0])) == 0)
-		{
-			ft_printf("cd: ~: Not handled by minishell\n");
-			return (1);
-		}
+			return (ft_printf("cd: ~: Not handled by minishell\n"), 1);
 		else
 		{
 			if (chdir(cmd->args[0]) == 0)
 			{
 				home = getcwd(NULL, 0);
+				if (!home)
+				{
+					ft_printf("cd: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory\n");
+					home = ft_strdup(getenv("HOME"));
+				}
 				ft_change_env(env, home);
 				free(home);
 			}
