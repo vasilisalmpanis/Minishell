@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
+/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 08:08:00 by valmpani          #+#    #+#             */
-/*   Updated: 2023/07/22 15:58:19 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/08/16 11:03:40 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdio.h>
 # include <stdarg.h>
 # include <stdbool.h>
+# include "./gnl/get_next_line_bonus.h"
 
 int		ft_isalnum(int c);
 int		ft_isalpha(int c);
@@ -84,5 +85,7 @@ void	ft_hexa(unsigned long arg, int *length);
 void	ft_printnbr(char c, int arg, int *length);
 void	ft_putnbrhex(char c, unsigned int arg, char *base, int *length);
 void	ft_putunsigned(unsigned int nbr, char *base, int *length);
+
+char	*get_next_line(int fd);
 
 #endif

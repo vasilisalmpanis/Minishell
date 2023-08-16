@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 17:20:07 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/15 15:57:48 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/16 17:23:11 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ typedef struct s_cmd
 	int				builtin;
 	int				path_known;
 	int				is_sh_script;
-	// int				fd[2];
 	pid_t			pid;
 	int				cmd_id;
 	int				in_flag;
@@ -35,7 +34,6 @@ typedef struct s_cmd
 	int				hd_flag;
 	int				env_flag;
 	char			*delim;
-	// char			*file;
 	char			*in_file;
 	char			*out_file;
 	char			*app_file;

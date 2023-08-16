@@ -10,6 +10,12 @@ SRC		=	ft_bzero.c ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c ft_isprint
 BSRC	=	ft_lstnew.c	ft_lstadd_front.c ft_lstsize.c ft_lstlast.c ft_lstadd_back.c\
 			ft_lstdelone.c ft_lstclear.c ft_lstiter.c ft_lstmap.c\
 
+GNL_DIR = ./gnl/
+
+GNL_SRCS := $(addprefix $(GNL_DIR),get_next_line_bonus.c get_next_line_utils_bonus.c)
+
+GNL_OBJS := $(GNL_SRCS:$(GNL_DIR)%.c=$(GNL_DIR)%.o)
+
 OBJS	=	${SRC:.c=.o}
 BOBJS	=	${BSRC:.c=.o}
 INCS	=	"libft.h"
@@ -20,24 +26,27 @@ CFLAGS	=	-Wall -Wextra -Werror
 
 all : ${NAME}
 
-${NAME}:	${OBJS}
-	@${LIBC}	${NAME}	${OBJS}
+${NAME}:	${OBJS} $(GNL_OBJS)
+	@${LIBC}	${NAME}	${OBJS} $(GNL_OBJS)
 
 %.o: %.c
 		${CC} ${CFLAGS} -c $< -o $@
+
+$(GNL_DIR)%.o: $(GNL_DIR)%.c $(HEADERS)
+	cc $(CFLAGS) -I . -c $< -o $@
 
 ${BOBJS} : ${BSRC}
 	@${CC} ${CFLAGS} -c ${BSRC}
 
 
-bonus: ${BOBJS} ${OBJS}
+bonus: ${BOBJS} ${OBJS} $(GNL_OBJS)
 	@${LIBC}	${NAME}	${BOBJS}
 
 fclean : clean
 	@${RM} ${NAME}
 
 clean :
-	@${RM}	${OBJS}	${BOBJS}
+	@${RM}	${OBJS}	${BOBJS} $(GNL_OBJS)
 	
 re: fclean all
 

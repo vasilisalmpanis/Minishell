@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_dict.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valmpani <valmpani@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 12:57:46 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/09 12:57:46 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/08/16 11:49:44 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,32 +166,17 @@ t_env	*create_env(char **en)
 	return (lst);
 }
 
-//int main(int argc, char **argv, char **en)
-//{
-//	t_env	*lst;
-//	t_env	*tmp;
-//	char	**temp;
-//	int		i;
-//	t_cmd	cmd1;
-//
-//	i = 0;
-//	temp = ft_split(en[i], '=');
-//	lst = lst_env_node(temp[0], temp[1]);
-//	ft_free(temp);
-//	while (en[++i])
-//	{
-//		temp = ft_split(en[i], '=');
-//		tmp = lst_env_node(temp[0], temp[1]);
-//		ft_env_addback(&lst, tmp);
-//		ft_free(temp);
-//	}
-//	cmd1.args = NULL;
-//	export(&lst, &cmd1);
-////	ft_env_remove(&lst, "PATH");
-////	ft_env_remove(&lst, "SHLVL");
-////	ft_env_remove(&lst, "wefqwefwefwefewfef");
-////	ft_printf("-----------------------------\n");
-////	env(lst, cmd1);
-//	ft_env_free(&lst);
-//	return (0);
-//}
+// count list size
+
+int	env_lst_size(t_env *env_lst)
+{
+	int	count;
+
+	count = 0;
+	while(env_lst)
+	{
+		count++;
+		env_lst = env_lst->next;
+	}
+	return (count);
+}
