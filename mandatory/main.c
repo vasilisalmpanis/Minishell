@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 18:26:28 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/15 17:11:50 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/16 19:08:28 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ int	main(int argc, char **argv, char **envp)
 {
 	char				*input[2];
 	int					exit_code;
-
 	t_lex				*lex_lst;
 	t_env				*env_lst;
 	t_cmd				*cmd_lst;
@@ -105,7 +104,7 @@ int	main(int argc, char **argv, char **envp)
 	}
 }
 
-// ft_show_tab(lst);
+
 
 void	ft_show_tab2(t_cmd *list)
 {
