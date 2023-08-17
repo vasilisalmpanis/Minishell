@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 14:26:53 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/16 11:28:39 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/17 10:35:14 by valmpani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,9 @@
 //SIGNALS
 void	handle_sigquit(void);
 void	handle_sigint(int signum);
+void	handle_sigint_child(int signum);
+void	silence(void);
+int	    signals(void (*handler)(int));
 
 //PROMPT
 void	get_repo(char **input, char *head, char *w);

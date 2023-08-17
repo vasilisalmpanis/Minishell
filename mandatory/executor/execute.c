@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 13:38:10 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/16 18:22:27 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/17 10:35:01 by valmpani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+extern int is_child_process;
 
 int	execute(t_cmd *cmd_lst, t_env *env_lst, int exit_code)
 {
@@ -47,6 +49,7 @@ pid_t	execute_cmd(t_cmd *cmd_lst, t_env *env_lst, int **fd, int count_cmds)
 		return (builtin_process(cmd_lst, env_lst, fd)); // don't create child process; execute builtin return -1?
 	else 
 	{
+		signal(SIGINT, handle_sigint_child);
 		pid = fork();
 		if (pid < 0)
 			return (1);
