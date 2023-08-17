@@ -6,35 +6,31 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:59:05 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/16 18:12:55 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/17 15:35:32 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	wait_for_children(t_cmd *start, int count_cmds)
+int	wait_for_children(t_cmd *start)
 {
 	int		status;
 	int		exit_code;
 
 	status = 0;
 	exit_code = 0;
-	while (start->next)
+	while (start && start->next)
 	{
-		if (!(count_cmds == 1 && start->builtin))
-			waitpid(start->pid, NULL, 0);
+		waitpid(start->pid, NULL, 0);
 		start = start->next;
 	}
-	if (!(count_cmds == 1 && start->builtin))
+	if (waitpid(start->pid, &status, 0) == -1)
+		return (1);
+	if (WIFEXITED(status))
 	{
-		if (waitpid(start->pid, &status, 0) == -1)
-			return (1);
-		if (WIFEXITED(status))
-		{
-			exit_code = WEXITSTATUS(status);
-			if (exit_code != 0)
-				return (exit_code);
-		}
+		exit_code = WEXITSTATUS(status);
+		if (exit_code != 0)
+			return (exit_code);
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 13:59:27 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/17 13:43:45 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/17 15:35:49 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	ft_putstr_fd_mod(char *s, int fd);
 
 
 
-int		wait_for_children(t_cmd *start, int count_cmds);
+int		wait_for_children(t_cmd *start);
 int		exec_builtin(t_cmd *cmd, t_env *env_lst);
 
 

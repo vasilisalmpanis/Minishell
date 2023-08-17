@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 13:38:10 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/17 15:13:09 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/17 15:35:39 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	execute(t_cmd *cmd_lst, t_env *env_lst, int exit_code)
 	}
 	close_fds(fd, num_cmds);
 	if (!(num_cmds == 1 && cmd_lst_start->builtin))
-		exit_code = wait_for_children(cmd_lst_start, num_cmds);
+		exit_code = wait_for_children(cmd_lst_start);
 	else
 		exit_code = (int)cmd_lst_start->pid;
 	return (exit_code);
