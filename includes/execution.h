@@ -6,12 +6,14 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 13:59:27 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/16 17:46:28 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/17 13:43:45 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXECUTION_H
 # define EXECUTION_H
+# define IN 0
+# define OUT 1
 
 #include "minishell.h"
 
@@ -28,13 +30,15 @@ int		**allocate_fds(int count);
 int		create_pipes(int **fd, int count);
 void	close_fds(int **fd, int count);
 
-int		open_outfile(t_cmd *cmd, int **fd);
-int		open_infile(t_cmd *cmd, int **fd);
-int		open_outfiles_builtin(t_cmd *cmd, int **fd);
-int		open_files(t_cmd *cmd);
-void	ft_putstr_fd_mod(char *s, int fd);
-int		heredoc(t_cmd *cmd);
+int		open_files(t_cmd *cmd, int **fd);
+int		*open_in_out_files(t_cmd *cmd);
+int		open_in_file(t_file *cmd);
+int		open_out_file(t_file *cmd);
+int		open_heredocs(t_cmd *cmd);
+int		heredoc(t_file *cmd);
 void	rm_newline(char **str);
+void	ft_putstr_fd_mod(char *s, int fd);
+
 
 
 int		wait_for_children(t_cmd *start, int count_cmds);

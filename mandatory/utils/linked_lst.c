@@ -6,12 +6,48 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 16:03:16 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/16 14:32:50 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/17 14:44:07 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+
+void	ft_file_lst_add(t_file **lst, t_file *new_file)
+{
+	t_file	**ptr;
+
+	ptr = lst;
+	while (*ptr)
+		ptr = &(*ptr)->next;
+	*ptr = new_file;
+}
+
+
+t_file	*create_new_file(char *delim, t_token token, char *name)
+{
+	t_file	*node;
+
+	node = (t_file *)malloc(sizeof(*node));
+	if (!node)
+		return(NULL);
+	ft_bzero(node, sizeof(*node));
+	if (name)
+	{
+		node->name = ft_strdup(name);
+		if (!node->name)
+			return (NULL);
+	}
+	if (delim)
+	{
+		node->delim = ft_strdup(delim);
+		if (!node->delim)
+			return (NULL);
+	}
+	node->token = token;
+	node->next = NULL;
+	return (node);
+}
 
 t_cmd	*ft_new_cmd(int id, char **env_paths)
 {
@@ -23,7 +59,7 @@ t_cmd	*ft_new_cmd(int id, char **env_paths)
 	ft_bzero(node, sizeof(*node));
 	if (env_paths)
 		node->env_flag = 1;
-	node->cmd_id= id;
+	node->cmd_id = id;
 	node->next = NULL;
 	return (node);
 }
@@ -61,15 +97,7 @@ void	ft_cmd_lst_free(t_cmd **lst)
 			free(temp->path);
 		if (temp->args)
 			ft_free(temp->args);
-		if (temp->delim)
-			free(temp->delim);
-		if (temp->in_file)
-			free(temp->in_file);
-		if (temp->out_file)
-			free(temp->out_file);
-		if (temp->app_file)
-			free(temp->app_file);
-		//free env?
+		//free file list
 		free(temp);
 	}
 }

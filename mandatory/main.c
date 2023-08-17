@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 18:26:28 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/16 19:08:28 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/17 15:11:19 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ int	main(int argc, char **argv, char **envp)
 		return (1);
 	(void)argv;
 	exit_code = 0;
+	cmd_lst = NULL;
 	signals(handle_sigint);
 	silence();
 	env_lst = create_env(envp);
@@ -91,6 +92,7 @@ int	main(int argc, char **argv, char **envp)
 		else
 		{
 			cmd_lst = parser(lex_lst, env_lst);
+			// ft_show_tab2(cmd_lst);
 			if (!cmd_lst)
 				exit_code = 1;
 			else
@@ -105,6 +107,7 @@ int	main(int argc, char **argv, char **envp)
 }
 
 
+// ft_show_tab2(cmd_lst);
 
 void	ft_show_tab2(t_cmd *list)
 {
@@ -114,15 +117,16 @@ void	ft_show_tab2(t_cmd *list)
 	while (list)
 	{
 		printf("cmd id: %d\n", list->cmd_id);
-		printf("hd_flag: %d\n", list->hd_flag);
-		printf("in_flag: %d\n", list->in_flag);
-		printf("out_flag: %d\n", list->out_flag);
-		printf("app_flag: %d\n", list->app_flag);
-		printf("infile: %s\n", list->in_file);
-		printf("outfile: %s\n", list->out_file);
-		printf("appfile: %s\n", list->app_file);
-		printf("delim: %s\n", list->delim);
-		printf("opts: %d\n", list->opt);
+		if (list->file)
+		{
+			while (list->file)
+			{
+				printf("heredoc_delim: %s\n", list->file->delim);
+				printf("file name: %s\n", list->file->name);
+				printf("token: %c\n", list->file->token);
+				list->file = list->file->next;
+			}
+		}
 		printf("cmd: %s\n", list->cmd);
 		printf("builtin: %d\n", list->builtin);
 		printf("path: %s\n", list->path);

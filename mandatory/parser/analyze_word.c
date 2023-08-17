@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 15:08:23 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/15 15:57:44 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/17 14:11:32 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int	analyze_word(t_lex **lex_lst, t_cmd *new_cmd, int *arg_num, char **env_p)
 {
-	int	is_cmd;
+	int		is_cmd;
 
-	is_cmd = check_word_type(*lex_lst, new_cmd);
+	is_cmd = check_word_type(new_cmd);
 	if (is_cmd)
 	{
 		if (analyze_cmd(lex_lst, new_cmd, arg_num, env_p))
@@ -24,7 +24,6 @@ int	analyze_word(t_lex **lex_lst, t_cmd *new_cmd, int *arg_num, char **env_p)
 	}
 	else
 	{
-		analyze_opt(lex_lst, new_cmd);
 		new_cmd->args[(*arg_num)] = ft_strdup((*lex_lst)->value);
 		if (!((new_cmd->args)[(*arg_num)++]))
 			return (1);
@@ -32,14 +31,12 @@ int	analyze_word(t_lex **lex_lst, t_cmd *new_cmd, int *arg_num, char **env_p)
 	return (0);
 }
 
-int	check_word_type(t_lex *lex_lst, t_cmd *cmd)
+int	check_word_type(t_cmd *cmd)
 {
 	if (cmd->cmd)
 		return (0);
-	if (lex_lst->pos == 1 || (cmd->hd_flag == 1 || cmd->in_flag == 1))
-		return (1);
 	else
-		return (0);
+		return (1);
 }
 
 int	analyze_cmd(t_lex **lex_lst, t_cmd *new_cmd, int *arg_num, char **env_p)
@@ -66,27 +63,5 @@ int	analyze_cmd(t_lex **lex_lst, t_cmd *new_cmd, int *arg_num, char **env_p)
 		if (!(new_cmd->args[(*arg_num)++]))
 			return (1);
 	}
-	return (0);
-}
-
-int	analyze_opt(t_lex **lex_lst, t_cmd *new_cmd)
-{
-	int	i;
-
-	i = 0;
-	if (ft_strncmp(new_cmd->cmd, "echo", ft_strlen(new_cmd->cmd)))
-		return (1);
-	if (((*lex_lst)->pos != 2
-			&& !((*lex_lst)->pos == 4 && new_cmd->in_flag == 1)))
-		return (1);
-	if (((*lex_lst)->value)[i++] != '-')
-		return (1);
-	while (((*lex_lst)->value)[i])
-	{
-		if (((*lex_lst)->value)[i] != 'n')
-			return (1);
-		i++;
-	}
-	new_cmd->opt = 1;
 	return (0);
 }

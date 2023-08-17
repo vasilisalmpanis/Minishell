@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 13:38:10 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/16 18:22:27 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/17 15:13:09 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ int	builtin_child(t_cmd *cmd, t_env *env_lst, int **fd, int count)
 
 	exit_code = 0;
 	fd_stdout = dup(STDOUT_FILENO);
-	open_outfiles_builtin(cmd, fd); // error check?
+	if (open_files(cmd, fd))
+		exit(EXIT_FAILURE);
 	close_fds(fd, count);
 	if (!cmd->args)
 		exit(EXIT_FAILURE);
@@ -84,7 +85,8 @@ int	builtin_process(t_cmd *cmd, t_env *env_lst, int **fd)
 	int	fd_stdout;
 
 	fd_stdout = dup(STDOUT_FILENO);
-	open_outfiles_builtin(cmd, fd);
+	if (open_files(cmd, fd))
+		return (1);
 	exit_code = exec_builtin(cmd, env_lst);
 	if (dup2(fd_stdout, STDOUT_FILENO) == -1)
 		return (ft_putstr_fd("Error stdout", 2), 1);
@@ -95,8 +97,8 @@ int	child_process(t_cmd *cmd, t_env *env_lst, int **fd, int count)
 {
 	char	**env_array;
 	
-	open_infile(cmd, fd); // error handling?
-	open_outfile(cmd, fd);
+	if (open_files(cmd, fd))
+		exit(EXIT_FAILURE);
 	close_fds(fd, count);
 	if (!check_path_existence(env_lst))
 	{
