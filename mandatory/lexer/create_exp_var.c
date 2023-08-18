@@ -6,79 +6,93 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 12:32:59 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/18 15:51:53 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/18 16:41:30 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char	*create_exp_var(char *split, int *i, int exit_code)
+int	create_exp_var(char *split, int *i, int exit_code, char **exp_var)
 {
 	int		offset;
 	int		start;
 	char	*temp;
-	char	*exp_var;
 
 	start = *i;
 	offset = 0;
 	temp = NULL;
-	exp_var = NULL;
 	while (split[*i] && split[*i] != '"' && split[*i] != '\''
 		&& split[*i] != '}' && split[*i] != ')' && split[*i] != '$'
 		&& !ft_isspace(split[*i]))
 		(*i)++;
 	offset = calc_offset(split, start, i);
 	if (offset == -1)
-		return (NULL);
+		return (1);
 	temp = ft_substr(split, start + offset, *i - start - (2 * offset));
 	if (!temp)
-		return (NULL);
-	exp_var = determine_exp_var(temp, exit_code);
+		return (1);
+	if (determine_exp_var(temp, exit_code, exp_var))
+		return (free(temp), 1);
 	free(temp);
-	return (exp_var);
+	return (0);
 }
 
-char	*determine_exp_var(char *temp, int exit_code)
+int	determine_exp_var(char *temp, int exit_code, char **exp_var)
 {
-	char	*exp_var;
 	int		len;
 
 	len = ft_strlen(temp);
 	if (temp[0] == '(' && temp[1] == '('
 		&& temp[len - 1] == ')' && temp[len - 2] == ')') // --> not completely working because word/temp stopped at space
 	{
-		exp_var = ft_strdup("You can calculate in your head");
+		*exp_var = ft_strdup("You can calculate in your head");
+		if (!(*exp_var))
+			return (1);
 	}
 	else if (ft_isdigit(temp[0]))
-		exp_var = ft_strdup(temp + 1);
+	{
+		*exp_var = ft_strdup(temp + 1);
+		if (!(*exp_var))
+			return (1);
+	}
 	else if (temp[0] == '?')
-		exp_var = find_exit_code(temp, exit_code);
+	{
+		*exp_var = find_exit_code(temp, exit_code);
+		if (!(*exp_var))
+			return (1);
+	}
 	else
-		exp_var = find_exp_var(temp);
-	return (exp_var);
+		if (find_exp_var(temp, exp_var))
+			return (1);
+	return (0);
 }
 
-char	*find_exp_var(char *temp)
+int	find_exp_var(char *temp, char **exp_var)
 {
 	char	*temp2;
 	char	*temp3;
-	char	*exp_var;
 	int		i;
 
 	i = -1;
 	temp2 = ft_calloc(1, 1);
-	exp_var = NULL;
+	*exp_var = NULL;
 	while (temp[++i])
 	{
 		temp2 = ft_charjoin_mod(temp2, temp[i]);
+		if (!temp2)
+			return (1);
 		temp3 = getenv(temp2);
 		if (temp3)
 			break ;
 	}
 	free(temp2);
 	if (temp3 && !(ft_isalnum(temp[i + 1])) && temp[i + 1] != '_') // more cases? should be related to export?
-		exp_var = ft_strjoin(temp3, &temp[i + 1]);
-	return (exp_var);
+	{
+		*exp_var = ft_strjoin(temp3, &temp[i + 1]);
+		if (!(*exp_var))
+			return (1);
+	}
+	return (0);
 }
 
 char	*find_exit_code(char *temp, int exit_code)

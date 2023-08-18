@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 18:26:28 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/18 16:00:03 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/18 17:24:02 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	exit_min(char *input, t_lex **lst)
 {
 	printf("Exiting minishell\n");
 	(void)lst;
-	// ft_lst_free(lst);
 	if (input)
 		free(input);
 	exit(1);

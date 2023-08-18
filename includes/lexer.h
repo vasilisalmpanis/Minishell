@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:31:53 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/18 15:52:02 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/18 16:38:47 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ int		expand(char *split, int *i, char **exp_word, int exit_code);
 char	*trim_word(char *exp_word);
 int		calc_offset(char *split, int start, int *i);
 
-char	*create_exp_var(char *split, int *i, int exit_code);
-char	*determine_exp_var(char *temp, int exit_code);
-char	*find_exp_var(char *temp);
+int		create_exp_var(char *split, int *i, int exit_code, char **exp_var);
+int		determine_exp_var(char *temp, int exit_code, char **exp_var);
+int		find_exp_var(char *temp, char **exp_var);
 char	*find_exit_code(char *temp, int exit_code);
 char	*find_pid(int *i);
 

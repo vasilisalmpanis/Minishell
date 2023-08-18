@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 12:43:19 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/18 15:52:17 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/18 16:49:50 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	check_expand_helper(char *split, int *i, char **exp_word, int exit_code)
 		&& split[*i + 1] != '}' && split[*i + 1] != ')')
 	{
 		(*i)++;
-		if (expand(split, i, exp_word, exit_code) == 2)
+		if (expand(split, i, exp_word, exit_code))
 			return (1);
 		(*i)--;
 	}
@@ -64,6 +64,7 @@ int	expand(char *split, int *i, char **exp_word, int exit_code)
 {
 	char	*exp_var;
 
+	exp_var = NULL;
 	if (split[*i] && split[*i] == '$')
 	{
 		exp_var = find_pid(i);
@@ -72,8 +73,7 @@ int	expand(char *split, int *i, char **exp_word, int exit_code)
 	}
 	else
 	{
-		exp_var = create_exp_var(split, i, exit_code);
-		if (!exp_var)
+		if (create_exp_var(split, i, exit_code, &exp_var))
 			return (free(*exp_word), 1);
 	}
 	if (exp_var)
