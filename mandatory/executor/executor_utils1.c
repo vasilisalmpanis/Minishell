@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:58:04 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/17 15:01:06 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/18 11:36:57 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	close_fds(int **fd, int count)
 	i = 0;
 	while (i < count - 1)
 	{
-		close(fd[i][0]); // error check?
+		close(fd[i][0]);
 		close(fd[i][1]);
 		i++;
 	}

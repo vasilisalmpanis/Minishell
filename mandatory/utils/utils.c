@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:52:47 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/13 18:43:18 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/18 11:38:56 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,4 +86,21 @@ char	*ft_strjoin_mod(char *s1, char *s2)
 	ret[i] = '\0';
 	free(s1);
 	return (ret);
+}
+
+void	rm_newline(char **str)
+{
+	size_t	i;
+
+	i = 0;
+	while ((*str)[i] && (*str)[i] != '\n')
+		i++;
+	(*str)[i] = '\0';
+}
+
+void	ft_putstr_fd_mod(char *s, int fd)
+{
+	while (*s)
+		write(fd, s++, 1);
+	write(fd, "\n", 1);
 }

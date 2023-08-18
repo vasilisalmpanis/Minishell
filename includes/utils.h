@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 16:13:07 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/18 10:51:51 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/18 11:39:11 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ t_file	*create_new_file(char *delim, t_token token, char *name);
 char	**split_args(char *input);
 char	*ft_charjoin_mod(char *s1, char s2);
 char	*ft_strjoin_mod(char *s1, char *s2);
+void	rm_newline(char **str);
+void	ft_putstr_fd_mod(char *s, int fd);
 
 char	*handle_redirects(char *input);
 char	*add_space_pre_redir(char *input, int j);
