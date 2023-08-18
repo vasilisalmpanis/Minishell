@@ -7,8 +7,13 @@ SRC =	mandatory/main.c \
 		mandatory/utils/env_dict.c \
 		mandatory/utils/env_dict_helper.c \
 		mandatory/utils/redir_spaces.c \
+		mandatory/utils/redir_spaces_utils.c \
+		mandatory/utils/cmd_lst_utils.c \
+		mandatory/utils/lex_lst_utils.c \
 		mandatory/lexer/lexer.c \
 		mandatory/lexer/expansion.c \
+		mandatory/lexer/expansion_utils.c \
+		mandatory/lexer/create_exp_var.c \
 		mandatory/builtins/env.c \
 		mandatory/builtins/export.c \
 		mandatory/builtins/pwd.c \
@@ -20,9 +25,11 @@ SRC =	mandatory/main.c \
 		mandatory/parser/analyze_cmd_utils.c \
 		mandatory/parser/analyze_redir.c \
 		mandatory/executor/execute.c \
-		mandatory/executor/open_files.c \
 		mandatory/executor/executor_utils1.c \
 		mandatory/executor/executor_utils2.c \
+		mandatory/executor/open_files.c \
+		mandatory/executor/open_files_utils.c \
+		mandatory/executor/set_stdin_stdout.c
 
 
 

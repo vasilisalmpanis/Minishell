@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 17:11:39 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/17 17:57:09 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/18 13:01:59 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,38 +25,6 @@ char	*handle_redirects(char *input)
 	return (new_input);
 }
 
-void	skip_quotes(char *input, int *i, char **new_input, int *j)
-{
-	char	buf;
-
-	buf = '\0';
-	if (input[*i] == '"' || input[*i] == '\'')
-	{
-		buf = input[*i];
-		(*new_input)[(*j)++] = input[*i];
-		(*i)++;
-		while (input[*i] && input[*i] != buf)
-		{
-			(*new_input)[(*j)++] = input[*i];
-			(*i)++;
-		}
-	}
-}
-
-void	skip_quotes2(char *input, int *i)
-{
-	char	buf;
-
-	buf = '\0';
-	if (input[*i] == '"' || input[*i] == '\'')
-	{
-		buf = input[*i];
-		(*i)++;
-		while (input[*i] && input[*i] != buf)
-			(*i)++;
-	}
-}
-
 char	*add_space_pre_redir(char *input, int j)
 {
 	int		i;
@@ -65,7 +33,7 @@ char	*add_space_pre_redir(char *input, int j)
 
 	i = -1;
 	red_no_sp = calc_redir_wo_space2(input);
-	new_input = ft_calloc((ft_strlen(input) + red_no_sp + 1), sizeof(*new_input));
+	new_input = ft_calloc((ft_strlen(input) + red_no_sp + 1), sizeof(char));
 	if (!new_input)
 		return (NULL);
 	while (input[++i])
@@ -93,7 +61,7 @@ char	*add_space_post_redir(char *input, int j)
 
 	i = -1;
 	red_no_sp = calc_redir_wo_space(input);
-	new_input = ft_calloc((ft_strlen(input) + red_no_sp + 1), sizeof(*new_input));
+	new_input = ft_calloc((ft_strlen(input) + red_no_sp + 1), sizeof(char));
 	if (!new_input)
 		return (NULL);
 	while (input[++i])
