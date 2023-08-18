@@ -35,6 +35,7 @@ int		cd_dir(t_cmd *cmd, t_env *env);
 int		cd_home(t_cmd *cmd, t_env *env);
 int		ft_change_env(t_env *env, char *target_dir);
 int		set_value_env(t_env *env, char *key, char *pwd);
+int		change_directory(t_cmd *cmd, t_env *env);
 
 // env_list
 int		env(t_env *lst, t_cmd *cmd);

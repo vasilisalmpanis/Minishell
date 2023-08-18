@@ -37,3 +37,20 @@ int	env_lst_size(t_env *env_lst)
 	}
 	return (count);
 }
+
+int	set_value_env(t_env *env, char *key, char *pwd)
+{
+	while (env)
+	{
+		if (ft_strncmp(env->key, key, ft_strlen(env->key)) == 0)
+		{
+			if (env->value[0])
+				free(env->value);
+			env->value = ft_strdup(pwd);
+			if (!env->value)
+				return (1);
+		}
+		env = env->next;
+	}
+	return (0);
+}
