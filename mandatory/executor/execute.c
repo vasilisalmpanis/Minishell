@@ -110,7 +110,7 @@ int	child_process(t_cmd *cmd, t_env *env_lst, int **fd, int count)
 		exit(EXIT_FAILURE); // error message
 	if (!cmd->args)
 		exit(EXIT_FAILURE); // error message (printf("No args provided\n"), 1);
-	if (execve(cmd->path, cmd->args, env_array) == -1)
+	if (execve(cmd->path, cmd->args, NULL) == -1)
 		exit(EXIT_FAILURE);
 	return (0);
 }

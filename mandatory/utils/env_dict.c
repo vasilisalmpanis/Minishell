@@ -58,28 +58,28 @@ t_env	*lst_env_node(char *key, char *value)
  */
 void	ft_env_addback(t_env **lst, t_env *new)
 {
-		t_env	**ptr;
+	t_env	**ptr;
 
-		ptr = lst;
-		while (*ptr)
+	ptr = lst;
+	while (*ptr)
+	{
+		if (ft_strncmp((*ptr)->key, new->key, ft_strlen(new->key)) == 0 \
+		&& ft_strlen(new->key) == ft_strlen((*ptr)->key))
 		{
-			if (ft_strncmp((*ptr)->key, new->key, ft_strlen(new->key)) == 0 \
-			&& ft_strlen(new->key) == ft_strlen((*ptr)->key))
-			{
-				if ((*ptr)->value)
-					free((*ptr)->value);
-				if (!new->value)
-					(*ptr)->value = ft_strdup("");
-				else
-					(*ptr)->value = ft_strdup(new->value);
-				free(new->value);
-				free(new->key);
-				free(new);
-				return ;
-			}
-			ptr = &(*ptr)->next;
+			if ((*ptr)->value)
+				free((*ptr)->value);
+			if (!new->value)
+				(*ptr)->value = ft_strdup("");
+			else
+				(*ptr)->value = ft_strdup(new->value);
+			free(new->value);
+			free(new->key);
+			free(new);
+			return ;
 		}
-		*ptr = new;
+		ptr = &(*ptr)->next;
+	}
+	*ptr = new;
 }
 
 /*
@@ -145,13 +145,15 @@ void	ft_env_remove(t_env **begin_list, char *key)
  * problems when bash or minishell are executed again and again.
  * @en The env list passed from the program.
  */
-t_env	*create_env(char **en)
+t_env	*create_env(char **en, char **argv)
 {
 	t_env	*lst;
 	t_env	*tmp;
 	char	**temp;
 	int		i;
 
+	if (!en)
+		return (empty_env(argv));
 	i = 0;
 	temp = ft_split(en[i], '=');
 	lst = lst_env_node(temp[0], temp[1]);
@@ -164,19 +166,4 @@ t_env	*create_env(char **en)
 		ft_free(temp);
 	}
 	return (lst);
-}
-
-// count list size
-
-int	env_lst_size(t_env *env_lst)
-{
-	int	count;
-
-	count = 0;
-	while(env_lst)
-	{
-		count++;
-		env_lst = env_lst->next;
-	}
-	return (count);
 }

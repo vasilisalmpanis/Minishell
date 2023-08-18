@@ -32,12 +32,11 @@ int	main(int argc, char **argv, char **envp)
 
 	if (argc > 1)
 		return (1);
-	(void)argv;
 	exit_code = 0;
 	cmd_lst = NULL;
 	signals(handle_sigint);
 	silence();
-	env_lst = create_env(envp);
+	env_lst = create_env(envp, argv);
 	if (!env_lst)
 		return (1);
 	while (1)

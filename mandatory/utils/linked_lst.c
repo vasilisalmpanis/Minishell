@@ -30,7 +30,7 @@ t_file	*create_new_file(char *delim, t_token token, char *name)
 
 	node = (t_file *)malloc(sizeof(*node));
 	if (!node)
-		return(NULL);
+		return (NULL);
 	ft_bzero(node, sizeof(*node));
 	if (name)
 	{
@@ -81,7 +81,6 @@ void	free_cmd_lex_env(t_cmd **cmd_lst, t_lex **lex_lst, char **env_paths)
 	ft_lst_free(lex_lst);
 	if (env_paths)
 		ft_free(env_paths);
-	
 }
 
 void	ft_cmd_lst_free(t_cmd **lst)

@@ -42,7 +42,8 @@ t_env	*lst_env_node(char *key, char *value);
 void	ft_env_addback(t_env **lst, t_env *new);
 void	ft_env_free(t_env **lst);
 void	ft_env_remove(t_env **begin_list, char *key);
-t_env	*create_env(char **en);
+t_env	*create_env(char **en, char **argv);
+t_env	*empty_env(char **argv);
 
 // export
 void	export_print(t_env *lst);
