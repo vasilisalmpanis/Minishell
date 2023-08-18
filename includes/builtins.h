@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
+/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 11:02:47 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/17 10:59:32 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/08/18 13:07:09 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,7 @@ int		pwd(void);
 int		echo(t_cmd *cmd);
 
 // cd
-int		cd_dir(t_cmd *cmd, t_env *env);
-int		cd_home(t_cmd *cmd, t_env *env);
-int		ft_change_env(t_env *env, char *target_dir);
-int		set_value_env(t_env *env, char *key, char *pwd);
+int	cd_dir(t_cmd *cmd, t_env *env);
 
 // env_list
 int		env(t_env *lst, t_cmd *cmd);

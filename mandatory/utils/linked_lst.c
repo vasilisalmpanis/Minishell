@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 16:03:16 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/18 10:52:04 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/18 13:00:38 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,32 +102,6 @@ void	ft_cmd_lst_free(t_cmd **lst)
 	}
 }
 
-t_lex	*ft_new_tk(void *value, t_token token, int pos)
-{
-	t_lex	*node;
-
-	node = (t_lex *)malloc(sizeof(t_lex));
-	if (!node)
-		return (NULL);
-	node->value = ft_strdup(value);
-	if (!node->value)
-		return (free(node), NULL);
-	node->token = token;
-	node->pos = pos;
-	node->next = NULL;
-	return (node);
-}
-
-void	ft_lstadd_end(t_lex **lst, t_lex *new)
-{
-	t_lex	**ptr;
-
-	ptr = lst;
-	while (*ptr)
-		ptr = &(*ptr)->next;
-	*ptr = new;
-}
-
 void	ft_lst_free(t_lex **lst)
 {
 	t_lex	*temp;
@@ -141,5 +115,3 @@ void	ft_lst_free(t_lex **lst)
 		free(temp);
 	}
 }
-
-

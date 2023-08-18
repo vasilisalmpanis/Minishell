@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:59:05 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/18 11:09:56 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/18 11:35:06 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,44 @@ int	exec_builtin(t_cmd *cmd, t_env *env_lst)
 	else if (!ft_strncmp(cmd->cmd, "unset", ft_strlen(cmd->cmd)))
 		exit_code = unset(&env_lst, cmd);
 	return (exit_code);
+}
+
+char	**new_env(t_env *env_lst)
+{
+	char	**env_array;
+	char	*temp;
+	int		len;
+	int		i;
+
+	i = -1;
+	len = env_lst_size(env_lst);
+	env_array = ft_calloc(len + 1, sizeof(*env_array));
+	if (!env_array)
+		return (NULL);
+	while (env_lst)
+	{
+		if (env_lst->value[0] != '\0')
+		{
+			temp = ft_strjoin(env_lst->key, "=");
+			if (!temp)
+				return (ft_free(env_array), NULL);
+			env_array[++i] = ft_strjoin(temp, env_lst->value);
+			if (!env_array[i])
+				return (ft_free(env_array), NULL);
+			free(temp);
+		}
+		env_lst = env_lst->next;
+	}
+	return (env_array);
+}
+
+int	check_path_existence(t_env *env_lst)
+{
+	while (env_lst)
+	{
+		if (!(ft_strncmp(env_lst->key, "PATH", ft_strlen(env_lst->key))))
+			return (1);
+		env_lst = env_lst->next;
+	}
+	return (0);
 }
