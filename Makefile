@@ -6,6 +6,9 @@ SRC =	mandatory/main.c \
 		mandatory/utils/linked_lst.c \
 		mandatory/utils/env_dict.c \
 		mandatory/utils/redir_spaces.c \
+		mandatory/utils/redir_spaces_utils.c \
+		mandatory/utils/cmd_lst_utils.c \
+		mandatory/utils/lex_lst_utils.c \
 		mandatory/lexer/lexer.c \
 		mandatory/lexer/expansion.c \
 		mandatory/lexer/expansion_utils.c \
