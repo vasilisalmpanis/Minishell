@@ -12,7 +12,6 @@
 
 #include "../includes/minishell.h"
 
-int is_child_process = 0;
 
 void	exit_min(char *input, t_lex **lst)
 {
@@ -31,7 +30,6 @@ int	main(int argc, char **argv, char **envp)
 	t_lex				*lex_lst;
 	t_env				*env_lst;
 	t_cmd				*cmd_lst;
-	
 
 	if (argc > 1)
 		return (1);
@@ -52,7 +50,7 @@ int	main(int argc, char **argv, char **envp)
 		input[0] = ft_strdup(input[1]);
 		if (!input[0])
 			return (1);
-		lex_lst = lex(input[0], exit_code); // maybe check for null or in parser
+		lex_lst = lex(input[0], exit_code);
 		if (!lex_lst)
 			exit_code = 1;
 		else

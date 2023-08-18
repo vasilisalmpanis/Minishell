@@ -12,8 +12,6 @@
 
 #include "../../includes/minishell.h"
 
-extern int is_child_process;
-
 void	handle_sigquit(void)
 {
 	rl_replace_line("", 0);
@@ -24,21 +22,21 @@ void	handle_sigquit(void)
 void handle_sigint(int signum)
 {
 	if (signum == SIGINT)
-    {
-        rl_replace_line("", 0);
-        putchar('\n');
-        rl_on_new_line();
-        rl_redisplay();
-    }
+	{
+		rl_replace_line("", 0);
+		putchar('\n');
+		rl_on_new_line();
+		rl_redisplay();
+	}
 }
 
 void handle_sigint_child(int signum)
 {
 	if (signum == SIGINT)
-    {
-        putchar('\n');
-        rl_replace_line("", 0);
-    }
+	{
+		putchar('\n');
+		rl_replace_line("", 0);
+	}
 }
 
 int	signals(void (*handler)(int))
