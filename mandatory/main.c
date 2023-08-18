@@ -64,7 +64,6 @@ int	main(int argc, char **argv, char **envp)
 	t_lex				*lex_lst;
 	t_env				*env_lst;
 	t_cmd				*cmd_lst;
-	
 
 	if (argc > 1)
 		return (1);
