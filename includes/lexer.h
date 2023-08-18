@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:31:53 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/18 13:08:13 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/18 15:52:02 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,16 @@ t_lex	*lex(char *input, int exit_code);
 t_lex	*create_token(char *split, int *pos, int exit_code);
 int		create_word_token(char *split, int *pos, t_lex **new_token, \
 									int exit_code);
-int		check_syntax_err(char *word);
+int		check_syntax_err(char *split);
 
-char	*check_expand(char *word, int i, int exit_code, int trim_flag);
-int		check_expand_helper(char *word, int *i, char **exp_word, int exit_code);
-int		expand(char *word, int *i, char **exp_word, int exit_code);
+char	*check_expand(char *split, int i, int exit_code, int trim_flag);
+int		check_expand_helper(char *split, int *i, char **exp_word, int exit_code);
+int		expand(char *split, int *i, char **exp_word, int exit_code);
 
-char	*trim_word(char *word);
-int		calc_offset(char *word, int start, int *i);
+char	*trim_word(char *exp_word);
+int		calc_offset(char *split, int start, int *i);
 
-char	*create_exp_var(char *word, int *i, char **exp_word, int exit_code);
+char	*create_exp_var(char *split, int *i, int exit_code);
 char	*determine_exp_var(char *temp, int exit_code);
 char	*find_exp_var(char *temp);
 char	*find_exit_code(char *temp, int exit_code);

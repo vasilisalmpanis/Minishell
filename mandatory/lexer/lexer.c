@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 16:15:37 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/18 11:48:47 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/18 15:46:34 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,11 @@ t_lex	*lex(char *input, int exit_code)
 	int		i;
 	int		pos;
 
-	if (!input)
-		return (NULL);
 	i = -1;
 	pos = 0;
+	token_lst = NULL;
 	if (check_quotes(input, 0, 0))
 		return (printf("Uneven quote number\n"), NULL);
-	token_lst = NULL;
 	split = split_args(input);
 	if (!split)
 		return (NULL);
@@ -63,11 +61,13 @@ t_lex	*lex(char *input, int exit_code)
 	{
 		new_token = create_token(split[i], &pos, exit_code);
 		if (!(new_token))
-			return (ft_lst_free(&token_lst), NULL); // probably need to free split here
+		{
+			ft_free(split);
+			return (ft_lst_free(&token_lst), NULL);
+		}
 		ft_lstadd_end(&token_lst, new_token);
 	}
-	ft_free(split);
-	return (token_lst);
+	return (ft_free(split), token_lst);
 }
 
 t_lex	*create_token(char *split, int *pos, int exit_code)
@@ -102,7 +102,7 @@ int	create_word_token(char *split, int *pos, t_lex **new_token, int exit_code)
 
 	if (check_syntax_err(split))
 		return ((ft_putstr_fd("Syntax error near '><'\n", 2)), 1);
-	word = check_expand(split, -1, exit_code, 1); 
+	word = check_expand(split, -1, exit_code, 1);
 	if (!word)
 		return (1);
 	*new_token = ft_new_tk(word, TK_WORD, *pos);
@@ -112,14 +112,14 @@ int	create_word_token(char *split, int *pos, t_lex **new_token, int exit_code)
 	return (0);
 }
 
-int	check_syntax_err(char *word)
+int	check_syntax_err(char *split)
 {
 	int	i;
 
 	i = 0;
-	while (word[i + 1])
+	while (split[i + 1])
 	{
-		if (word[0] != '"' && word[i] == '>' && word[i + 1] == '<')
+		if (split[0] != '"' && split[i] == '>' && split[i + 1] == '<')
 			return (1);
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 18:26:28 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/18 12:39:18 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/18 16:00:03 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,21 +36,21 @@ int	main(int argc, char **argv, char **envp)
 	cmd_lst = NULL;
 	signals(handle_sigint);
 	silence();
-	env_lst = create_env(envp, argv);
+	env_lst = create_env(envp, argv); //env_lst is allocated
 	if (!env_lst)
 		return (1);
 	while (1)
 	{
 		signals(handle_sigint);
 		input[0] = prompt();
-		input[1] = readline(input[0]);
+		input[1] = readline(input[0]); //input[1] is allocated?
 		free(input[0]);
 		if (!input[1])
 			exit_min(input[1], &lex_lst);
-		input[0] = ft_strdup(input[1]);
+		input[0] = ft_strdup(input[1]); //input[0] is allocated / gets freed in lexer split_args
 		if (!input[0])
 			return (1);
-		lex_lst = lex(input[0], exit_code);
+		lex_lst = lex(input[0], exit_code); //lex_lst is allocated
 		if (!lex_lst)
 			exit_code = 1;
 		else
@@ -68,11 +68,6 @@ int	main(int argc, char **argv, char **envp)
 		ft_cmd_lst_free(&cmd_lst);
 	}
 }
-
-
-// here_doc: output depends on whether the heredoc is piped to sth afterwards or not
-// echo hello | grep hello | << cat | grep this vs echo hello | grep hello | << eof
-// in the executor we can just check if there is another node after the here_doc cmd_node
 
 // ft_show_tab2(cmd_lst);
 

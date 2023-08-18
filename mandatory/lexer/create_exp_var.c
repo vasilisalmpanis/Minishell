@@ -6,13 +6,13 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 12:32:59 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/18 12:33:53 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/18 15:51:53 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char	*create_exp_var(char *word, int *i, char **exp_word, int exit_code)
+char	*create_exp_var(char *split, int *i, int exit_code)
 {
 	int		offset;
 	int		start;
@@ -23,16 +23,16 @@ char	*create_exp_var(char *word, int *i, char **exp_word, int exit_code)
 	offset = 0;
 	temp = NULL;
 	exp_var = NULL;
-	while (word[*i] && word[*i] != '"' && word[*i] != '\''
-		&& word[*i] != '}' && word[*i] != ')' && word[*i] != '$'
-		&& !ft_isspace(word[*i]))
+	while (split[*i] && split[*i] != '"' && split[*i] != '\''
+		&& split[*i] != '}' && split[*i] != ')' && split[*i] != '$'
+		&& !ft_isspace(split[*i]))
 		(*i)++;
-	offset = calc_offset(word, start, i);
+	offset = calc_offset(split, start, i);
 	if (offset == -1)
-		return (free(*exp_word), NULL);
-	temp = ft_substr(word, start + offset, *i - start - (2 * offset));
+		return (NULL);
+	temp = ft_substr(split, start + offset, *i - start - (2 * offset));
 	if (!temp)
-		return (free(*exp_word), NULL);
+		return (NULL);
 	exp_var = determine_exp_var(temp, exit_code);
 	free(temp);
 	return (exp_var);

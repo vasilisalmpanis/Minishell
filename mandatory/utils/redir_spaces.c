@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 17:11:39 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/18 13:01:59 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/18 15:57:26 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,12 @@ char	*handle_redirects(char *input)
 	char	*temp;
 
 	temp = add_space_pre_redir(input, 0);
+	if (!temp)
+		return (free(input), NULL);
 	free(input);
 	new_input = add_space_post_redir(temp, 0);
+	if (!new_input)
+		return (free(temp), NULL);
 	free(temp);
 	return (new_input);
 }
