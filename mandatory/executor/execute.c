@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 13:38:10 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/17 15:35:39 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/18 11:07:33 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int	execute(t_cmd *cmd_lst, t_env *env_lst, int exit_code)
 	int		num_cmds;
 	t_cmd	*cmd_lst_start;
 
-	(void)exit_code; // exit codes needs to get passed to heredoc for expansion
 	cmd_lst_start = cmd_lst;
 	num_cmds = count_cmds(cmd_lst);
 	fd = allocate_fds(num_cmds);

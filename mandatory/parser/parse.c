@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 18:23:58 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/17 14:01:03 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/18 10:51:23 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@
 // echo hello | grep hello | << cat | grep this vs echo hello | grep hello | << eof
 // in the executor we can just check if there is another node after the here_doc cmd_node
 
-t_cmd	*parser(t_lex *lex_lst, t_env *env_lst)
+t_cmd	*parser(t_lex *lex_lst, t_env *env_lst, int exit_code)
 {
 	t_cmd	*cmd_lst;
 	char	**env_paths;
 
 	cmd_lst = NULL;
 	env_paths = extract_paths(&env_lst);
-	if (parse_tokens(lex_lst, &cmd_lst, env_paths))
+	if (parse_tokens(lex_lst, &cmd_lst, env_paths, exit_code))
 		return (free_cmd_lex_env(&cmd_lst, &lex_lst, env_paths), NULL);
 	ft_lst_free(&lex_lst);
 	if (env_paths)
@@ -53,7 +53,7 @@ char	**extract_paths(t_env **env_lst)
 	return (env_paths);
 }
 
-int	parse_tokens(t_lex *lex_lst, t_cmd **cmd_lst, char **env_paths)
+int	parse_tokens(t_lex *lex_lst, t_cmd **cmd_lst, char **env_paths, int exit_code)
 {
 	t_cmd	*new_cmd;
 	int		arg_num;
@@ -62,7 +62,7 @@ int	parse_tokens(t_lex *lex_lst, t_cmd **cmd_lst, char **env_paths)
 	id = 0;
 	while (lex_lst)
 	{
-		new_cmd = ft_new_cmd(id++, env_paths);
+		new_cmd = ft_new_cmd(id++, env_paths, exit_code);
 		if (!new_cmd)
 			return (1);
 		arg_num = 0;

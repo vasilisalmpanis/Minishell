@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 16:03:16 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/17 14:44:07 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/18 10:52:04 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ t_file	*create_new_file(char *delim, t_token token, char *name)
 	return (node);
 }
 
-t_cmd	*ft_new_cmd(int id, char **env_paths)
+t_cmd	*ft_new_cmd(int id, char **env_paths, int exit_code)
 {
 	t_cmd	*node;
 
@@ -59,6 +59,7 @@ t_cmd	*ft_new_cmd(int id, char **env_paths)
 	ft_bzero(node, sizeof(*node));
 	if (env_paths)
 		node->env_flag = 1;
+	node->exit_code = exit_code;
 	node->cmd_id = id;
 	node->next = NULL;
 	return (node);

@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 13:59:27 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/17 15:35:49 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/18 10:53:24 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,20 @@ int		create_pipes(int **fd, int count);
 void	close_fds(int **fd, int count);
 
 int		open_files(t_cmd *cmd, int **fd);
-int		*open_in_out_files(t_cmd *cmd);
-int		open_in_file(t_file *cmd);
-int		open_out_file(t_file *cmd);
-int		open_heredocs(t_cmd *cmd);
-int		heredoc(t_file *cmd);
+int		*open_in_out_files(t_file *file_lst);
+int		open_in_file(t_file *file);
+int		open_out_file(t_file *file);
+int		open_heredocs(t_file *file_lst, int exit_code);
+int		heredoc(t_file *file, int exit_code);
 void	rm_newline(char **str);
 void	ft_putstr_fd_mod(char *s, int fd);
 
-
-
 int		wait_for_children(t_cmd *start);
 int		exec_builtin(t_cmd *cmd, t_env *env_lst);
+
+int		set_stdin(int flag, int *fd_in_out, t_cmd *cmd, int **fd);
+int		set_stdout(int *fd_in_out, int **fd, t_cmd *cmd);
+int		open_in_out_files_helper(t_file *file_lst, int	*fd_temp);
 
 
 #endif
