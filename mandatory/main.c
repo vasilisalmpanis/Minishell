@@ -22,41 +22,6 @@ void	exit_min(char *input, t_lex **lst)
 	exit(1);
 }
 
-void	signals(void (*handler)(int))
-{
-	struct sigaction	sa;
-
-	sa.sa_handler = handler;
-	sigemptyset(&sa.sa_mask);
-	sa.sa_flags = 0;
-	sigaction(SIGINT, &sa, NULL);
-	sigaction(SIGQUIT, &sa, NULL);
-}
-
-void	silence(void)
-{
-	struct termios	term;
-
-	if (isatty(STDIN_FILENO))
-	{
-		tcgetattr(STDIN_FILENO, &term);
-		term.c_lflag = term.c_lflag & ~ECHOCTL;
-		tcsetattr(STDIN_FILENO, TCSANOW, &term);
-	}
-	else if (isatty(STDOUT_FILENO))
-	{
-		tcgetattr(STDOUT_FILENO, &term);
-		term.c_lflag = term.c_lflag & ~ECHOCTL;
-		tcsetattr(STDOUT_FILENO, TCSANOW, &term);
-	}
-	else if (isatty(STDERR_FILENO))
-	{
-		tcgetattr(STDERR_FILENO, &term);
-		term.c_lflag = term.c_lflag & ~ECHOCTL;
-		tcsetattr(STDERR_FILENO, TCSANOW, &term);
-	}
-}
-
 int	main(int argc, char **argv, char **envp)
 {
 	char				*input[2];
@@ -77,6 +42,7 @@ int	main(int argc, char **argv, char **envp)
 		return (1);
 	while (1)
 	{
+		signals(handle_sigint);
 		input[0] = prompt();
 		input[1] = readline(input[0]);
 		free(input[0]);
@@ -85,7 +51,7 @@ int	main(int argc, char **argv, char **envp)
 		input[0] = ft_strdup(input[1]);
 		if (!input[0])
 			return (1);
-		lex_lst = lex(input[0], exit_code); // maybe check for null or in parser
+		lex_lst = lex(input[0], exit_code);
 		if (!lex_lst)
 			exit_code = 1;
 		else

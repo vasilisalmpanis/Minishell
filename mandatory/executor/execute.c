@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 13:38:10 by mamesser          #+#    #+#             */
 /*   Updated: 2023/08/18 11:07:33 by mamesser         ###   ########.fr       */
@@ -46,6 +46,7 @@ pid_t	execute_cmd(t_cmd *cmd_lst, t_env *env_lst, int **fd, int count_cmds)
 		return (builtin_process(cmd_lst, env_lst, fd)); // don't create child process; execute builtin return -1?
 	else 
 	{
+		signal(SIGINT, handle_sigint_child);
 		pid = fork();
 		if (pid < 0)
 			return (1);

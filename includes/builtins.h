@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 11:02:47 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/14 17:49:11 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/17 10:59:32 by valmpani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,10 @@ int		export(t_env **lst, t_cmd *cmd);
 int		export_args(t_env **lst, t_cmd *cmd);
 int		check_arg(char *arg, char *name);
 void	ft_split_key_val(char *arg, char **key, char **value);
+
+int count_elements(t_env *lst);
+int compare_keys(void *a, void *b);
+t_env	*sort_list(t_env *lst, int (*cmp)(void *, void *));
 
 // unset
 int		unset(t_env **lst, t_cmd *cmd);
