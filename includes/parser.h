@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 17:20:07 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/18 11:07:40 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/18 12:44:39 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,20 @@ typedef struct s_cmd
 	struct s_cmd	*next;
 }				t_cmd;
 
-t_cmd	*parser(t_lex *lex_lst, t_env *env_lst, int exit_code);
+t_cmd	*parser(t_lex *lex_lst, t_env *env_lst, int ex_co);
+char	**extract_paths(t_env **env_lst);
 int		parse_tokens(t_lex *lex_lst, t_cmd **cmd_lst, char **env_paths, int exit_code);
 int		allocate_args(t_lex *lex_lst, t_cmd *new_cmd);
 int		analyze_token(t_lex **lex_lst, t_cmd *new_cmd, \
 						int *arg_num, char **env_p);
-char	**extract_paths(t_env **env_lst);
+
+int		check_for_builtin(t_lex **lex_lst, t_cmd *new_cmd);
+void	check_for_path(t_lex **lex_lst, t_cmd *new_cmd);
+int		get_cmd_name(t_lex **lex_lst, t_cmd *new_cmd);
+int		get_path_name(t_cmd *new_cmd, char **env_paths);
 
 int		set_here_doc_flag(t_lex **lex_lst, t_cmd *new_cmd);
 int		set_redir_flags(t_lex **lex_lst, t_cmd *new_cmd);
-int		set_filename(t_lex **lex_lst, t_cmd *new_cmd, int token);
 
 int		analyze_word(t_lex **lex_lst, t_cmd *new_cmd, \
 						int *arg_num, char **env_p);
@@ -58,10 +62,5 @@ int		check_word_type(t_cmd *cmd);
 int		analyze_cmd(t_lex **lex_lst, t_cmd *new_cmd, \
 						int *arg_num, char **env_p);
 int		analyze_opt(t_lex **lex_lst, t_cmd *new_cmd);
-
-int		check_for_builtin(t_lex **lex_lst, t_cmd *new_cmd);
-void	check_for_path(t_lex **lex_lst, t_cmd *new_cmd);
-int		get_cmd_name(t_lex **lex_lst, t_cmd *new_cmd);
-int		get_path_name(t_cmd *new_cmd, char **env_paths);
 
 #endif

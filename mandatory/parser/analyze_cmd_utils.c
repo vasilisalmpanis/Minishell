@@ -6,34 +6,34 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 16:56:18 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/17 14:12:54 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/18 12:43:00 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	check_for_builtin(t_lex **lex_lst, t_cmd *new_cmd)
+int	check_for_builtin(t_lex **lst, t_cmd *new_cmd)
 {
-	if (!(ft_strncmp((*lex_lst)->value, "echo", ft_strlen((*lex_lst)->value))))
+	if (!(ft_strncmp((*lst)->value, "echo", ft_strlen((*lst)->value))))
 		new_cmd->builtin = 1;
-	else if (!(ft_strncmp((*lex_lst)->value, "cd", ft_strlen((*lex_lst)->value))))
+	else if (!(ft_strncmp((*lst)->value, "cd", ft_strlen((*lst)->value))))
 		new_cmd->builtin = 1;
-	else if (!(ft_strncmp((*lex_lst)->value, "pwd", ft_strlen((*lex_lst)->value))))
+	else if (!(ft_strncmp((*lst)->value, "pwd", ft_strlen((*lst)->value))))
 		new_cmd->builtin = 1;
-	else if (!(ft_strncmp((*lex_lst)->value, 
-				"export", ft_strlen((*lex_lst)->value))))
+	else if (!(ft_strncmp((*lst)->value, 
+				"export", ft_strlen((*lst)->value))))
 		new_cmd->builtin = 1;
-	else if (!(ft_strncmp((*lex_lst)->value, 
-				"unset", ft_strlen((*lex_lst)->value))))
+	else if (!(ft_strncmp((*lst)->value, 
+				"unset", ft_strlen((*lst)->value))))
 		new_cmd->builtin = 1;
-	else if (!(ft_strncmp((*lex_lst)->value, "env", ft_strlen((*lex_lst)->value))))
+	else if (!(ft_strncmp((*lst)->value, "env", ft_strlen((*lst)->value))))
 		new_cmd->builtin = 1;
-	else if (!(ft_strncmp((*lex_lst)->value, 
-				"exit", ft_strlen((*lex_lst)->value))))
+	else if (!(ft_strncmp((*lst)->value, 
+				"exit", ft_strlen((*lst)->value))))
 		new_cmd->builtin = 1;
 	if (new_cmd->builtin == 1)
 	{
-		new_cmd->cmd = strdup((*lex_lst)->value);
+		new_cmd->cmd = strdup((*lst)->value);
 		if (!new_cmd->cmd)
 			return (1);
 	}
@@ -110,6 +110,5 @@ int	get_path_name(t_cmd *new_cmd, char **env_paths)
 		i++;
 	}
 	free(cmd_mod);
-	// printf("%s: Command not found\n", new_cmd->cmd); // probably handled in executor, otherwise here and provide specific error code
 	return (0);
 }

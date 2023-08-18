@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 16:46:21 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/17 14:08:33 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/18 12:41:04 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	set_here_doc_flag(t_lex **lex_lst, t_cmd *new_cmd)
 {
 	t_file	*new_file;
-	
+
 	*lex_lst = (*lex_lst)->next;
 	if ((*lex_lst)->token != TK_WORD)
 	{
@@ -31,7 +31,7 @@ int	set_here_doc_flag(t_lex **lex_lst, t_cmd *new_cmd)
 
 int	set_redir_flags(t_lex **lex_lst, t_cmd *new_cmd)
 {
-	t_token token;
+	t_token	token;
 	t_file	*new_file;
 
 	token = (*lex_lst)->token;
