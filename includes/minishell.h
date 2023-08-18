@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
+/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 14:26:53 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/17 10:35:14 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/08/18 13:08:40 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	handle_sigquit(void);
 void	handle_sigint(int signum);
 void	handle_sigint_child(int signum);
 void	silence(void);
-int	    signals(void (*handler)(int));
+int		signals(void (*handler)(int));
 
 //PROMPT
 void	get_repo(char **input, char *head, char *w);
@@ -51,9 +51,6 @@ char	*git_traversal(void);
 
 // TESTING
 void	ft_show_tab2(t_cmd *list);
-
-
-
 
 //BUILTINS
 

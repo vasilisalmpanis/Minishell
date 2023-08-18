@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
+/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 13:38:10 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/18 11:07:33 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/18 11:36:42 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ pid_t	execute_cmd(t_cmd *cmd_lst, t_env *env_lst, int **fd, int count_cmds)
 	pid_t	pid;
 
 	if (count_cmds == 1 && cmd_lst->builtin)
-		return (builtin_process(cmd_lst, env_lst, fd)); // don't create child process; execute builtin return -1?
+		return (builtin_process(cmd_lst, env_lst, fd));
 	else 
 	{
 		signal(SIGINT, handle_sigint_child);
@@ -53,7 +53,7 @@ pid_t	execute_cmd(t_cmd *cmd_lst, t_env *env_lst, int **fd, int count_cmds)
 		if (pid == 0)
 		{
 			if (cmd_lst->builtin)
-				builtin_child(cmd_lst, env_lst, fd, count_cmds); // function for builtins
+				builtin_child(cmd_lst, env_lst, fd, count_cmds);
 			else
 				child_process(cmd_lst, env_lst, fd, count_cmds);
 		}
@@ -96,7 +96,7 @@ int	builtin_process(t_cmd *cmd, t_env *env_lst, int **fd)
 int	child_process(t_cmd *cmd, t_env *env_lst, int **fd, int count)
 {
 	char	**env_array;
-	
+
 	if (open_files(cmd, fd))
 		exit(EXIT_FAILURE);
 	close_fds(fd, count);
@@ -107,50 +107,10 @@ int	child_process(t_cmd *cmd, t_env *env_lst, int **fd, int count)
 	}
 	env_array = new_env(env_lst);
 	if (!env_array)
-		exit(EXIT_FAILURE); // error message
-	if (!cmd->args)
-		exit(EXIT_FAILURE); // error message (printf("No args provided\n"), 1);
-	if (execve(cmd->path, cmd->args, NULL) == -1)
 		exit(EXIT_FAILURE);
-	return (0);
-}
-
-char	**new_env(t_env *env_lst)
-{
-	char	**env_array;
-	char	*temp;
-	int		len;
-	int		i;
-
-	i = -1;
-	len = env_lst_size(env_lst);
-	env_array = ft_calloc(len + 1, sizeof(*env_array));
-	if (!env_array)
-		return (NULL);
-	while (env_lst)
-	{
-		if (env_lst->value[0] != '\0')
-		{
-			temp = ft_strjoin(env_lst->key, "=");
-			if (!temp)
-				return (ft_free(env_array), NULL);
-			env_array[++i] = ft_strjoin(temp, env_lst->value);
-			if (!env_array[i])
-				return (ft_free(env_array), NULL);
-			free(temp);
-		}
-		env_lst = env_lst->next;
-	}
-	return (env_array);
-}
-
-int	check_path_existence(t_env *env_lst)
-{
-	while (env_lst)
-	{
-		if (!(ft_strncmp(env_lst->key, "PATH", ft_strlen(env_lst->key))))
-			return (1);
-		env_lst = env_lst->next;
-	}
+	if (!cmd->args)
+		exit(EXIT_FAILURE);
+	if (execve(cmd->path, cmd->args, env_array) == -1)
+		exit(EXIT_FAILURE);
 	return (0);
 }

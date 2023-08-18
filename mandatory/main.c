@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 18:26:28 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/18 11:02:50 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/18 12:39:18 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,10 @@ int	main(int argc, char **argv, char **envp)
 	}
 }
 
+
+// here_doc: output depends on whether the heredoc is piped to sth afterwards or not
+// echo hello | grep hello | << cat | grep this vs echo hello | grep hello | << eof
+// in the executor we can just check if there is another node after the here_doc cmd_node
 
 // ft_show_tab2(cmd_lst);
 
