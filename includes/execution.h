@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 13:59:27 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/18 11:46:07 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/18 13:07:26 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 # define IN 0
 # define OUT 1
 
-#include "minishell.h"
+# include "minishell.h"
 
 int		execute(t_cmd *cmd_lst, t_env *env_lst, int exit_code);
 pid_t	execute_cmd(t_cmd *cmd_lst, t_env *env_lst, int **fd, int count_cmds);
