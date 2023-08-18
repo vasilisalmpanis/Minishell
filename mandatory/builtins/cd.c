@@ -29,23 +29,6 @@ char	*find_key(t_env *env, char *key)
 	return (pwd);
 }
 
-int	set_value_env(t_env *env, char *key, char *pwd)
-{
-	while (env)
-	{
-		if (ft_strncmp(env->key, key, ft_strlen(env->key)) == 0)
-		{
-			if (env->value[0])
-				free(env->value);
-			env->value = ft_strdup(pwd);
-			if (!env->value)
-				return (1);
-		}
-		env = env->next;
-	}
-	return (0);
-}
-
 int	ft_change_env(t_env *env, char *target_dir)
 {
 	char	*pwd;
@@ -57,8 +40,6 @@ int	ft_change_env(t_env *env, char *target_dir)
 		return (1);
 	if (pwd)
 		free(pwd);
-	if (target_dir)
-		free(target_dir);
 	return (0);
 }
 
@@ -66,9 +47,9 @@ int	cd_home(t_cmd *cmd, t_env *env)
 {
 	char		*home;
 
-	if (cmd->args[0])
+	if (cmd->args[0] != NULL)
 		return (1);
-	if (!cmd->args[0])
+	if (cmd->args[0] == NULL)
 	{
 		home = getenv("HOME");
 		if (!home)
@@ -89,8 +70,6 @@ int	cd_home(t_cmd *cmd, t_env *env)
  */
 int	cd_dir(t_cmd *cmd, t_env *env)
 {
-	char		*home;
-
 	if (!cd_home(cmd, env))
 		return (1);
 	else
@@ -99,19 +78,27 @@ int	cd_dir(t_cmd *cmd, t_env *env)
 			return (ft_printf("cd: ~: Not handled by minishell\n"), 1);
 		else
 		{
-			if (chdir(cmd->args[0]) == 0)
-			{
-				home = ft_strdup(getcwd(NULL, 0));
-				if (!home)
-				{
-					ft_printf("%s%s", CD1, CD2);
-					home = ft_strdup(getenv("HOME"));
-				}
-				ft_change_env(env, home);
-			}
-			else
-				return (printf(NO_CD" %s\n", cmd->args[0]), 1);
+			return (change_directory(cmd, env));
 		}
 	}
+}
+
+int	change_directory(t_cmd *cmd, t_env *env)
+{
+	char	*home;
+
+	if (chdir(cmd->args[0]) == 0)
+	{
+		home = ft_strdup(getcwd(NULL, 0));
+		if (!home)
+		{
+			ft_printf("%s%s", CD1, CD2);
+			home = ft_strdup(getenv("HOME"));
+		}
+		ft_change_env(env, home);
+		free(home);
+	}
+	else
+		return (printf(NO_CD" %s\n", cmd->args[0]), 1);
 	return (0);
 }

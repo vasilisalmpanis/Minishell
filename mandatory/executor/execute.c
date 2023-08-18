@@ -107,50 +107,10 @@ int	child_process(t_cmd *cmd, t_env *env_lst, int **fd, int count)
 	}
 	env_array = new_env(env_lst);
 	if (!env_array)
-		exit(EXIT_FAILURE); // error message
+		exit(EXIT_FAILURE);
 	if (!cmd->args)
-		exit(EXIT_FAILURE); // error message (printf("No args provided\n"), 1);
+		exit(EXIT_FAILURE);
 	if (execve(cmd->path, cmd->args, env_array) == -1)
 		exit(EXIT_FAILURE);
-	return (0);
-}
-
-char	**new_env(t_env *env_lst)
-{
-	char	**env_array;
-	char	*temp;
-	int		len;
-	int		i;
-
-	i = -1;
-	len = env_lst_size(env_lst);
-	env_array = ft_calloc(len + 1, sizeof(*env_array));
-	if (!env_array)
-		return (NULL);
-	while (env_lst)
-	{
-		if (env_lst->value[0] != '\0')
-		{
-			temp = ft_strjoin(env_lst->key, "=");
-			if (!temp)
-				return (ft_free(env_array), NULL);
-			env_array[++i] = ft_strjoin(temp, env_lst->value);
-			if (!env_array[i])
-				return (ft_free(env_array), NULL);
-			free(temp);
-		}
-		env_lst = env_lst->next;
-	}
-	return (env_array);
-}
-
-int	check_path_existence(t_env *env_lst)
-{
-	while (env_lst)
-	{
-		if (!(ft_strncmp(env_lst->key, "PATH", ft_strlen(env_lst->key))))
-			return (1);
-		env_lst = env_lst->next;
-	}
 	return (0);
 }
