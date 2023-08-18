@@ -12,7 +12,6 @@
 
 #include "../../includes/minishell.h"
 
-
 /*
  * Function:  env
  * --------------------

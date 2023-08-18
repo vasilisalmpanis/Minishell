@@ -19,7 +19,7 @@ void	handle_sigquit(void)
 	rl_redisplay();
 }
 
-void handle_sigint(int signum)
+void	handle_sigint(int signum)
 {
 	if (signum == SIGINT)
 	{
@@ -30,7 +30,7 @@ void handle_sigint(int signum)
 	}
 }
 
-void handle_sigint_child(int signum)
+void	handle_sigint_child(int signum)
 {
 	if (signum == SIGINT)
 	{

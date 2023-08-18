@@ -114,32 +114,29 @@ char	*git_traversal(void)
 
 char	*prompt(void)
 {
-	char	*temp;
-	char	*last_str;
-	char	*gcwd;
+	char	*temp[3];
 
-	temp = current_dir();
-	gcwd = getcwd(NULL, 0);
-	if (!gcwd)
+	temp[0] = current_dir();
+	temp[1] = getcwd(NULL, 0);
+	if (!temp[1])
 		return (ft_strdup(GREEN"→" BLUE"  / "ESCAPE));
-	if (temp == NULL || (ft_strncmp(gcwd, "/", ft_strlen(gcwd)) == 0))
+	if ((ft_strncmp(temp[1], "/", ft_strlen(temp[1])) == 0) != 0)
 	{
-		free(gcwd);
-		free(temp);
-		return (ft_strdup(GREEN"→" BLUE"  / "ESCAPE));
+		free(temp[1]);
+		return (free(temp[0]), ft_strdup(GREEN"→" BLUE"  / "ESCAPE));
 	}
-	last_str = ft_strjoin(GREEN"→" BLUE"  ", temp);
-	if (!last_str)
+	temp[2] = ft_strjoin(GREEN"→" BLUE"  ", temp[0]);
+	if (!temp[2])
 		return (ft_strdup(GREEN"→" BLUE"  minishell "ESCAPE));
-	free(temp);
-	temp = ft_strjoin(last_str, " "ESCAPE);
-	if (temp == NULL)
+	free(temp[0]);
+	temp[0] = ft_strjoin(temp[2], " "ESCAPE);
+	if (temp[0] == NULL)
 		return (ft_strdup(GREEN"→" BLUE"  minishell "ESCAPE));
-	free(last_str);
-	last_str = git_traversal();
-	if (!last_str)
-		return (temp);
-	get_repo(&temp, NULL, last_str);
-	free(gcwd);
-	return (free(last_str), temp);
+	free(temp[2]);
+	temp[2] = git_traversal();
+	if (!temp[2])
+		return (temp[0]);
+	get_repo(&temp[0], NULL, temp[2]);
+	free(temp[1]);
+	return (free(temp[2]), temp[0]);
 }
