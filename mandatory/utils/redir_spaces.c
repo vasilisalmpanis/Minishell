@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 17:11:39 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/13 18:36:27 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/17 17:57:09 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ char	*handle_redirects(char *input)
 	char	*temp;
 
 	temp = add_space_pre_redir(input, 0);
+	free(input);
 	new_input = add_space_post_redir(temp, 0);
 	free(temp);
 	return (new_input);
@@ -81,7 +82,6 @@ char	*add_space_pre_redir(char *input, int j)
 		}
 		new_input[j++] = input[i];
 	}
-	// free(input);
 	return (new_input);
 }
 
@@ -105,8 +105,8 @@ char	*add_space_post_redir(char *input, int j)
 				&& !(input[i + 1] == 26) && input[i + 1]))
 		{
 			new_input[j++] = 26;
-			if ((i > 0 && (input[i] == '<' && input[i - 1] == '>'))
-				|| (input[i] == '>' && input[i - 1] == '<'))
+			if (i > 0 && ((input[i] == '<' && input[i - 1] == '>')
+				|| (input[i] == '>' && input[i - 1] == '<')))
 				j--;
 		}
 	}
@@ -151,8 +151,8 @@ int	calc_redir_wo_space(char *input)
 				&& input[i + 1] != 26 && input[i + 1]))
 		{
 			redir_no_sp++;
-			if ((i > 0 && (input[i] == '<' && input[i - 1] == '>'))
-				|| (input[i] == '>' && input[i - 1] == '<'))
+			if (i > 0 && ((input[i] == '<' && input[i - 1] == '>')
+				|| (input[i] == '>' && input[i - 1] == '<')))
 				redir_no_sp--;
 		}
 	}

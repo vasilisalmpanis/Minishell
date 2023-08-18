@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 17:20:07 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/16 17:23:11 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/18 11:07:40 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,31 +17,32 @@
 
 typedef struct s_env	t_env;
 
+typedef struct s_file
+{
+	char			*name;
+	t_token			token;
+	char			*delim;
+	struct s_file	*next;
+}				t_file;
+
 typedef struct s_cmd
 {
 	char			*cmd;
 	char			*path;
-	int				opt;
 	char			**args;
 	int				builtin;
 	int				path_known;
 	int				is_sh_script;
 	pid_t			pid;
 	int				cmd_id;
-	int				in_flag;
-	int				out_flag;
-	int				app_flag;
-	int				hd_flag;
 	int				env_flag;
-	char			*delim;
-	char			*in_file;
-	char			*out_file;
-	char			*app_file;
+	int				exit_code;
+	t_file			*file;
 	struct s_cmd	*next;
 }				t_cmd;
 
-t_cmd	*parser(t_lex *lex_lst, t_env *env_lst);
-int		parse_tokens(t_lex *lex_lst, t_cmd **cmd_lst, char **env_paths);
+t_cmd	*parser(t_lex *lex_lst, t_env *env_lst, int exit_code);
+int		parse_tokens(t_lex *lex_lst, t_cmd **cmd_lst, char **env_paths, int exit_code);
 int		allocate_args(t_lex *lex_lst, t_cmd *new_cmd);
 int		analyze_token(t_lex **lex_lst, t_cmd *new_cmd, \
 						int *arg_num, char **env_p);
@@ -53,7 +54,7 @@ int		set_filename(t_lex **lex_lst, t_cmd *new_cmd, int token);
 
 int		analyze_word(t_lex **lex_lst, t_cmd *new_cmd, \
 						int *arg_num, char **env_p);
-int		check_word_type(t_lex *lex_lst, t_cmd *cmd);
+int		check_word_type(t_cmd *cmd);
 int		analyze_cmd(t_lex **lex_lst, t_cmd *new_cmd, \
 						int *arg_num, char **env_p);
 int		analyze_opt(t_lex **lex_lst, t_cmd *new_cmd);

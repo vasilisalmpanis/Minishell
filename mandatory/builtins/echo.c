@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 11:23:37 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/15 12:47:43 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/17 12:45:11 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,21 @@
  * print a newline.
  * @cmd Reference to the command given by lexer
  */
+
 int	echo(t_cmd *cmd) // currently prints -n from arguments
 {
 	int	i;
+	int	flag;
 
+	i = 0;
+	flag = 0;
+	if (cmd->args[0][0] == '-')
+	{
+		while (cmd->args[0][i] && cmd->args[0][i] == 'n')
+			i++;
+		if (cmd->args[0][i])
+			flag = 1;
+	}
 	i = 0;
 	while (cmd->args[i])
 	{
@@ -31,7 +42,7 @@ int	echo(t_cmd *cmd) // currently prints -n from arguments
 			ft_putchar_fd(' ', 1);
 		i++;
 	}
-	if (cmd->opt == 0)
+	if (flag == 0)
 		ft_putchar_fd('\n', 1);
 	return (0);
 }

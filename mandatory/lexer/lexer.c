@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 16:15:37 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/16 16:38:56 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/18 11:12:28 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int	create_word_token(char *split, int *pos, t_lex **new_token, int exit_code)
 	char	*word;
 
 	if (check_syntax_err(split))
-		return ((ft_putstr_fd("Syntax error near '><'", 2)), 1);
+		return ((ft_putstr_fd("Syntax error near '><'\n", 2)), 1);
 	word = check_expand(split, -1, exit_code, 1); 
 	if (!word)
 		return (1);

@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 16:13:07 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/16 11:50:14 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/18 10:51:51 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,16 @@
 # define UTILS_H
 # include "minishell.h"
 
-t_cmd	*ft_new_cmd(int id, char **env_paths);
+t_cmd	*ft_new_cmd(int id, char **env_paths, int exit_code);
 t_lex	*ft_new_tk(void *value, t_token token, int pos);
 void	ft_lstadd_end(t_lex **lst, t_lex *new);
 void	ft_cmd_lstadd_end(t_cmd **lst, t_cmd *new);
 void	free_cmd_lex_env(t_cmd **cmd_lst, t_lex **lex_lst, char **env_paths);
 void	ft_cmd_lst_free(t_cmd **lst);
 void	ft_lst_free(t_lex **lst);
+
+void	ft_file_lst_add(t_file **lst, t_file *new_file);
+t_file	*create_new_file(char *delim, t_token token, char *name);
 
 char	**split_args(char *input);
 char	*ft_charjoin_mod(char *s1, char s2);
