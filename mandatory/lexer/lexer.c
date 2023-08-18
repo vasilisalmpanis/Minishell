@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 16:15:37 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/18 11:12:28 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/18 11:48:47 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,17 +125,3 @@ int	check_syntax_err(char *word)
 	}
 	return (0);
 }
-
-// for testing lexer
-//  void	ft_show_tab(t_lex *list)
-//   {
-//   	while (list)
-//   	{
-//   		ft_putstr_fd(list->value, 1);
-//   		write(1, "\n", 1);
-//   		printf("token: %c\n", list->token);
-//   		// write(1, "\n", 1);
-//   		list = list->next;
-//   	}
-//   }
-// function to check for expansion
