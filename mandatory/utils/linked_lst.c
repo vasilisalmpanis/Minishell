@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 16:03:16 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/19 09:38:13 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/19 12:02:13 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,28 @@ void	ft_cmd_lst_free(t_cmd **lst)
 	{
 		temp = *lst;
 		*lst = (*lst)->next;
+		if (temp->cmd)
+			free(temp->cmd);
+		if (temp->path)
+			free(temp->path);
+		if (temp->args)
+			ft_free(temp->args);
+		if (temp->file)
+			ft_free_file_lst(&(temp->file));
+		free(temp);
+	}
+}
+
+
+
+void	ft_cmd_lst_free_child(t_cmd *lst)
+{
+	t_cmd	*temp;
+
+	while (lst)
+	{
+		temp = lst;
+		lst = lst->next;
 		if (temp->cmd)
 			free(temp->cmd);
 		if (temp->path)
@@ -68,4 +90,17 @@ void	ft_lst_free(t_lex **lst)
 			free(temp->value);
 		free(temp);
 	}
+}
+
+void	free_mem_fd(int **fd, int num_cmds)
+{
+	int	i;
+
+	i = 0;
+	while (i < num_cmds - 1)
+	{
+		free(fd[i]);
+		i++;
+	}
+	free(fd);
 }

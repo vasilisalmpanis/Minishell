@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 13:38:10 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/18 11:36:42 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/19 12:06:04 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ int	execute(t_cmd *cmd_lst, t_env *env_lst, int exit_code)
 	if (!fd)
 		return (1);
 	if (create_pipes(fd, num_cmds))
-		return (1);
+		return (free_mem_fd(fd, num_cmds), 1);
+	add_start_lst(cmd_lst);
 	while (cmd_lst)
 	{
 		cmd_lst->pid = execute_cmd(cmd_lst, env_lst, fd, num_cmds);
@@ -35,6 +36,7 @@ int	execute(t_cmd *cmd_lst, t_env *env_lst, int exit_code)
 		exit_code = wait_for_children(cmd_lst_start);
 	else
 		exit_code = (int)cmd_lst_start->pid;
+	free_mem_fd(fd, num_cmds);
 	return (exit_code);
 }
 
@@ -76,6 +78,9 @@ int	builtin_child(t_cmd *cmd, t_env *env_lst, int **fd, int count)
 	exit_code = exec_builtin(cmd, env_lst);
 	if (dup2(fd_stdout, STDOUT_FILENO) == -1)
 		exit(EXIT_FAILURE);
+	free_mem_fd(fd, count);
+	ft_env_free((&env_lst));
+	ft_cmd_lst_free_child(cmd->start);
 	exit(exit_code);
 }
 
@@ -110,6 +115,8 @@ int	child_process(t_cmd *cmd, t_env *env_lst, int **fd, int count)
 		exit(EXIT_FAILURE);
 	if (!cmd->args)
 		exit(EXIT_FAILURE);
+	free_mem_fd(fd, count);
+	ft_env_free((&env_lst));
 	if (execve(cmd->path, cmd->args, env_array) == -1)
 		exit(EXIT_FAILURE);
 	return (0);

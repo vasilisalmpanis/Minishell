@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:45:22 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/18 11:43:39 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/19 10:24:13 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ int	open_files(t_cmd *cmd, int **fd)
 		cmd->file = cmd->file->next;
 	}
 	if (set_stdin(flag, fd_in_out, cmd, fd))
-		return (1);
+		return (free(fd_in_out), 1);
 	if (set_stdout(fd_in_out, fd, cmd))
-		return (1);
+		return (free(fd_in_out), 1);
 	free(fd_in_out);
 	return (0);
 }
@@ -63,7 +63,7 @@ int	*open_in_out_files(t_file *file_lst)
 	while (file_lst)
 	{
 		if (open_in_out_files_helper(file_lst, fd_temp))
-			return (NULL);
+			return (free(fd_temp), NULL);
 		file_lst = file_lst->next;
 	}
 	return (fd_temp);

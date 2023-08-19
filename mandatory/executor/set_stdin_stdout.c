@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 11:40:53 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/18 11:41:12 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/19 10:24:47 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	set_stdin(int flag, int *fd_in_out, t_cmd *cmd, int **fd)
 	{
 		fd_temp = open("temp", O_RDONLY);
 		if (fd_temp == -1)
-			exit(EXIT_FAILURE);
+			return (1);
 		if (dup2(fd_temp, STDIN_FILENO) == -1)
 			return (1);
 		close(fd_temp);

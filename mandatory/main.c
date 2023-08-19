@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 18:26:28 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/19 10:01:16 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/19 12:06:18 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 void	exit_min(char *input, t_cmd **cmd_lst, t_env **lst)
 {
 	printf("Exiting minishell\n");
-	(void)lst;
-	(void)cmd_lst;
-	// if (*lst)
-	// 	ft_env_free(lst);
-	// if (*cmd_lst)
-	// 	ft_cmd_lst_free(cmd_lst);
+	// (void)lst;
+	// (void)cmd_lst;
+	if (*lst)
+		ft_env_free(lst);
+	if (*cmd_lst)
+		ft_cmd_lst_free(cmd_lst);
 	if (input)
 		free(input);
 	exit(1);
