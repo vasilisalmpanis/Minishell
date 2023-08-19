@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 18:23:58 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/18 12:40:25 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/18 16:08:31 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_cmd	*parser(t_lex *lex_lst, t_env *env_lst, int exit_code)
 	char	**env_paths;
 
 	cmd_lst = NULL;
-	env_paths = extract_paths(&env_lst);
+	env_paths = extract_paths(&env_lst); // env_paths get allocated // NULL is valid return; e.g. in case path has been unset
 	if (parse_tokens(lex_lst, &cmd_lst, env_paths, exit_code))
 		return (free_cmd_lex_env(&cmd_lst, &lex_lst, env_paths), NULL);
 	ft_lst_free(&lex_lst);
@@ -40,6 +40,8 @@ char	**extract_paths(t_env **env_lst)
 			path_values = strdup((*env_lst)->value);
 			break ;
 		}
+		free(path_values);
+		path_values = NULL;
 		env_lst = &((*env_lst)->next);
 	}
 	env_paths = ft_split(path_values, ':');
