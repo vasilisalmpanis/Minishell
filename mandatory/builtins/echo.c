@@ -22,27 +22,29 @@
 
 int	echo(t_cmd *cmd)
 {
-	int	i;
-	int	flag;
+	int	i[2];
 
-	i = 0;
-	flag = 0;
-	if (cmd->args[0][0] == '-')
+	i[0] = 0;
+	i[1] = 0;
+	if (cmd->args[0])
 	{
-		while (cmd->args[0][i] && cmd->args[0][i] == 'n')
-			i++;
-		if (cmd->args[0][i])
-			flag = 1;
+		if (cmd->args[0][0] == '-')
+		{
+			while (cmd->args[0][i[0]] && cmd->args[0][i[0]] == 'n')
+				i[0]++;
+			if (cmd->args[0][i[0]])
+				i[1] = 1;
+		}
 	}
-	i = 0;
-	while (cmd->args[i])
+	i[0] = 0;
+	while (cmd->args[i[0]])
 	{
-		ft_putstr_fd(cmd->args[i], 1);
-		if (cmd->args[i + 1])
+		ft_putstr_fd(cmd->args[i[0]], 1);
+		if (cmd->args[i[0] + 1])
 			ft_putchar_fd(' ', 1);
-		i++;
+		i[0]++;
 	}
-	if (flag == 0)
+	if (i[1] == 0)
 		ft_putchar_fd('\n', 1);
 	return (0);
 }
