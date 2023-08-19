@@ -6,16 +6,21 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 18:26:28 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/18 17:24:02 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/19 10:01:16 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	exit_min(char *input, t_lex **lst)
+void	exit_min(char *input, t_cmd **cmd_lst, t_env **lst)
 {
 	printf("Exiting minishell\n");
 	(void)lst;
+	(void)cmd_lst;
+	// if (*lst)
+	// 	ft_env_free(lst);
+	// if (*cmd_lst)
+	// 	ft_cmd_lst_free(cmd_lst);
 	if (input)
 		free(input);
 	exit(1);
@@ -45,11 +50,11 @@ int	main(int argc, char **argv, char **envp)
 		input[1] = readline(input[0]); //input[1] is allocated?
 		free(input[0]);
 		if (!input[1])
-			exit_min(input[1], &lex_lst);
+			exit_min(input[1], &cmd_lst, &env_lst);
 		input[0] = ft_strdup(input[1]); //input[0] is allocated / gets freed in lexer split_args
 		if (!input[0])
 			return (1);
-		lex_lst = lex(input[0], exit_code); //lex_lst is allocated
+		lex_lst = lex(input[0], exit_code); //lex_lst is allocated / gets freed in parser
 		if (!lex_lst)
 			exit_code = 1;
 		else
@@ -61,7 +66,7 @@ int	main(int argc, char **argv, char **envp)
 				exit_code = execute(cmd_lst, env_lst, exit_code);
 		}
 		if (strcmp(input[1], "exit") == 0)
-			exit_min(input[1], &lex_lst);
+			exit_min(input[1], &cmd_lst, &env_lst);
 		add_history(input[1]);
 		free(input[1]);
 		ft_cmd_lst_free(&cmd_lst);
