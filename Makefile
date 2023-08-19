@@ -16,6 +16,7 @@ SRC =	mandatory/main.c \
 		mandatory/lexer/create_exp_var.c \
 		mandatory/builtins/env.c \
 		mandatory/builtins/export.c \
+		mandatory/builtins/export_print.c \
 		mandatory/builtins/pwd.c \
 		mandatory/builtins/cd.c \
 		mandatory/builtins/echo.c \
@@ -36,7 +37,7 @@ SRC =	mandatory/main.c \
 LIBFT = ./libft
 RM = rm -rf
 CC = gcc
-CFLAGS = -g -Wall -Wextra -Werror 
+CFLAGS = -g -Wall -Wextra -Werror -fsanitize=address
 OBJ = $(SRC:.c=.o)
 GREEN = \033[0;32m
 RED = \033[0;31m
