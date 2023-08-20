@@ -31,16 +31,18 @@ void	export_print(t_env *lst)
 	i = -1;
 	while (++i < length)
 	{
-		ft_putstr_fd("declare -x ", 1);
-		ft_putstr_fd(exp[i]->key, 1);
-		if (exp[i]->value[0] != '\0')
+		if (exp[i]->key[1] != '_')
 		{
-			ft_putstr_fd("=\"", 1);
-			ft_putstr_fd(exp[i]->value, 1);
-			ft_putstr_fd("\"\n", 1);
-		}
-		else
+			ft_putstr_fd("declare -x ", 1);
+			ft_putstr_fd(exp[i]->key, 1);
+			if (exp[i]->value[0] != '\0')
+			{
+				ft_putstr_fd("=\"", 1);
+				ft_putstr_fd(exp[i]->value, 1);
+				ft_putstr_fd("\"", 1);
+			}
 			ft_putstr_fd("\n", 1);
+		}
 	}
 	free(exp);
 }

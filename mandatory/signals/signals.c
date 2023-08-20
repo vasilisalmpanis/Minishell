@@ -32,18 +32,24 @@ void	handle_sigint(int signum)
 
 void	handle_sigint_child(int signum)
 {
-	if (signum == SIGINT)
-	{
-		putchar('\n');
-		rl_replace_line("", 0);
-	}
+	putchar('\n');
+//	rl_replace_line("", 0);
 }
 
-int	signals(void (*handler)(int))
+void	handle_sigquit_child(int signum)
+{
+	putchar('\n');
+	ft_putstr_fd("Quit: ", STDERR_FILENO);
+	ft_putnbr_fd(signum, STDERR_FILENO);
+	putchar('\n');
+	rl_replace_line("", 0);
+	exit(130);
+}
+
+void	signals(void (*handler)(int))
 {
 	signal(SIGINT, handler);
 	signal(SIGQUIT, SIG_IGN);
-	return (130);
 }
 
 void	silence(void)

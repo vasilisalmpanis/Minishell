@@ -96,7 +96,6 @@ t_lex	*create_token(char *split, int *pos, int exit_code)
 	return (new_token);
 }
 
-char	*remove_quotes(char *split);
 int	create_word_token(char *split, int *pos, t_lex **new_token, int exit_code)
 {
 	char	*word;
@@ -126,35 +125,4 @@ int	check_syntax_err(char *split)
 		i++;
 	}
 	return (0);
-}
-
-char	*remove_quotes(char *split)
-{
-	int		i;
-	int		count;
-	char	*word;
-
-	if (split[0] == '\'' || split[0] == '\"')
-		return (split);
-	i = -1;
-	count = 0;
-	while (split[++i])
-	{
-		if (split[i] != '\'' && split[i] != '\"')
-			++count;
-	}
-	word = ft_calloc(count + 1, sizeof(char));
-	if (!word)
-		return (split);
-	i = -1;
-	count = 0;
-	while (split[++i])
-	{
-		if (split[i] != '\'' && split[i] != '\"')
-		{
-			word[count] = split[i];
-			++count;
-		}
-	}
-	return (word);
 }

@@ -18,6 +18,7 @@ int	open_files(t_cmd *cmd, int **fd)
 	int	flag;
 
 	flag = -1;
+	signal(SIGINT, handle_sigint);
 	if (open_heredocs(cmd->file, cmd->exit_code))
 		return (1);
 	fd_in_out = open_in_out_files(cmd->file);

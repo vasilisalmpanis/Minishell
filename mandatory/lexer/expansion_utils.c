@@ -46,3 +46,31 @@ int	calc_offset(char *split, int start, int *i)
 	}
 	return (offset);
 }
+
+char	*remove_quotes(char *split)
+{
+	int		i;
+	int		count;
+	char	*word;
+
+	if (split[0] == '\'' || split[0] == '\"')
+		return (split);
+	i = -1;
+	count = 0;
+	while (split[++i])
+	{
+		if (split[i] != '\'' && split[i] != '\"')
+			++count;
+	}
+	word = ft_calloc(count + 1, sizeof(char));
+	if (!word)
+		return (split);
+	i = -1;
+	count = 0;
+	while (split[++i])
+	{
+		if (split[i] != '\'' && split[i] != '\"')
+			word[count++] = split[i];
+	}
+	return (word);
+}

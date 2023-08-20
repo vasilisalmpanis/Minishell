@@ -37,8 +37,9 @@
 void	handle_sigquit(void);
 void	handle_sigint(int signum);
 void	handle_sigint_child(int signum);
+void	handle_sigquit_child(int signum);
 void	silence(void);
-int		signals(void (*handler)(int));
+void	signals(void (*handler)(int));
 
 //PROMPT
 void	get_repo(char **input, char *head, char *w);

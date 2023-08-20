@@ -63,6 +63,6 @@ void	sort_env_array(t_env **array, int length, int (*cmp)(char *, char *));
 int		unset(t_env **lst, t_cmd *cmd);
 
 // exit
-void	exit_builtin(t_env **lst, t_cmd *cmd);
+int	exit_builtin(t_env **lst, t_cmd *cmd);
 
 #endif

@@ -12,13 +12,7 @@
 
 #include "../includes/minishell.h"
 
-void	exit_min(char *input, t_lex **lst, int exit_code)
-{
-	(void)lst;
-	if (input)
-		free(input);
-	exit(exit_code);
-}
+int	signal_num;
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -44,7 +38,7 @@ int	main(int argc, char **argv, char **envp)
 		input[1] = readline(input[0]); //input[1] is allocated / gets freed in lexer split args
 		free(input[0]);
 		if (!input[1])
-			exit_min(input[1], &lex_lst, exit_code);
+			exit_builtin(&env_lst, NULL);
 		add_history(input[1]);
 		lex_lst = lex(input[1], exit_code); //lex_lst is allocated / gets freed in parser
 		if (!lex_lst)
@@ -62,37 +56,37 @@ int	main(int argc, char **argv, char **envp)
 }
 
 // ft_show_tab2(cmd_lst);
-
-void	ft_show_tab2(t_cmd *list)
-{
-	int	i;
-
-	write(1, "\n", 1);
-	while (list)
-	{
-		printf("cmd id: %d\n", list->cmd_id);
-		if (list->file)
-		{
-			while (list->file)
-			{
-				printf("heredoc_delim: %s\n", list->file->delim);
-				printf("file name: %s\n", list->file->name);
-				printf("token: %c\n", list->file->token);
-				list->file = list->file->next;
-			}
-		}
-		printf("cmd: %s\n", list->cmd);
-		printf("builtin: %d\n", list->builtin);
-		printf("path: %s\n", list->path);
-		i = 0;
-		while (list->args[i])
-		{
-			printf("args[%d]: %s\n", i, list->args[i]);
-			i++;
-		}
-		printf("args[%d]: %s\n", i, list->args[i]);
-		// printf("args[1]: %s\n", list->args[1]);
-		write(1, "\n", 1);
-		list = list->next;
-	}
-}
+//
+//void	ft_show_tab2(t_cmd *list)
+//{
+//	int	i;
+//
+//	write(1, "\n", 1);
+//	while (list)
+//	{
+//		printf("cmd id: %d\n", list->cmd_id);
+//		if (list->file)
+//		{
+//			while (list->file)
+//			{
+//				printf("heredoc_delim: %s\n", list->file->delim);
+//				printf("file name: %s\n", list->file->name);
+//				printf("token: %c\n", list->file->token);
+//				list->file = list->file->next;
+//			}
+//		}
+//		printf("cmd: %s\n", list->cmd);
+//		printf("builtin: %d\n", list->builtin);
+//		printf("path: %s\n", list->path);
+//		i = 0;
+//		while (list->args[i])
+//		{
+//			printf("args[%d]: %s\n", i, list->args[i]);
+//			i++;
+//		}
+//		printf("args[%d]: %s\n", i, list->args[i]);
+//		// printf("args[1]: %s\n", list->args[1]);
+//		write(1, "\n", 1);
+//		list = list->next;
+//	}
+//}

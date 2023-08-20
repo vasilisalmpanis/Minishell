@@ -48,6 +48,7 @@ pid_t	execute_cmd(t_cmd *cmd_lst, t_env *env_lst, int **fd, int count_cmds)
 		return (builtin_process(cmd_lst, env_lst, fd));
 	else 
 	{
+
 		signal(SIGINT, handle_sigint_child);
 		pid = fork();
 		if (pid < 0)
@@ -73,6 +74,7 @@ int	builtin_child(t_cmd *cmd, t_env *env_lst, int **fd, int count)
 	if (open_files(cmd, fd))
 		exit(EXIT_FAILURE);
 	close_fds(fd, count);
+	signal(SIGQUIT, handle_sigquit_child);
 	if (!cmd->args)
 		exit(EXIT_FAILURE);
 	exit_code = exec_builtin(cmd, env_lst);
@@ -117,6 +119,7 @@ int	child_process(t_cmd *cmd, t_env *env_lst, int **fd, int count)
 		exit(EXIT_FAILURE);
 	free_mem_fd(fd, count);
 	ft_env_free((&env_lst));
+	signal(SIGQUIT, handle_sigquit_child);
 	if (execve(cmd->path, cmd->args, env_array) == -1)
 		exit(EXIT_FAILURE);
 	return (0);
