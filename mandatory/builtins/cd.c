@@ -53,7 +53,7 @@ int	cd_home(t_cmd *cmd, t_env *env)
 	{
 		home = getenv("HOME");
 		if (!home)
-			return (printf("error\n"), 1);
+			return (ft_putstr_fd("error\n", STDERR_FILENO), 1);
 		ft_change_env(env, home);
 		chdir(home);
 	}
@@ -75,7 +75,7 @@ int	cd_dir(t_cmd *cmd, t_env *env)
 	else
 	{
 		if (ft_strncmp(cmd->args[0], "~", ft_strlen(cmd->args[0])) == 0)
-			return (ft_printf("cd: ~: Not handled by minishell\n"), 1);
+			return (ft_putstr_fd("cd: ~: Not handled by minishell\n", 2), 1);
 		else
 		{
 			return (change_directory(cmd, env));
@@ -92,13 +92,14 @@ int	change_directory(t_cmd *cmd, t_env *env)
 		home = ft_strdup(getcwd(NULL, 0));
 		if (!home)
 		{
-			ft_printf("%s%s", CD1, CD2);
+			ft_putstr_fd(CD1, 2);
+			ft_putstr_fd(CD2, 2);
 			home = ft_strdup(getenv("HOME"));
 		}
 		ft_change_env(env, home);
 		free(home);
 	}
 	else
-		return (printf(NO_CD" %s\n", cmd->args[0]), 1);
+		return (ft_putstr_fd(NO_CD, 2), 1);
 	return (0);
 }
