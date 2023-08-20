@@ -54,6 +54,5 @@ void	print_var(const char *str)
 
 	i = -1;
 	while (str[++i])
-		if (str[i] != '\'' && str[i] != '\"')
-			ft_putchar_fd(str[i], STDOUT_FILENO);
+		ft_putchar_fd(str[i], STDOUT_FILENO);
 }

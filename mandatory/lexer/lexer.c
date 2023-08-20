@@ -104,7 +104,7 @@ int	create_word_token(char *split, int *pos, t_lex **new_token, int exit_code)
 	if (check_syntax_err(split))
 		return ((ft_putstr_fd("Syntax error near '><'\n", 2)), 1);
 	word = remove_quotes(split);
-	word = check_expand(split, -1, exit_code, 1);
+	word = check_expand(word, -1, exit_code, 1);
 	if (!word)
 		return (1);
 	*new_token = ft_new_tk(word, TK_WORD, *pos);
@@ -130,8 +130,9 @@ int	check_syntax_err(char *split)
 
 char	*remove_quotes(char *split)
 {
-	int	i;
-	int	count;
+	int		i;
+	int		count;
+	char	*word;
 
 	if (split[0] == '\'' || split[0] == '\"')
 		return (split);
@@ -139,7 +140,21 @@ char	*remove_quotes(char *split)
 	count = 0;
 	while (split[++i])
 	{
-		if 
+		if (split[i] != '\'' && split[i] != '\"')
+			++count;
 	}
-
+	word = ft_calloc(count + 1, sizeof(char));
+	if (!word)
+		return (split);
+	i = -1;
+	count = 0;
+	while (split[++i])
+	{
+		if (split[i] != '\'' && split[i] != '\"')
+		{
+			word[count] = split[i];
+			++count;
+		}
+	}
+	return (word);
 }
