@@ -18,6 +18,6 @@
 # define ID ": not a valid identifier\n"
 # define CD1 "cd: error retrieving current directory: getcwd:"
 # define CD2 " cannot access parent directories: No such file or directory\n"
-# define NO_CD "no such file or directory\n"
+# define NO_CD " No such file or directory\n"
 
 #endif

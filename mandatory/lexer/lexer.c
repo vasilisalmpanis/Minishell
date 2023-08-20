@@ -53,7 +53,7 @@ t_lex	*lex(char *input, int exit_code)
 	pos = 0;
 	token_lst = NULL;
 	if (check_quotes(input, 0, 0))
-		return (printf("Uneven quote number\n"), NULL);
+		return (ft_putstr_fd("Uneven quote number\n", 2), NULL);
 	split = split_args(input);
 	if (!split)
 		return (NULL);
@@ -96,12 +96,14 @@ t_lex	*create_token(char *split, int *pos, int exit_code)
 	return (new_token);
 }
 
+char	*remove_quotes(char *split);
 int	create_word_token(char *split, int *pos, t_lex **new_token, int exit_code)
 {
 	char	*word;
 
 	if (check_syntax_err(split))
 		return ((ft_putstr_fd("Syntax error near '><'\n", 2)), 1);
+	word = remove_quotes(split);
 	word = check_expand(split, -1, exit_code, 1);
 	if (!word)
 		return (1);
@@ -124,4 +126,20 @@ int	check_syntax_err(char *split)
 		i++;
 	}
 	return (0);
+}
+
+char	*remove_quotes(char *split)
+{
+	int	i;
+	int	count;
+
+	if (split[0] == '\'' || split[0] == '\"')
+		return (split);
+	i = -1;
+	count = 0;
+	while (split[++i])
+	{
+		if 
+	}
+
 }

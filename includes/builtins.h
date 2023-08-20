@@ -29,6 +29,7 @@ int		pwd(void);
 
 // echo
 int		echo(t_cmd *cmd);
+void	print_var(const char *str);
 
 // cd
 int		cd_dir(t_cmd *cmd, t_env *env);
@@ -60,5 +61,8 @@ void	sort_env_array(t_env **array, int length, int (*cmp)(char *, char *));
 
 // unset
 int		unset(t_env **lst, t_cmd *cmd);
+
+// exit
+void	exit_builtin(t_env **lst, t_cmd *cmd);
 
 #endif

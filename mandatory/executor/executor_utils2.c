@@ -52,6 +52,8 @@ int	exec_builtin(t_cmd *cmd, t_env *env_lst)
 		exit_code = export(&env_lst, cmd);
 	else if (!ft_strncmp(cmd->cmd, "unset", ft_strlen(cmd->cmd)))
 		exit_code = unset(&env_lst, cmd);
+	else if (!ft_strncmp(cmd->cmd, "exit", ft_strlen(cmd->cmd)))
+		exit_builtin(&env_lst, cmd);
 	return (exit_code);
 }
 

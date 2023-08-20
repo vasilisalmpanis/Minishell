@@ -38,7 +38,7 @@ int	echo(t_cmd *cmd)
 	i[0] = 0;
 	while (cmd->args[i[0]])
 	{
-		ft_putstr_fd(cmd->args[i[0]], 1);
+		print_var(cmd->args[i[0]]);
 		if (cmd->args[i[0] + 1] && cmd->args[i[0]][0] != '\0')
 			ft_putchar_fd(' ', 1);
 		i[0]++;
@@ -46,4 +46,14 @@ int	echo(t_cmd *cmd)
 	if (i[1] == 0)
 		ft_putchar_fd('\n', 1);
 	return (0);
+}
+
+void	print_var(const char *str)
+{
+	int	i;
+
+	i = -1;
+	while (str[++i])
+		if (str[i] != '\'' && str[i] != '\"')
+			ft_putchar_fd(str[i], STDOUT_FILENO);
 }
