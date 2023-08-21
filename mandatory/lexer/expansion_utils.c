@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 12:34:18 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/18 15:50:05 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/21 16:54:22 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,57 @@ int	calc_offset(char *split, int start, int *i)
 		ft_putstr_fd("Error: Bad syntax near '{'\n", 2);
 	}
 	return (offset);
+}
+
+char	*remove_quotes(char *split, int i, int j)
+{
+	int		count;
+	char	buf;
+	char	*trimmed_word;
+
+	if (split[0] == '\'' || split[0] == '\"')
+		return (ft_strdup(split));
+	buf = '\0';
+	count = count_rm_quotes(split);
+	trimmed_word = ft_calloc(count + 1, sizeof(char));
+	if (!trimmed_word)
+		return (NULL);
+	while (split[i])
+	{
+		if (split[i] == '\'' || split[i] == '\"')
+		{
+			buf = split[i++];
+			while (split[i] && split[i] != buf)
+				trimmed_word[j++] = split[i++];
+		}
+		else
+			trimmed_word[j++] = split[i];
+		if (split[i])
+			i++;
+	}
+	return (trimmed_word);
+}
+
+int	count_rm_quotes(char *split)
+{
+	int		count;
+	char	buf;
+	int		i;
+
+	i = 0;
+	count = ft_strlen(split);
+	buf = '\0';
+	while (split[i])
+	{
+		if (split[i] == '\'' || split[i] == '\"')
+		{
+			buf = split[i++];
+			while (split[i] && split[i] != buf)
+				i++;
+			count -= 2;
+		}
+		if (split[i])
+			i++;
+	}
+	return (count);
 }

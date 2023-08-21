@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 15:08:23 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/21 14:54:06 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/21 15:50:29 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int	analyze_word(t_lex **lex_lst, t_cmd *new_cmd, int *arg_num, char **env_p)
 
 int	check_word_type(t_cmd *cmd, t_lex *lex_lst)
 {
-	// (void)lex_lst;
 	if (cmd->cmd || lex_lst->value[0] == '\0')
 		return (0);
 	else
