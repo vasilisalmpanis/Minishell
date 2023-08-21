@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 12:34:18 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/21 16:54:22 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/21 17:20:12 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,12 @@ char	*remove_quotes(char *split, int i, int j)
 	char	buf;
 	char	*trimmed_word;
 
-	if (split[0] == '\'' || split[0] == '\"')
-		return (ft_strdup(split));
 	buf = '\0';
+	// if (split[0] == '\'' || split[0] == '\"')
+	// 	return (ft_strdup(split));
 	count = count_rm_quotes(split);
+	if (count == -1)
+		return (ft_strdup(split));
 	trimmed_word = ft_calloc(count + 1, sizeof(char));
 	if (!trimmed_word)
 		return (NULL);
@@ -90,9 +92,11 @@ int	count_rm_quotes(char *split)
 		if (split[i] == '\'' || split[i] == '\"')
 		{
 			buf = split[i++];
+			count -= 2;
 			while (split[i] && split[i] != buf)
 				i++;
-			count -= 2;
+			if (!split[i])
+				return (-1);
 		}
 		if (split[i])
 			i++;
