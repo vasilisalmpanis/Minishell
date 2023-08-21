@@ -24,9 +24,12 @@ int	analyze_word(t_lex **lex_lst, t_cmd *new_cmd, int *arg_num, char **env_p)
 	}
 	else
 	{
-		new_cmd->args[(*arg_num)] = ft_strdup((*lex_lst)->value);
-		if (!((new_cmd->args)[(*arg_num)++]))
-			return (1);
+		if ((*lex_lst)->value[0] != '\0')
+		{
+			new_cmd->args[(*arg_num)] = ft_strdup((*lex_lst)->value);
+			if (!((new_cmd->args)[(*arg_num)++]))
+				return (1);
+		}
 	}
 	return (0);
 }

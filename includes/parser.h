@@ -43,7 +43,7 @@ typedef struct s_cmd
 }				t_cmd;
 
 t_cmd	*parser(t_lex *lex_lst, t_env *env_lst, int ex_co);
-char	**extract_paths(t_env **env_lst);
+char	**extract_paths(t_env *env_lst);
 int		parse_tokens(t_lex *lex_lst, t_cmd **cmd_lst, \
 						char **env_paths, int exit_code);
 int		allocate_args(t_lex *lex_lst, t_cmd *new_cmd);

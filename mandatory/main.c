@@ -64,7 +64,7 @@ int	main(int argc, char **argv, char **envp)
 			else
 			{
 				cmd_lst = parser(lex_lst, env_lst, exit_code);
-				//ft_show_tab2(cmd_lst);
+//				ft_show_tab2(cmd_lst);
 				if (!cmd_lst)
 					exit_code = 1;
 				else

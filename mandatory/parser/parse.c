@@ -18,7 +18,7 @@ t_cmd	*parser(t_lex *lex_lst, t_env *env_lst, int exit_code)
 	char	**env_paths;
 
 	cmd_lst = NULL;
-	env_paths = extract_paths(&env_lst); // env_paths get allocated // NULL is valid return; e.g. in case path has been unset
+	env_paths = extract_paths(env_lst); // env_paths get allocated // NULL is valid return; e.g. in case path has been unset
 	if (parse_tokens(lex_lst, &cmd_lst, env_paths, exit_code))
 		return (free_cmd_lex_env(&cmd_lst, &lex_lst, env_paths), NULL);
 	ft_lst_free(&lex_lst);
@@ -27,26 +27,28 @@ t_cmd	*parser(t_lex *lex_lst, t_env *env_lst, int exit_code)
 	return (cmd_lst);
 }
 
-char	**extract_paths(t_env **env_lst)
+char	**extract_paths(t_env *env_lst)
 {
 	char	*path_values;
 	char	**env_paths;
 
 	path_values = NULL;
-	while (*env_lst)
+	while (env_lst)
 	{
-		if (!(ft_strncmp((*env_lst)->key, "PATH", ft_strlen((*env_lst)->key))))
+		if (!(ft_strncmp(env_lst->key, "PATH", ft_strlen(env_lst->key))))
 		{
-			path_values = strdup((*env_lst)->value);
+			path_values = strdup((env_lst)->value);
 			break ;
 		}
-		free(path_values);
-		path_values = NULL;
-		env_lst = &((*env_lst)->next);
+		env_lst = env_lst->next;
 	}
+	printf("%s\n", path_values);
 	env_paths = ft_split(path_values, ':');
-	if (!env_paths)
+	if (!env_paths[0])
+	{
+		printf("went in\n");
 		return (NULL);
+	}
 	free(path_values);
 	return (env_paths);
 }
@@ -89,7 +91,7 @@ int	allocate_args(t_lex *lex_lst, t_cmd *new_cmd)
 	arg_num = 0;
 	while (*start_lst && (*start_lst)->token != TK_PIPE)
 	{
-		if ((*start_lst)->token == TK_WORD)
+		if ((*start_lst)->token == TK_WORD && (*start_lst)->value[0] != '\0')
 			arg_num++;
 		else if ((*start_lst)->token == TK_IN_R
 			|| (*start_lst)->token == TK_OUT_R
