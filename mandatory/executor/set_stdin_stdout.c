@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 11:40:53 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/19 10:24:47 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/21 18:08:35 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	set_stdin(int flag, int *fd_in_out, t_cmd *cmd, int **fd)
 		close(fd_temp);
 		unlink(HEREDOC);
 	}
-	else if (flag == 1)
+	else if (flag == 1 && cmd->builtin == 0)
 	{
 		if (dup2(fd_in_out[IN], STDIN_FILENO) == -1)
 			return (1);

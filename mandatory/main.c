@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 18:26:28 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/21 14:34:02 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/21 17:55:14 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	main(int argc, char **argv, char **envp)
 			else
 			{
 				cmd_lst = parser(lex_lst, env_lst, exit_code);
-				//ft_show_tab2(cmd_lst);
+				// ft_show_tab2(cmd_lst);
 				if (!cmd_lst)
 					exit_code = 1;
 				else

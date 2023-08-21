@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 13:38:10 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/21 14:27:44 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/21 17:50:04 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ int	child_process(t_cmd *cmd, t_env *env_lst, int **fd, int count)
 		perror("minishell");
 		exit(126);
 	}
-	env_array = new_env(env_lst);
+	env_array = new_env(env_lst); // this may cause the segfault error we experienced
 	if (!env_array)
 		exit(EXIT_FAILURE);
 	if (!cmd->args)
