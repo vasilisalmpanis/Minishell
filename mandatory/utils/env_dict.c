@@ -149,21 +149,23 @@ t_env	*create_env(char **en, char **argv)
 {
 	t_env	*lst;
 	t_env	*tmp;
-	char	**temp;
+	char	*temp[2];
+	char	*sign;
 	int		i;
 
 	if (!en)
 		return (empty_env(argv));
-	i = 0;
-	temp = ft_split(en[i], '=');
-	lst = lst_env_node(temp[0], temp[1]);
-	ft_free(temp);
+	i = -1;
+	lst = NULL;
 	while (en[++i])
 	{
-		temp = ft_split(en[i], '=');
+		sign = ft_strchr(en[i], '=');
+		temp[0] = ft_substr(en[i], 0, sign - en[i]);
+		temp [1] = ft_substr(sign + 1, 0, ft_strlen(en[i]) - (sign - en[i]));
 		tmp = lst_env_node(temp[0], temp[1]);
 		ft_env_addback(&lst, tmp);
-		ft_free(temp);
+		free(temp[0]);
+		free(temp[1]);
 	}
 	return (lst);
 }

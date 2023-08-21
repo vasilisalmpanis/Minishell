@@ -32,6 +32,7 @@ int	ft_strisnum(const char *str)
 	return (1);
 }
 
+int	check_exit(char *str);
 int	exit_builtin(t_env **lst, t_cmd *cmd)
 {
 	int	exit_code;
@@ -51,16 +52,28 @@ int	exit_builtin(t_env **lst, t_cmd *cmd)
 	else
 	{
 		ft_putstr_fd("exit\n", STDOUT_FILENO);
-		if (cmd->args[0] && ft_strisnum(cmd->args[0]) == 0)
-		{
+		exit_code = check_exit(cmd->args[0]);
+		if (exit_code == -1)
 			exit_code = 255;
-			ft_putstr_fd(" numeric argument required\n", STDERR_FILENO);
-		}
-		else
-			exit_code = ft_atoi(cmd->args[0]);
 		ft_env_free(lst);
 		ft_cmd_lst_free_child(cmd);
 		exit(exit_code);
 	}
 	return (0);
+}
+
+int	check_exit(char *str)
+{
+	char	*temp;
+
+	temp = "9223372036854775808";
+	if (!ft_strisnum(str) || ft_strncmp(str, temp, ft_strlen(temp)) >= 0)
+	{
+		ft_putstr_fd(" numeric argument required\n", STDERR_FILENO);
+		return (-1);
+	}
+	else
+	{
+		return (ft_atoi(str));
+	}
 }
