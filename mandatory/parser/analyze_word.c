@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 15:08:23 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/17 14:11:32 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/21 14:54:06 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	analyze_word(t_lex **lex_lst, t_cmd *new_cmd, int *arg_num, char **env_p)
 {
 	int		is_cmd;
 
-	is_cmd = check_word_type(new_cmd);
+	is_cmd = check_word_type(new_cmd, *lex_lst);
 	if (is_cmd)
 	{
 		if (analyze_cmd(lex_lst, new_cmd, arg_num, env_p))
@@ -24,16 +24,20 @@ int	analyze_word(t_lex **lex_lst, t_cmd *new_cmd, int *arg_num, char **env_p)
 	}
 	else
 	{
-		new_cmd->args[(*arg_num)] = ft_strdup((*lex_lst)->value);
-		if (!((new_cmd->args)[(*arg_num)++]))
-			return (1);
+		if ((*lex_lst)->value[0])
+		{
+			new_cmd->args[(*arg_num)] = ft_strdup((*lex_lst)->value);
+			if (!((new_cmd->args)[(*arg_num)++]))
+				return (1);
+		}
 	}
 	return (0);
 }
 
-int	check_word_type(t_cmd *cmd)
+int	check_word_type(t_cmd *cmd, t_lex *lex_lst)
 {
-	if (cmd->cmd)
+	// (void)lex_lst;
+	if (cmd->cmd || lex_lst->value[0] == '\0')
 		return (0);
 	else
 		return (1);

@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 17:20:07 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/19 11:45:37 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/21 14:50:02 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int		set_redir_flags(t_lex **lex_lst, t_cmd *new_cmd);
 
 int		analyze_word(t_lex **lex_lst, t_cmd *new_cmd, \
 						int *arg_num, char **env_p);
-int		check_word_type(t_cmd *cmd);
+int		check_word_type(t_cmd *cmd, t_lex *lex_lst);
 int		analyze_cmd(t_lex **lex_lst, t_cmd *new_cmd, \
 						int *arg_num, char **env_p);
 int		analyze_opt(t_lex **lex_lst, t_cmd *new_cmd);

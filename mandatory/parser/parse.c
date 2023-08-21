@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 18:23:58 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/19 11:41:43 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/21 14:46:21 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	allocate_args(t_lex *lex_lst, t_cmd *new_cmd)
 	arg_num = 0;
 	while (*start_lst && (*start_lst)->token != TK_PIPE)
 	{
-		if ((*start_lst)->token == TK_WORD)
+		if ((*start_lst)->token == TK_WORD && (*start_lst)->value[0])
 			arg_num++;
 		else if ((*start_lst)->token == TK_IN_R
 			|| (*start_lst)->token == TK_OUT_R
