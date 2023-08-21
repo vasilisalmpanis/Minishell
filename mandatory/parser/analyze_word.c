@@ -16,7 +16,7 @@ int	analyze_word(t_lex **lex_lst, t_cmd *new_cmd, int *arg_num, char **env_p)
 {
 	int		is_cmd;
 
-	is_cmd = check_word_type(new_cmd);
+	is_cmd = check_word_type(new_cmd, *lex_lst);
 	if (is_cmd)
 	{
 		if (analyze_cmd(lex_lst, new_cmd, arg_num, env_p))
@@ -31,9 +31,9 @@ int	analyze_word(t_lex **lex_lst, t_cmd *new_cmd, int *arg_num, char **env_p)
 	return (0);
 }
 
-int	check_word_type(t_cmd *cmd)
+int	check_word_type(t_cmd *cmd, t_lex *lex_lst)
 {
-	if (cmd->cmd)
+	if (cmd->cmd || lex_lst->value[0] == '\0')
 		return (0);
 	else
 		return (1);

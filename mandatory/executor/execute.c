@@ -100,6 +100,12 @@ int	builtin_process(t_cmd *cmd, t_env *env_lst, int **fd)
 	return (exit_code);
 }
 
+void	ft_print_error_msg(char *msg, int exit_code)
+{
+	ft_putstr_fd(msg, 2);
+	exit(exit_code);
+}
+
 int	child_process(t_cmd *cmd, t_env *env_lst, int **fd, int count)
 {
 	char	**env_array;
@@ -110,7 +116,19 @@ int	child_process(t_cmd *cmd, t_env *env_lst, int **fd, int count)
 	if (!check_path_existence(env_lst))
 	{
 		printf("no path found\n");
+		exit(errno);
+	}
+	if (!cmd->path)
+		ft_print_error_msg(" command not found\n", 127);
+	if (access(cmd->path, F_OK) == -1)
+	{
+		perror("minishell");
 		exit(127);
+	}
+	if (access(cmd->path, X_OK) == -1)
+	{
+		perror("minishell");
+		exit(126);
 	}
 	env_array = new_env(env_lst);
 	if (!env_array)
@@ -121,6 +139,6 @@ int	child_process(t_cmd *cmd, t_env *env_lst, int **fd, int count)
 	ft_env_free((&env_lst));
 	signal(SIGQUIT, handle_sigquit_child);
 	if (execve(cmd->path, cmd->args, env_array) == -1)
-		exit(EXIT_FAILURE);
+		ft_print_error_msg(" is a directory\n", 126);
 	return (0);
 }

@@ -51,7 +51,7 @@ int	create_pipes(int **fd, int count)
 	while (i < count - 1)
 	{
 		if (pipe(fd[i]) == -1)
-			return (printf("pipe failure\n"), 1);
+			return (perror(" broken pipe\n"), 1);
 		i++;
 	}
 	return (0);

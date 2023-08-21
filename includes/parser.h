@@ -60,7 +60,7 @@ int		set_redir_flags(t_lex **lex_lst, t_cmd *new_cmd);
 
 int		analyze_word(t_lex **lex_lst, t_cmd *new_cmd, \
 						int *arg_num, char **env_p);
-int		check_word_type(t_cmd *cmd);
+int		check_word_type(t_cmd *cmd, t_lex *lex_lst);
 int		analyze_cmd(t_lex **lex_lst, t_cmd *new_cmd, \
 						int *arg_num, char **env_p);
 int		analyze_opt(t_lex **lex_lst, t_cmd *new_cmd);

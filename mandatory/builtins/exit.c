@@ -21,8 +21,6 @@ int	ft_strisnum(const char *str)
 		return (0);
 	if (str[0] == '-'  || str[0] == '+')
 		i++;
-	if (ft_strlen(str + 1) > 18)
-		return (0);
 	while (str[i])
 	{
 		if (str[i] < '0' || str[i] > '9')
@@ -65,9 +63,16 @@ int	exit_builtin(t_env **lst, t_cmd *cmd)
 int	check_exit(char *str)
 {
 	char	*temp;
+	int		is_neg;
 
 	temp = "9223372036854775808";
-	if (!ft_strisnum(str) || ft_strncmp(str, temp, ft_strlen(temp)) >= 0)
+	is_neg = 0;
+	if (str[0] == '-')
+	{
+		temp = "9223372036854775809";
+		is_neg = 1;
+	}
+	if (!ft_strisnum(str) || ft_strncmp(str + is_neg, temp, ft_strlen(temp)) >= 0)
 	{
 		ft_putstr_fd(" numeric argument required\n", STDERR_FILENO);
 		return (-1);
