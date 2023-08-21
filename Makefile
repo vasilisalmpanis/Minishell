@@ -21,6 +21,7 @@ SRC =	mandatory/main.c \
 		mandatory/builtins/cd.c \
 		mandatory/builtins/echo.c \
 		mandatory/builtins/unset.c \
+		mandatory/builtins/exit.c \
 		mandatory/parser/parse.c \
 		mandatory/parser/analyze_word.c \
 		mandatory/parser/analyze_cmd_utils.c \

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
+/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 11:59:44 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/17 11:00:46 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/08/21 14:37:00 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int	check_arg(char *arg, char *name)
 	char	*temp;
 
 	i = -1;
+	(void)name;
 	letter_flag = 0;
 	temp = ft_strtrim(arg, "'");
 	if (!temp)
@@ -52,16 +53,16 @@ int	check_arg(char *arg, char *name)
 	if (temp[0] == '=')
 	{
 		free(temp);
-		return (ft_printf(MINI"export: \'%s\'"ID, temp), 1);
+		return (ft_putstr_fd(" not a valid identifier\n", 2), 1);
 	}
 	while (temp[++i] && temp[i] != '=')
 	{
 		if ((letter_flag == 0) && (ft_isalpha(temp[i]) == 1))
 			letter_flag = 1;
 		if (letter_flag == 0 && ft_isdigit(temp[i]) == 1)
-			return (ft_printf(MINI"%s: \'%s\'"ID, name, temp), 1);
+			return (ft_putstr_fd(" not a valid identifier\n", 2), 1);
 		if (ft_strchr("!@#$%^&*()+-", temp[i]) || ft_isspace(temp[i]) == 1)
-			return (ft_printf(MINI"%s: \'%s\'"ID, name, temp), 1);
+			return (ft_putstr_fd(" not a valid identifier\n", 2), 1);
 	}
 	free(temp);
 	return (0);
@@ -82,7 +83,10 @@ void	ft_split_key_val(char *arg, char **key, char **value)
 	char	*temp;
 	char	*sign;
 
-	sign = ft_strchr(arg, '=');
+	if (arg[0] == '=')
+		sign = ft_strchr(arg + 1, '=');
+	else
+		sign = ft_strchr(arg, '=');
 	if (!sign)
 	{
 		*key = ft_substr(arg, 0, ft_strlen(arg));

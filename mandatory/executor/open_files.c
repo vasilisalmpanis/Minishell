@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:45:22 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/19 10:24:13 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/21 14:29:27 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	open_files(t_cmd *cmd, int **fd)
 	int	flag;
 
 	flag = -1;
+	signal(SIGINT, handle_sigint);
 	if (open_heredocs(cmd->file, cmd->exit_code))
 		return (1);
 	fd_in_out = open_in_out_files(cmd->file);

@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 14:26:53 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/19 12:06:42 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/21 14:27:21 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <termios.h>
 # include <string.h>
 # include <signal.h>
+# include <errno.h>
 # include "lexer.h"
 # include "builtins.h"
 # include "parser.h"
@@ -32,6 +33,7 @@
 # include "../readline/include/readline.h"
 # include "../readline/include/rlstdc.h"
 # define HEREDOC "temp"
+
 
 //SIGNALS
 void	handle_sigquit(void);

@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:59:05 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/18 11:35:06 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/21 14:25:32 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ int	exec_builtin(t_cmd *cmd, t_env *env_lst)
 		exit_code = export(&env_lst, cmd);
 	else if (!ft_strncmp(cmd->cmd, "unset", ft_strlen(cmd->cmd)))
 		exit_code = unset(&env_lst, cmd);
+	else if (!ft_strncmp(cmd->cmd, "exit", ft_strlen(cmd->cmd)))
+		exit_code = exit_builtin(&env_lst, cmd);
 	return (exit_code);
 }
 

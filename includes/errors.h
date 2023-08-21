@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_messages.h                                   :+:      :+:    :+:   */
+/*   errors.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valmpani <valmpani@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 13:57:53 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/11 13:57:53 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/08/21 14:42:39 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,6 @@
 # define ID ": not a valid identifier\n"
 # define CD1 "cd: error retrieving current directory: getcwd:"
 # define CD2 " cannot access parent directories: No such file or directory\n"
-# define NO_CD "cd: no such file or directory:"
+# define NO_CD " No such file or directory\n"
 
 #endif

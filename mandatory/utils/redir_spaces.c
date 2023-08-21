@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 17:11:39 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/18 15:57:26 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/21 14:33:31 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char	*add_space_pre_redir(char *input, int j)
 	while (input[++i])
 	{
 		skip_quotes(input, &i, &new_input, &j);
-		if (i > 0 && (input[i] == '<' || input[i] == '>')
+		if (i > 0 && (input[i] == '<' || input[i] == '>' || input[i] == '|')
 			&& input[i - 1] != 26)
 		{
 			new_input[j++] = 26;
@@ -72,7 +72,7 @@ char	*add_space_post_redir(char *input, int j)
 	{
 		skip_quotes(input, &i, &new_input, &j);
 		new_input[j++] = input[i];
-		if ((input[i] == '<' || input[i] == '>')
+		if ((input[i] == '<' || input[i] == '>' || input[i] == '|')
 			&& (input[i + 1] != '<' && input[i + 1] != '>'
 				&& !(input[i + 1] == 26) && input[i + 1]))
 		{
@@ -95,7 +95,7 @@ int	calc_redir_wo_space2(char *input)
 	while (input[++i])
 	{
 		skip_quotes2(input, &i);
-		if (i > 0 && (input[i] == '<' || input[i] == '>')
+		if (i > 0 && (input[i] == '<' || input[i] == '>' || input[i] == '|')
 			&& input[i - 1] != 26)
 		{
 			redir_no_sp++;
@@ -118,7 +118,7 @@ int	calc_redir_wo_space(char *input)
 	while (input[++i])
 	{
 		skip_quotes2(input, &i);
-		if ((input[i] == '<' || input[i] == '>')
+		if ((input[i] == '<' || input[i] == '>' || input[i] == '|')
 			&& (input[i + 1] != '<' && input[i + 1] != '>'
 				&& input[i + 1] != 26 && input[i + 1]))
 		{

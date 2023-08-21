@@ -6,18 +6,21 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 18:26:28 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/19 12:28:49 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/21 14:34:02 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	exit_min(char *input, t_lex **lst, int exit_code)
+int ft_check_lex(t_lex *lst)
 {
-	(void)lst;
-	if (input)
-		free(input);
-	exit(exit_code);
+	while (lst)
+	{
+		if (lst->value[0] != '\0')
+			return (0);
+		lst = lst->next;
+	}
+	return (1);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -44,20 +47,28 @@ int	main(int argc, char **argv, char **envp)
 		input[1] = readline(input[0]); //input[1] is allocated / gets freed in lexer split args
 		free(input[0]);
 		if (!input[1])
-			exit_min(input[1], &lex_lst, exit_code);
+			exit_builtin(&env_lst, NULL);
 		add_history(input[1]);
-		lex_lst = lex(input[1], exit_code); //lex_lst is allocated / gets freed in parser
-		if (!lex_lst)
-			exit_code = 1;
+		if (input[1][0] == '\0')
+			exit_code = 0;
 		else
 		{
-			cmd_lst = parser(lex_lst, env_lst, exit_code);
-			if (!cmd_lst)
+			lex_lst = lex(input[1], exit_code); //lex_lst is allocated / gets freed in parser
+			if (!lex_lst)
 				exit_code = 1;
+			else if (ft_check_lex(lex_lst))
+				exit_code = 0;
 			else
-				exit_code = execute(cmd_lst, env_lst, exit_code);
+			{
+				cmd_lst = parser(lex_lst, env_lst, exit_code);
+				//ft_show_tab2(cmd_lst);
+				if (!cmd_lst)
+					exit_code = 1;
+				else
+					exit_code = execute(cmd_lst, env_lst, exit_code);
+			}
+			ft_cmd_lst_free(&cmd_lst);
 		}
-		ft_cmd_lst_free(&cmd_lst);
 	}
 }
 
