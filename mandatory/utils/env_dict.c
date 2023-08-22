@@ -112,30 +112,28 @@ void	ft_env_free(t_env **lst)
  * @begin_list	Address of HEAD
  * @key The key to be removed
  */
-void	ft_env_remove(t_env **begin_list, char *key)
+void ft_env_remove(t_env **begin_list, char *key)
 {
 	t_env	**ptr;
 	t_env	*temp;
 
-	temp = NULL;
 	ptr = begin_list;
 	while (*ptr)
 	{
-		if (ft_strncmp(key, (*ptr)->key, ft_strlen((*ptr)->key)) == 0 && \
-		ft_strlen(key) == ft_strlen((*ptr)->key))
+		if (ft_strncmp(key, (*ptr)->key, ft_strlen((*ptr)->key)) == 0)
 		{
 			temp = *ptr;
-			*ptr = temp->next;
-			temp->next = NULL;
 			free(temp->key);
 			free(temp->value);
-			free(temp);
+			temp->key = ft_strdup("\0");
+			temp->value = ft_strdup("\0");
 			return ;
 		}
 		else
 			ptr = &((*ptr)->next);
 	}
 }
+
 
 /*
  * Function:  *create_env

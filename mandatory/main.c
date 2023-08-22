@@ -14,18 +14,6 @@
 
 int	signal_num;
 
-
-int ft_check_lex(t_lex *lst)
-{
-	while (lst)
-	{
-		if (lst->value[0] != '\0')
-			return (0);
-		lst = lst->next;
-	}
-	return (1);
-}
-
 int	main(int argc, char **argv, char **envp)
 {
 	char				*input[2];

@@ -37,3 +37,14 @@ void	ft_lstadd_end(t_lex **lst, t_lex *new)
 		ptr = &(*ptr)->next;
 	*ptr = new;
 }
+
+int ft_check_lex(t_lex *lst)
+{
+	while (lst)
+	{
+		if (lst->value[0] != '\0')
+			return (0);
+		lst = lst->next;
+	}
+	return (1);
+}

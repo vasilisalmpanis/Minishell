@@ -31,7 +31,7 @@ void	export_print(t_env *lst)
 	i = -1;
 	while (++i < length)
 	{
-		if (exp[i]->key[1] != '_')
+		if (exp[i]->key[1] != '_' && exp[i]->key[0] != '\0')
 		{
 			ft_putstr_fd("declare -x ", 1);
 			ft_putstr_fd(exp[i]->key, 1);

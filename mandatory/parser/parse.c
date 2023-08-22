@@ -42,13 +42,9 @@ char	**extract_paths(t_env *env_lst)
 		}
 		env_lst = env_lst->next;
 	}
-	printf("%s\n", path_values);
 	env_paths = ft_split(path_values, ':');
 	if (!env_paths[0])
-	{
-		printf("went in\n");
 		return (NULL);
-	}
 	free(path_values);
 	return (env_paths);
 }
