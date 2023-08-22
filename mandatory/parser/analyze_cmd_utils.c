@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 16:56:18 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/18 12:43:00 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/22 09:22:23 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int	get_path_name(t_cmd *new_cmd, char **env_paths)
 	cmd_mod = ft_strjoin("/", new_cmd->cmd);
 	if (!cmd_mod)
 		return (1);
-	while (env_paths[i])
+	while (env_paths && env_paths[i])
 	{
 		cmd_path = ft_strjoin(env_paths[i], cmd_mod);
 		if (!cmd_path)

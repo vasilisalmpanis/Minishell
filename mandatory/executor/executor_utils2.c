@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:59:05 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/21 14:25:32 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/22 12:51:45 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,16 @@ int	wait_for_children(t_cmd *start)
 	int		status;
 	int		exit_code;
 
+	// ft_show_tab2(start);
 	status = 0;
 	exit_code = 0;
 	while (start && start->next)
 	{
+		// printf("pid: %d\n", start->pid);
 		waitpid(start->pid, NULL, 0);
 		start = start->next;
 	}
+	// printf("pid: %d\n", start->pid);
 	if (waitpid(start->pid, &status, 0) == -1)
 		return (1);
 	if (WIFEXITED(status))

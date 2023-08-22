@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:45:22 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/21 17:50:11 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/22 16:54:21 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,40 +17,15 @@ int	open_files(t_cmd *cmd, int **fd)
 	int	*fd_in_out;
 	int	flag;
 
-	flag = -1;
-	signal(SIGINT, handle_sigint);
-	if (open_heredocs(cmd->file, cmd->exit_code))
-		return (1);
+	flag = cmd->hd_last;
 	fd_in_out = open_in_out_files(cmd->file);
 	if (!fd_in_out)
-		return (unlink(HEREDOC), 1);
-	while (cmd->file)
-	{
-		if (cmd->file->token == TK_HERE_DOC)
-			flag = 0;
-		else if (cmd->file->token == TK_IN_R)
-			flag = 1;
-		cmd->file = cmd->file->next;
-	}
+		return (unlink(cmd->hd_file), 1);
 	if (set_stdin(flag, fd_in_out, cmd, fd))
 		return (free(fd_in_out), 1);
 	if (set_stdout(fd_in_out, fd, cmd))
 		return (free(fd_in_out), 1);
 	free(fd_in_out);
-	return (0);
-}
-
-int	open_heredocs(t_file *file_lst, int exit_code)
-{
-	while (file_lst)
-	{
-		if (file_lst->token == TK_HERE_DOC)
-		{
-			if (heredoc(file_lst, exit_code))
-				return (1);
-		}
-		file_lst = file_lst->next;
-	}
 	return (0);
 }
 

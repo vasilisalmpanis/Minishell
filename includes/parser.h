@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 17:20:07 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/21 14:50:02 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/22 16:12:51 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ typedef struct s_cmd
 	int				cmd_id;
 	int				env_flag;
 	int				exit_code;
+	char			*hd_file;
+	int				hd_last;
 	t_file			*file;
 	struct s_cmd	*start;
 	struct s_cmd	*next;
