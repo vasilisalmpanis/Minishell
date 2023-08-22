@@ -123,10 +123,10 @@ void ft_env_remove(t_env **begin_list, char *key)
 		if (ft_strncmp(key, (*ptr)->key, ft_strlen((*ptr)->key)) == 0)
 		{
 			temp = *ptr;
+			*ptr = temp->next;
 			free(temp->key);
 			free(temp->value);
-			temp->key = ft_strdup("\0");
-			temp->value = ft_strdup("\0");
+			free(temp);
 			return ;
 		}
 		else

@@ -56,7 +56,7 @@ int	main(int argc, char **argv, char **envp)
 				if (!cmd_lst)
 					exit_code = 1;
 				else
-					exit_code = execute(cmd_lst, env_lst, exit_code);
+					exit_code = execute(cmd_lst, &env_lst, exit_code);
 			}
 			ft_cmd_lst_free(&cmd_lst);
 		}

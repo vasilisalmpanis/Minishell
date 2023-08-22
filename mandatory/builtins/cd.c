@@ -16,6 +16,7 @@ char	*find_key(t_env *env, char *key)
 {
 	char	*pwd;
 
+	pwd = NULL;
 	while (env)
 	{
 		if (ft_strncmp(env->key, key, ft_strlen(env->key)) == 0)

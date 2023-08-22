@@ -46,7 +46,10 @@ int	set_value_env(t_env *env, char *key, char *pwd)
 		{
 			if (env->value[0])
 				free(env->value);
-			env->value = ft_strdup(pwd);
+			if (!pwd)
+				env->value = ft_strdup("\0");
+			else
+				env->value = ft_strdup(pwd);
 			if (!env->value)
 				return (1);
 		}

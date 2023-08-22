@@ -17,11 +17,11 @@
 
 # include "minishell.h"
 
-int		execute(t_cmd *cmd_lst, t_env *env_lst, int exit_code);
-pid_t	execute_cmd(t_cmd *cmd_lst, t_env *env_lst, int **fd, int count_cmds);
-int		builtin_child(t_cmd *cmd, t_env *env_lst, int **fd, int count);
-int		builtin_process(t_cmd *cmd, t_env *env_lst, int **fd);
-int		child_process(t_cmd *cmd_lst, t_env *env_lst, int **fd, int count);
+int		execute(t_cmd *cmd_lst, t_env **env_lst, int exit_code);
+pid_t	execute_cmd(t_cmd *cmd_lst, t_env **env_lst, int **fd, int count_cmds);
+int		builtin_child(t_cmd *cmd, t_env **env_lst, int **fd, int count);
+int		builtin_process(t_cmd *cmd, t_env **env_lst, int **fd);
+int		child_process(t_cmd *cmd_lst, t_env **env_lst, int **fd, int count);
 
 int		count_cmds(t_cmd *cmd_lst);
 int		**allocate_fds(int count);
@@ -29,7 +29,7 @@ int		create_pipes(int **fd, int count);
 void	close_fds(int **fd, int count);
 
 int		wait_for_children(t_cmd *start);
-int		exec_builtin(t_cmd *cmd, t_env *env_lst);
+int		exec_builtin(t_cmd *cmd, t_env **env_lst);
 char	**new_env(t_env *env_lst);
 int		check_path_existence(t_env *env_lst);
 

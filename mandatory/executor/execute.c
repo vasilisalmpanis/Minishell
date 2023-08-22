@@ -12,7 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-int	execute(t_cmd *cmd_lst, t_env *env_lst, int exit_code)
+int	execute(t_cmd *cmd_lst, t_env **env_lst, int exit_code)
 {
 	int		**fd;
 	int		num_cmds;
@@ -45,7 +45,7 @@ int	execute(t_cmd *cmd_lst, t_env *env_lst, int exit_code)
 	return (exit_code);
 }
 
-pid_t	execute_cmd(t_cmd *cmd_lst, t_env *env_lst, int **fd, int count_cmds)
+pid_t	execute_cmd(t_cmd *cmd_lst, t_env **env_lst, int **fd, int count_cmds)
 {
 	pid_t	pid;
 
@@ -68,7 +68,7 @@ pid_t	execute_cmd(t_cmd *cmd_lst, t_env *env_lst, int **fd, int count_cmds)
 	return (pid);
 }
 
-int	builtin_child(t_cmd *cmd, t_env *env_lst, int **fd, int count)
+int	builtin_child(t_cmd *cmd, t_env **env_lst, int **fd, int count)
 {
 	int	exit_code;
 	int	fd_stdout;
@@ -84,12 +84,12 @@ int	builtin_child(t_cmd *cmd, t_env *env_lst, int **fd, int count)
 	if (dup2(fd_stdout, STDOUT_FILENO) == -1)
 		exit(EXIT_FAILURE);
 	free_mem_fd(fd, count);
-	ft_env_free((&env_lst));
+	ft_env_free((env_lst));
 	ft_cmd_lst_free_child(cmd->start);
 	exit(exit_code);
 }
 
-int	builtin_process(t_cmd *cmd, t_env *env_lst, int **fd)
+int	builtin_process(t_cmd *cmd, t_env **env_lst, int **fd)
 {
 	int	exit_code;
 	int	fd_stdout;
@@ -109,14 +109,14 @@ void	ft_print_error_msg(char *msg, int exit_code)
 	exit(exit_code);
 }
 
-int	child_process(t_cmd *cmd, t_env *env_lst, int **fd, int count)
+int	child_process(t_cmd *cmd, t_env **env_lst, int **fd, int count)
 {
 	char	**env_array;
 
 	if (open_files(cmd, fd))
 		exit(EXIT_FAILURE);
 	close_fds(fd, count);
-	if (!check_path_existence(env_lst) && !(cmd->path_known))
+	if (!check_path_existence(*env_lst) && !(cmd->path_known))
 	{
 		printf("no path found\n");
 		exit(errno);
@@ -133,13 +133,13 @@ int	child_process(t_cmd *cmd, t_env *env_lst, int **fd, int count)
 		perror("minishell");
 		exit(126);
 	}
-	env_array = new_env(env_lst);
+	env_array = new_env(*env_lst);
 	if (!env_array)
 		exit(EXIT_FAILURE);
 	if (!cmd->args)
 		exit(EXIT_FAILURE);
 	free_mem_fd(fd, count);
-	ft_env_free((&env_lst));
+	ft_env_free((env_lst));
 	if (execve(cmd->path, cmd->args, env_array) == -1)
 		ft_print_error_msg(" is a directory\n", 126);
 	return (0);
