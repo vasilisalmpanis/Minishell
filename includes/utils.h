@@ -46,5 +46,6 @@ void	skip_quotes(char *input, int *i, char **new_input, int *j);
 void	skip_quotes2(char *input, int *i);
 
 int		env_lst_size(t_env *env_lst);
+int 	ft_check_lex(t_lex *lst);
 
 #endif
