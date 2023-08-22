@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 15:08:23 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/17 14:11:32 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/21 15:50:29 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	analyze_word(t_lex **lex_lst, t_cmd *new_cmd, int *arg_num, char **env_p)
 	}
 	else
 	{
-		if ((*lex_lst)->value[0] != '\0')
+		if ((*lex_lst)->value[0])
 		{
 			new_cmd->args[(*arg_num)] = ft_strdup((*lex_lst)->value);
 			if (!((new_cmd->args)[(*arg_num)++]))

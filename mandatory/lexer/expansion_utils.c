@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 12:34:18 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/18 15:50:05 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/21 17:20:12 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,30 +47,59 @@ int	calc_offset(char *split, int start, int *i)
 	return (offset);
 }
 
-char	*remove_quotes(char *split)
+char	*remove_quotes(char *split, int i, int j)
 {
-	int		i;
 	int		count;
-	char	*word;
+	char	buf;
+	char	*trimmed_word;
 
-	if (split[0] == '\'' || split[0] == '\"')
-		return (split);
-	i = -1;
-	count = 0;
-	while (split[++i])
+	buf = '\0';
+	// if (split[0] == '\'' || split[0] == '\"')
+	// 	return (ft_strdup(split));
+	count = count_rm_quotes(split);
+	if (count == -1)
+		return (ft_strdup(split));
+	trimmed_word = ft_calloc(count + 1, sizeof(char));
+	if (!trimmed_word)
+		return (NULL);
+	while (split[i])
 	{
-		if (split[i] != '\'' && split[i] != '\"')
-			++count;
+		if (split[i] == '\'' || split[i] == '\"')
+		{
+			buf = split[i++];
+			while (split[i] && split[i] != buf)
+				trimmed_word[j++] = split[i++];
+		}
+		else
+			trimmed_word[j++] = split[i];
+		if (split[i])
+			i++;
 	}
-	word = ft_calloc(count + 1, sizeof(char));
-	if (!word)
-		return (split);
-	i = -1;
-	count = 0;
-	while (split[++i])
+	return (trimmed_word);
+}
+
+int	count_rm_quotes(char *split)
+{
+	int		count;
+	char	buf;
+	int		i;
+
+	i = 0;
+	count = ft_strlen(split);
+	buf = '\0';
+	while (split[i])
 	{
-		if (split[i] != '\'' && split[i] != '\"')
-			word[count++] = split[i];
+		if (split[i] == '\'' || split[i] == '\"')
+		{
+			buf = split[i++];
+			count -= 2;
+			while (split[i] && split[i] != buf)
+				i++;
+			if (!split[i])
+				return (-1);
+		}
+		if (split[i])
+			i++;
 	}
-	return (word);
+	return (count);
 }

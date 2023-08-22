@@ -7,6 +7,10 @@
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 11:38:20 by valmpani          #+#    #+#             */
 /*   Updated: 2023/08/20 11:38:20 by valmpani         ###   ########.fr       */
+/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/20 11:38:20 by valmpani          #+#    #+#             */
+/*   Updated: 2023/08/21 14:40:26 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +23,7 @@ int	ft_strisnum(const char *str)
 	i = 0;
 	if (str == NULL)
 		return (0);
-	if (str[0] == '-'  || str[0] == '+')
+	if (str[0] == '-' || str[0] == '+')
 		i++;
 	while (str[i])
 	{
@@ -31,6 +35,7 @@ int	ft_strisnum(const char *str)
 }
 
 int	check_exit(char *str);
+
 int	exit_builtin(t_env **lst, t_cmd *cmd)
 {
 	int	exit_code;
@@ -72,7 +77,8 @@ int	check_exit(char *str)
 		temp = "9223372036854775809";
 		is_neg = 1;
 	}
-	if (!ft_strisnum(str) || ft_strncmp(str + is_neg, temp, ft_strlen(temp)) >= 0)
+	if (!ft_strisnum(str) || ft_strncmp(str + \
+			is_neg, temp, ft_strlen(temp)) >= 0)
 	{
 		ft_putstr_fd(" numeric argument required\n", STDERR_FILENO);
 		return (-1);

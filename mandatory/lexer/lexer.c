@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 16:15:37 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/18 17:18:04 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/21 17:08:02 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,18 +98,22 @@ t_lex	*create_token(char *split, int *pos, int exit_code)
 
 int	create_word_token(char *split, int *pos, t_lex **new_token, int exit_code)
 {
-	char	*word;
+	char	*word1;
+	char	*word2;
 
 	if (check_syntax_err(split))
 		return ((ft_putstr_fd("Syntax error near '><'\n", 2)), 1);
-	word = remove_quotes(split);
-	word = check_expand(word, -1, exit_code, 1);
-	if (!word)
+	word1 = check_expand(split, -1, exit_code, 1);
+	if (!word1)
 		return (1);
-	*new_token = ft_new_tk(word, TK_WORD, *pos);
+	word2 = remove_quotes(word1, 0, 0);
+	if (!word2)
+		return (free(word1), 1);
+	free(word1);
+	*new_token = ft_new_tk(word2, TK_WORD, *pos);
 	if (!(*new_token))
-		return (free(word), 1);
-	free(word);
+		return (free(word2), 1);
+	free(word2);
 	return (0);
 }
 

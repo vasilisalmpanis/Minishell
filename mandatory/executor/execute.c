@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 13:38:10 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/19 12:06:04 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/21 17:50:04 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ pid_t	execute_cmd(t_cmd *cmd_lst, t_env *env_lst, int **fd, int count_cmds)
 		return (builtin_process(cmd_lst, env_lst, fd));
 	else 
 	{
-
 		signal(SIGINT, handle_sigint_child);
 		pid = fork();
 		if (pid < 0)
@@ -74,7 +73,6 @@ int	builtin_child(t_cmd *cmd, t_env *env_lst, int **fd, int count)
 	if (open_files(cmd, fd))
 		exit(EXIT_FAILURE);
 	close_fds(fd, count);
-	signal(SIGQUIT, handle_sigquit_child);
 	if (!cmd->args)
 		exit(EXIT_FAILURE);
 	exit_code = exec_builtin(cmd, env_lst);
@@ -130,14 +128,13 @@ int	child_process(t_cmd *cmd, t_env *env_lst, int **fd, int count)
 		perror("minishell");
 		exit(126);
 	}
-	env_array = new_env(env_lst);
+	env_array = new_env(env_lst); // this may cause the segfault error we experienced
 	if (!env_array)
 		exit(EXIT_FAILURE);
 	if (!cmd->args)
 		exit(EXIT_FAILURE);
 	free_mem_fd(fd, count);
 	ft_env_free((&env_lst));
-	signal(SIGQUIT, handle_sigquit_child);
 	if (execve(cmd->path, cmd->args, env_array) == -1)
 		ft_print_error_msg(" is a directory\n", 126);
 	return (0);
