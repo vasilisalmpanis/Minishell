@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 13:59:27 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/18 13:07:26 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/22 16:29:00 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,14 @@ char	**new_env(t_env *env_lst);
 int		check_path_existence(t_env *env_lst);
 
 int		open_files(t_cmd *cmd, int **fd);
-int		open_heredocs(t_file *file_lst, int exit_code);
 int		*open_in_out_files(t_file *file_lst);
 int		open_in_out_files_helper(t_file *file_lst, int	*fd_temp);
 
 int		open_in_file(t_file *file);
 int		open_out_file(t_file *file);
-int		heredoc(t_file *file, int exit_code);
+
+int		heredoc(t_cmd *cmd, t_file *file, int exit_code);
+int		open_heredocs(t_cmd *cmd_lst, int exit_code, int i);
 
 int		set_stdin(int flag, int *fd_in_out, t_cmd *cmd, int **fd);
 int		set_stdout(int *fd_in_out, int **fd, t_cmd *cmd);

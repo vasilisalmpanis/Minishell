@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 13:38:10 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/21 17:50:04 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/22 17:06:00 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,18 @@ int	execute(t_cmd *cmd_lst, t_env *env_lst, int exit_code)
 	t_cmd	*cmd_lst_start;
 
 	cmd_lst_start = cmd_lst;
+	fd = NULL;
 	num_cmds = count_cmds(cmd_lst);
-	fd = allocate_fds(num_cmds);
-	if (!fd)
-		return (1);
-	if (create_pipes(fd, num_cmds))
-		return (free_mem_fd(fd, num_cmds), 1);
+	if (num_cmds > 1)
+	{
+		fd = allocate_fds(num_cmds);
+		if (!fd)
+			return (1);
+		if (create_pipes(fd, num_cmds))
+			return (free_mem_fd(fd, num_cmds), 1);
+	}
 	add_start_lst(cmd_lst);
+	open_heredocs(cmd_lst, exit_code, 0);
 	while (cmd_lst)
 	{
 		cmd_lst->pid = execute_cmd(cmd_lst, env_lst, fd, num_cmds);
@@ -111,7 +116,7 @@ int	child_process(t_cmd *cmd, t_env *env_lst, int **fd, int count)
 	if (open_files(cmd, fd))
 		exit(EXIT_FAILURE);
 	close_fds(fd, count);
-	if (!check_path_existence(env_lst))
+	if (!check_path_existence(env_lst) && !(cmd->path_known))
 	{
 		printf("no path found\n");
 		exit(errno);
@@ -128,7 +133,7 @@ int	child_process(t_cmd *cmd, t_env *env_lst, int **fd, int count)
 		perror("minishell");
 		exit(126);
 	}
-	env_array = new_env(env_lst); // this may cause the segfault error we experienced
+	env_array = new_env(env_lst);
 	if (!env_array)
 		exit(EXIT_FAILURE);
 	if (!cmd->args)

@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 18:23:58 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/21 14:46:21 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/22 17:30:31 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,10 +91,11 @@ int	allocate_args(t_lex *lex_lst, t_cmd *new_cmd)
 	{
 		if ((*start_lst)->token == TK_WORD && (*start_lst)->value[0])
 			arg_num++;
-		else if ((*start_lst)->token == TK_IN_R
+		else if (((*start_lst)->token == TK_IN_R
 			|| (*start_lst)->token == TK_OUT_R
 			|| (*start_lst)->token == TK_APP_R
-			|| (*start_lst)->token == TK_HERE_DOC)
+			|| (*start_lst)->token == TK_HERE_DOC) 
+			&& (*start_lst)->next && (*start_lst)->next->token == TK_WORD)
 		{
 			arg_num -= 1;
 		}

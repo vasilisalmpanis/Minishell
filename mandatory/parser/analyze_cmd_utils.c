@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   analyze_cmd_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
+/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 16:56:18 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/22 09:13:03 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/08/22 09:22:23 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

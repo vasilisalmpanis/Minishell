@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 18:26:28 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/21 17:55:14 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/22 12:07:45 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void	ft_show_tab2(t_cmd *list)
 	write(1, "\n", 1);
 	while (list)
 	{
+		printf("pid: %d\n", list->pid);
 		printf("cmd id: %d\n", list->cmd_id);
 		if (list->file)
 		{

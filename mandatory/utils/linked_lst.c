@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 16:03:16 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/19 12:02:13 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/22 16:55:48 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ void	ft_cmd_lst_free(t_cmd **lst)
 			ft_free(temp->args);
 		if (temp->file)
 			ft_free_file_lst(&(temp->file));
+		if (temp->hd_file)
+			free(temp->hd_file);
 		free(temp);
 	}
 }
