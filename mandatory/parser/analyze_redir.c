@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   analyze_redir.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
+/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 16:46:21 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/23 11:52:29 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/08/23 15:48:59 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,15 @@ int	set_redir_flags(t_lex **lex_lst, t_cmd *new_cmd)
 	token = (*lex_lst)->token;
 	if (!(*lex_lst)->next)
 	{
-		printf("Minishell: syntax error near unexpected token '%c'\n"
-				, (*lex_lst)->token);
+		printf("Minishell: syntax error near unexpected token '%c'\n",
+			(*lex_lst)->token);
 		return (g_signal_num = 258, 1);
 	}
 	*lex_lst = (*lex_lst)->next;
 	if (!(*lex_lst) || (*lex_lst)->token != TK_WORD)
 	{
-		printf("Minishell: syntax error near unexpected token '%c'\n"
-				, (*lex_lst)->token);
+		printf("Minishell: syntax error near unexpected token '%c'\n",
+			(*lex_lst)->token);
 		return (g_signal_num = 258, 1);
 	}
 	new_file = create_new_file(NULL, token, (*lex_lst)->value);

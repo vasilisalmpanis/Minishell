@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_utils1.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
+/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:58:04 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/23 11:20:15 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/08/23 15:45:07 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	close_fds(int **fd, int count)
 int	**ft_fds_pipes(int num_cmds)
 {
 	int	**fd;
-	
+
 	fd = NULL;
 	fd = allocate_fds(num_cmds);
 	if (!fd)

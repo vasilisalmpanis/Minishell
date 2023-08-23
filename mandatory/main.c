@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
+/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 18:26:28 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/23 11:50:30 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/08/23 15:42:39 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	set_ex_code(int *exit_code)
 	{
 		*exit_code = g_signal_num;
 		g_signal_num = 0;
-	}	
+	}
 	else if (g_signal_num > 0)
 	{
 		*exit_code = 128 + g_signal_num;
@@ -39,7 +39,7 @@ void	set_ex_code(int *exit_code)
 	{
 		*exit_code = 1;
 		g_signal_num = 0;
-	}	
+	}
 }
 
 char	*ft_get_prompt(t_env **env_lst)

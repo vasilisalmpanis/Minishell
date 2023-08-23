@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 12:51:42 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/18 12:52:06 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/23 15:51:37 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	ft_lstadd_end(t_lex **lst, t_lex *new)
 	*ptr = new;
 }
 
-int ft_check_lex(t_lex *lst)
+int	ft_check_lex(t_lex *lst)
 {
 	while (lst)
 	{

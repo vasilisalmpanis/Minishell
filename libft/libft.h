@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 08:08:00 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/16 11:03:40 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/23 15:41:46 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,27 +66,27 @@ typedef struct s_list
 	struct s_list	*next;
 }	t_list;
 
-t_list	*ft_lstnew(void *content);
-void	ft_lstadd_front(t_list **lst, t_list *new);
-int		ft_lstsize(t_list *lst);
-t_list	*ft_lstlast(t_list *lst);
-void	ft_lstadd_back(t_list **lst, t_list *new);
-void	ft_lstdelone(t_list *lst, void (*del)(void *));
-void	ft_lstclear(t_list **lst, void (*del)(void *));
-void	ft_lstiter(t_list *lst, void (*f)(void *));
-t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
+t_list		*ft_lstnew(void *content);
+void		ft_lstadd_front(t_list **lst, t_list *new);
+int			ft_lstsize(t_list *lst);
+t_list		*ft_lstlast(t_list *lst);
+void		ft_lstadd_back(t_list **lst, t_list *new);
+void		ft_lstdelone(t_list *lst, void (*del)(void *));
+void		ft_lstclear(t_list **lst, void (*del)(void *));
+void		ft_lstiter(t_list *lst, void (*f)(void *));
+t_list		*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 
-int		ft_printf(const char *str, ...);
-void	ft_find_specifier(char *str, va_list arg, int *length);
-void	ft_check_specifier(char *c, va_list arg, int *length);
-void	ft_character(int c, int *length);
-void	ft_putstr(char *c, int *length);
-void	ft_putptr(unsigned long arg, int *length);
-void	ft_hexa(unsigned long arg, int *length);
-void	ft_printnbr(char c, int arg, int *length);
-void	ft_putnbrhex(char c, unsigned int arg, char *base, int *length);
-void	ft_putunsigned(unsigned int nbr, char *base, int *length);
+int			ft_printf(const char *str, ...);
+void		ft_find_specifier(char *str, va_list arg, int *length);
+void		ft_check_specifier(char *c, va_list arg, int *length);
+void		ft_character(int c, int *length);
+void		ft_putstr(char *c, int *length);
+void		ft_putptr(unsigned long arg, int *length);
+void		ft_hexa(unsigned long arg, int *length);
+void		ft_printnbr(char c, int arg, int *length);
+void		ft_putnbrhex(char c, unsigned int arg, char *base, int *length);
+void		ft_putunsigned(unsigned int nbr, char *base, int *length);
 
-char	*get_next_line(int fd);
+char		*get_next_line(int fd);
 
 #endif

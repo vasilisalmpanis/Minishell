@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
+/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 11:59:44 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/23 10:53:41 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/08/23 15:43:27 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,7 @@ int	check_arg(char *arg, char *name)
 		if (ft_strchr("!@#$%^&*()+-", temp[i]) || ft_isspace(temp[i]) == 1)
 			return (ft_putstr_fd(" not a valid identifier\n", 2), 1);
 	}
-	free(temp);
-	return (0);
+	return (free(temp), 0);
 }
 
 /*

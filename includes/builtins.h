@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 11:02:47 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/21 14:24:21 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/23 15:36:50 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,6 @@ void	sort_env_array(t_env **array, int length, int (*cmp)(char *, char *));
 int		unset(t_env **lst, t_cmd *cmd);
 
 // exit
-int	exit_builtin(t_env **lst, t_cmd *cmd);
+int		exit_builtin(t_env **lst, t_cmd *cmd);
 
 #endif

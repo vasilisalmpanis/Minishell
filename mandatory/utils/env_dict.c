@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 12:57:46 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/16 11:49:44 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/23 15:51:22 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ void	ft_env_free(t_env **lst)
  * @begin_list	Address of HEAD
  * @key The key to be removed
  */
-void ft_env_remove(t_env **begin_list, char *key)
+void	ft_env_remove(t_env **begin_list, char *key)
 {
 	t_env	**ptr;
 	t_env	*temp;
@@ -133,7 +133,6 @@ void ft_env_remove(t_env **begin_list, char *key)
 			ptr = &((*ptr)->next);
 	}
 }
-
 
 /*
  * Function:  *create_env

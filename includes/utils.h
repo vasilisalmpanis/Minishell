@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
+/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 16:13:07 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/23 12:37:57 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/08/23 15:39:37 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,6 @@ void	skip_quotes(char *input, int *i, char **new_input, int *j);
 void	skip_quotes2(char *input, int *i);
 
 int		env_lst_size(t_env *env_lst);
-int 	ft_check_lex(t_lex *lst);
+int		ft_check_lex(t_lex *lst);
 
 #endif

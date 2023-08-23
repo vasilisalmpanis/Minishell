@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
+/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 13:38:10 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/23 12:38:07 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/08/23 15:44:49 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int	builtin_process(t_cmd *cmd, t_env **env_lst, int **fd)
 		return (ft_putstr_fd("Error stdout", 2), 1);
 	return (exit_code);
 }
-		
+
 int	child_process(t_cmd *cmd, t_env **env_lst, int **fd, int count)
 {
 	char	**env_array;
@@ -117,6 +117,6 @@ int	child_process(t_cmd *cmd, t_env **env_lst, int **fd, int count)
 	ft_check_errors(env_lst, cmd, env_array);
 	ft_env_free((env_lst));
 	if (execve(cmd->path, cmd->args, env_array) == -1)
-		ft_print_error_msg(" is a directory\n", 126 , 1);
+		ft_print_error_msg(" is a directory\n", 126, 1);
 	return (0);
 }
