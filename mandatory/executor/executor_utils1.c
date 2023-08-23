@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:58:04 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/23 15:45:07 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/23 16:39:14 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	**allocate_fds(int count)
 	{
 		fd[i] = malloc(2 * sizeof(**fd)); 
 		if (!fd[i++])
-			return (NULL); // free fds allocated so far
+			return (free_mem_fd(fd, i), NULL);
 	}
 	return (fd);
 }
