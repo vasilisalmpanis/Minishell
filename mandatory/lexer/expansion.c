@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 12:43:19 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/23 16:29:22 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/23 16:33:52 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,11 @@ char	*check_expand(char *split, int i, int exit_code, int trim_flag)
 int	check_expand_helper(char *split, int *i, char **exp_word, int exit_code)
 {
 	if ((split[*i + 1] != '\0' && !ft_isspace(split[*i + 1])
-		&& split[*i + 1] != '"' && split[*i + 1] != '\'' 
-		&& split[*i + 1] != '}' && split[*i + 1] != ')'
-		&& split[*i + 1] != ':' && split[*i + 1] != '='
-		&& split[*i + 1] != '^' && split[*i + 1] != '%'
-		&& !(split[*i + 1] >= '+' && split[*i + 1] <= '/')))
+			&& split[*i + 1] != '"' && split[*i + 1] != '\'' 
+			&& split[*i + 1] != '}' && split[*i + 1] != ')'
+			&& split[*i + 1] != ':' && split[*i + 1] != '='
+			&& split[*i + 1] != '^' && split[*i + 1] != '%'
+			&& !(split[*i + 1] >= '+' && split[*i + 1] <= '/')))
 	{
 		(*i)++;
 		if (expand(split, i, exp_word, exit_code))

@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 12:32:59 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/23 16:27:40 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/23 16:33:26 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int	create_exp_var(char *split, int *i, int exit_code, char **exp_var)
 	start = *i;
 	offset = 0;
 	temp = NULL;
-	
 	while (split[*i] && split[*i] != '"' && split[*i] != '\''
 		&& split[*i] != '}' && split[*i] != ')' && split[*i] != '$'
 		&& !ft_isspace(split[*i]))
@@ -86,7 +85,7 @@ int	find_exp_var(char *temp, char **exp_var)
 			break ;
 	}
 	free(temp2);
-	if (temp3 && !(ft_isalnum(temp[i + 1])) && temp[i + 1] != '_') // more cases? should be related to export?
+	if (temp3 && !(ft_isalnum(temp[i + 1])) && temp[i + 1] != '_')
 	{
 		*exp_var = ft_strjoin(temp3, &temp[i + 1]);
 		if (!(*exp_var))
