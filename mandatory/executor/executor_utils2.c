@@ -6,7 +6,7 @@
 /*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:59:05 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/23 11:22:15 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/08/23 12:40:23 by valmpani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,13 +102,4 @@ int	check_path_existence(t_env *env_lst)
 		env_lst = env_lst->next;
 	}
 	return (0);
-}
-
-void	ft_print_error_msg(char *msg, int exit_code, int flag)
-{
-	if (flag)
-		ft_putstr_fd(msg, 2);
-	else
-		perror(msg);
-	exit(exit_code);
 }

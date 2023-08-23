@@ -3,7 +3,8 @@ SRC =	mandatory/main.c \
 		mandatory/prompt/prompt.c \
 		mandatory/signals/signals.c\
 		mandatory/utils/utils.c \
-		mandatory/utils/linked_lst.c \
+		mandatory/utils/free_utils1.c \
+		mandatory/utils/free_utils2.c \
 		mandatory/utils/env_dict.c \
 		mandatory/utils/env_dict_helper.c \
 		mandatory/utils/redir_spaces.c \
@@ -31,14 +32,14 @@ SRC =	mandatory/main.c \
 		mandatory/executor/executor_utils2.c \
 		mandatory/executor/open_files.c \
 		mandatory/executor/open_heredoc.c \
-		mandatory/executor/set_stdin_stdout.c
-
+		mandatory/executor/set_stdin_stdout.c \
+		mandatory/executor/errors.c
 
 
 LIBFT = ./libft
 RM = rm -rf
 CC = gcc
-CFLAGS = -g -Wall -Wextra -fsanitize=address
+CFLAGS = -g -Wall -Wextra
 OBJ = $(SRC:.c=.o)
 GREEN = \033[0;32m
 RED = \033[0;31m

@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   redir_spaces.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 17:11:39 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/21 14:33:31 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/23 12:55:46 by valmpani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-#include "../../libft/libft.h"
 
 char	*handle_redirects(char *input)
 {

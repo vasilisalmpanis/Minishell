@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 16:13:07 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/19 12:06:51 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/23 12:37:57 by valmpani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	ft_free_file_lst(t_file **lst);
 void	ft_lst_free(t_lex **lst);
 void	free_mem_fd(int **fd, int num_cmds);
 void	ft_cmd_lst_free_child(t_cmd *lst);
+void	free_stuff(t_env **env_lst, t_cmd *cmd, char **env_array);
 
 t_lex	*ft_new_tk(void *value, t_token token, int pos);
 void	ft_lstadd_end(t_lex **lst, t_lex *new);

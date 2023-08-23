@@ -6,7 +6,7 @@
 /*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 13:59:27 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/23 11:21:10 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/08/23 12:40:41 by valmpani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int		exec_builtin(t_cmd *cmd, t_env **env_lst);
 char	**new_env(t_env *env_lst);
 int		check_path_existence(t_env *env_lst);
 void	ft_print_error_msg(char *msg, int exit_code, int flag);
+void    ft_check_errors(t_env **env_lst, t_cmd *cmd, char **env_array);
 
 int		open_files(t_cmd *cmd, int **fd);
 int		*open_in_out_files(t_file *file_lst);

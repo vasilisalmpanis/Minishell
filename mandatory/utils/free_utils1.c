@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   linked_lst.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 16:03:16 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/22 16:55:48 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/23 12:53:34 by valmpani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ void	ft_cmd_lst_free(t_cmd **lst)
 	}
 }
 
-
-
 void	ft_cmd_lst_free_child(t_cmd *lst)
 {
 	t_cmd	*temp;
@@ -60,6 +58,8 @@ void	ft_cmd_lst_free_child(t_cmd *lst)
 			ft_free(temp->args);
 		if (temp->file)
 			ft_free_file_lst(&(temp->file));
+		if (temp->hd_file)
+			free(temp->hd_file);
 		free(temp);
 	}
 }
@@ -92,17 +92,4 @@ void	ft_lst_free(t_lex **lst)
 			free(temp->value);
 		free(temp);
 	}
-}
-
-void	free_mem_fd(int **fd, int num_cmds)
-{
-	int	i;
-
-	i = 0;
-	while (i < num_cmds - 1)
-	{
-		free(fd[i]);
-		i++;
-	}
-	free(fd);
 }

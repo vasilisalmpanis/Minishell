@@ -6,7 +6,7 @@
 /*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 13:38:10 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/23 11:20:45 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/08/23 12:38:07 by valmpani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,20 +107,14 @@ int	child_process(t_cmd *cmd, t_env **env_lst, int **fd, int count)
 	if (open_files(cmd, fd))
 		exit(EXIT_FAILURE);
 	close_fds(fd, count);
-	if (!check_path_existence(*env_lst) && !(cmd->path_known))
-		ft_print_error_msg("minishell: no path found", 126, 1);
-	if (!cmd->path)
-		ft_print_error_msg("minishell: command not found\n", 127, 1);
-	if (access(cmd->path, F_OK) == -1)
-		ft_print_error_msg("minishell", 127, 0);
-	if (access(cmd->path, X_OK) == -1)
-		ft_print_error_msg("minishell", 126, 0);
+	free_mem_fd(fd, count);
 	env_array = new_env(*env_lst);
 	if (!env_array)
+	{
+		free_stuff(env_lst, cmd, NULL);
 		exit(EXIT_FAILURE);
-	if (!cmd->args)
-		exit(EXIT_FAILURE);
-	free_mem_fd(fd, count);
+	}
+	ft_check_errors(env_lst, cmd, env_array);
 	ft_env_free((env_lst));
 	if (execve(cmd->path, cmd->args, env_array) == -1)
 		ft_print_error_msg(" is a directory\n", 126 , 1);
