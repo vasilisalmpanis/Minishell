@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_files.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:45:22 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/22 16:54:21 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/23 11:22:45 by valmpani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,33 @@ int	open_in_out_files_helper(t_file *file_lst, int	*fd_temp)
 			return (1);
 	}
 	return (0);
+}
+
+int	open_in_file(t_file *file)
+{
+	int	fd;
+	fd = open(file->name, O_RDONLY);
+	if (fd == -1)
+	{
+		perror(file->name);
+		return (-1);
+	}
+	return (fd);
+}
+
+int	open_out_file(t_file *file)
+{
+	int	fd_temp;
+
+	fd_temp = 0;
+	if (file->token == TK_OUT_R)
+		fd_temp = open(file->name, O_RDWR | O_CREAT | O_TRUNC, 00644);
+	else
+		fd_temp = open(file->name, O_RDWR | O_CREAT | O_APPEND, 00644);
+	if (fd_temp == -1)
+	{
+		perror(file->name);
+		return (-1);
+	}
+	return (fd_temp);
 }

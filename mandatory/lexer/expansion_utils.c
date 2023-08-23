@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 12:34:18 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/21 17:20:12 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/23 11:34:53 by valmpani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,6 @@ char	*remove_quotes(char *split, int i, int j)
 	char	*trimmed_word;
 
 	buf = '\0';
-	// if (split[0] == '\'' || split[0] == '\"')
-	// 	return (ft_strdup(split));
 	count = count_rm_quotes(split);
 	if (count == -1)
 		return (ft_strdup(split));

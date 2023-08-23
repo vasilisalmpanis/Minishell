@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_exp_var.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 12:32:59 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/18 16:41:30 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/23 11:30:32 by valmpani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,7 @@ int	determine_exp_var(char *temp, int exit_code, char **exp_var)
 	int		len;
 
 	len = ft_strlen(temp);
-	if (temp[0] == '(' && temp[1] == '('
-		&& temp[len - 1] == ')' && temp[len - 2] == ')') // --> not completely working because word/temp stopped at space
+	if (temp[0] == '(' && temp[1] == '(')
 	{
 		*exp_var = ft_strdup("You can calculate in your head");
 		if (!(*exp_var))

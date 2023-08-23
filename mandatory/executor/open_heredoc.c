@@ -3,28 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   open_heredoc.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 15:09:47 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/22 16:56:12 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/23 11:29:02 by valmpani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	open_heredocs(t_cmd *cmd_lst, int exit_code, int i)
+int	ft_heredoc_name(int *i, t_cmd *cmd_lst)
 {
 	char	*buf;
+
+	buf = ft_itoa((*i)++);
+	if (!buf)
+		return (1);
+	cmd_lst->hd_file = ft_strjoin(HEREDOC, buf);
+	free(buf);
+	return (0);
+}
+
+int	open_heredocs(t_cmd *cmd_lst, int exit_code, int i)
+{
 	t_file	*start_files;
 
 	while (cmd_lst)
 	{
 		cmd_lst->hd_last = -1;
-		buf = ft_itoa(i++);
-		if (!buf)
+		if (ft_heredoc_name(&i, cmd_lst))
 			return (1);
-		cmd_lst->hd_file = ft_strjoin(HEREDOC, buf);
-		free(buf);
 		start_files = cmd_lst->file;
 		while (start_files)
 		{

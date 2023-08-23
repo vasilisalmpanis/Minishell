@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_stdin_stdout.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 11:40:53 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/22 16:21:20 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/23 11:29:40 by valmpani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ int	set_stdout(int *fd_in_out, int **fd, t_cmd *cmd)
 			return (1);
 		close(fd_in_out[OUT]);
 	}
-	// (void)cmd;
-	// (void)fd;
 	if (fd_in_out[OUT] == 0)
 	{
 		if (cmd->next)
@@ -53,8 +51,6 @@ int	set_stdin(int flag, int *fd_in_out, t_cmd *cmd, int **fd)
 			return (1);
 		close(fd_in_out[IN]);
 	}
-	// (void)fd;
-	// (void)cmd;
 	else if (flag == -1)
 		if (cmd->cmd_id > 0)
 		{

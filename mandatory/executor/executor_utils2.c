@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_utils2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:59:05 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/22 12:51:45 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/23 11:22:15 by valmpani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,13 @@ int	wait_for_children(t_cmd *start)
 	int		status;
 	int		exit_code;
 
-	// ft_show_tab2(start);
 	status = 0;
 	exit_code = 0;
 	while (start && start->next)
 	{
-		// printf("pid: %d\n", start->pid);
 		waitpid(start->pid, NULL, 0);
 		start = start->next;
 	}
-	// printf("pid: %d\n", start->pid);
 	if (waitpid(start->pid, &status, 0) == -1)
 		return (1);
 	if (WIFEXITED(status))
@@ -43,19 +40,26 @@ int	exec_builtin(t_cmd *cmd, t_env **env_lst)
 	int	exit_code;
 
 	exit_code = 0;
-	if (!ft_strncmp(cmd->cmd, "echo", ft_strlen(cmd->cmd)))
+	if (!ft_strncmp(cmd->cmd, "echo", ft_strlen(cmd->cmd)) && \
+			ft_strlen(cmd->cmd) == 4)
 		exit_code = echo(cmd);
-	else if (!ft_strncmp(cmd->cmd, "pwd", ft_strlen(cmd->cmd)))
+	else if (!ft_strncmp(cmd->cmd, "pwd", ft_strlen(cmd->cmd)) && \
+			ft_strlen(cmd->cmd) == 3)
 		exit_code = pwd();
-	else if (!ft_strncmp(cmd->cmd, "env", ft_strlen(cmd->cmd)))
+	else if (!ft_strncmp(cmd->cmd, "env", ft_strlen(cmd->cmd)) && \
+			ft_strlen(cmd->cmd) == 3)
 		exit_code = env(*env_lst, cmd);
-	else if (!ft_strncmp(cmd->cmd, "cd", ft_strlen(cmd->cmd)))
+	else if (!ft_strncmp(cmd->cmd, "cd", ft_strlen(cmd->cmd)) && \
+			ft_strlen(cmd->cmd) == 2)
 		exit_code = cd_dir(cmd, *env_lst);
-	else if (!ft_strncmp(cmd->cmd, "export", ft_strlen(cmd->cmd)))
+	else if (!ft_strncmp(cmd->cmd, "export", ft_strlen(cmd->cmd)) && \
+			ft_strlen(cmd->cmd) == 6)
 		exit_code = export(env_lst, cmd);
-	else if (!ft_strncmp(cmd->cmd, "unset", ft_strlen(cmd->cmd)))
+	else if (!ft_strncmp(cmd->cmd, "unset", ft_strlen(cmd->cmd)) && \
+			ft_strlen(cmd->cmd) == 5)
 		exit_code = unset(env_lst, cmd);
-	else if (!ft_strncmp(cmd->cmd, "exit", ft_strlen(cmd->cmd)))
+	else if (!ft_strncmp(cmd->cmd, "exit", ft_strlen(cmd->cmd)) && \
+			ft_strlen(cmd->cmd) == 4)
 		exit_code = exit_builtin(env_lst, cmd);
 	return (exit_code);
 }
@@ -98,4 +102,13 @@ int	check_path_existence(t_env *env_lst)
 		env_lst = env_lst->next;
 	}
 	return (0);
+}
+
+void	ft_print_error_msg(char *msg, int exit_code, int flag)
+{
+	if (flag)
+		ft_putstr_fd(msg, 2);
+	else
+		perror(msg);
+	exit(exit_code);
 }

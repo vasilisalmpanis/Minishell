@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 13:38:10 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/22 17:06:00 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/23 11:20:45 by valmpani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,15 @@ int	execute(t_cmd *cmd_lst, t_env **env_lst, int exit_code)
 	int		num_cmds;
 	t_cmd	*cmd_lst_start;
 
-	cmd_lst_start = cmd_lst;
 	fd = NULL;
+	cmd_lst_start = cmd_lst;
 	num_cmds = count_cmds(cmd_lst);
 	if (num_cmds > 1)
 	{
-		fd = allocate_fds(num_cmds);
+		fd = ft_fds_pipes(num_cmds);
 		if (!fd)
 			return (1);
-		if (create_pipes(fd, num_cmds))
-			return (free_mem_fd(fd, num_cmds), 1);
 	}
-	add_start_lst(cmd_lst);
 	open_heredocs(cmd_lst, exit_code, 0);
 	while (cmd_lst)
 	{
@@ -41,8 +38,7 @@ int	execute(t_cmd *cmd_lst, t_env **env_lst, int exit_code)
 		exit_code = wait_for_children(cmd_lst_start);
 	else
 		exit_code = (int)cmd_lst_start->pid;
-	free_mem_fd(fd, num_cmds);
-	return (exit_code);
+	return (free_mem_fd(fd, num_cmds), exit_code);
 }
 
 pid_t	execute_cmd(t_cmd *cmd_lst, t_env **env_lst, int **fd, int count_cmds)
@@ -54,6 +50,7 @@ pid_t	execute_cmd(t_cmd *cmd_lst, t_env **env_lst, int **fd, int count_cmds)
 	else 
 	{
 		signal(SIGINT, handle_sigint_child);
+		signal(SIGQUIT, handle_sigquit_child);
 		pid = fork();
 		if (pid < 0)
 			return (1);
@@ -102,13 +99,7 @@ int	builtin_process(t_cmd *cmd, t_env **env_lst, int **fd)
 		return (ft_putstr_fd("Error stdout", 2), 1);
 	return (exit_code);
 }
-
-void	ft_print_error_msg(char *msg, int exit_code)
-{
-	ft_putstr_fd(msg, 2);
-	exit(exit_code);
-}
-
+		
 int	child_process(t_cmd *cmd, t_env **env_lst, int **fd, int count)
 {
 	char	**env_array;
@@ -117,22 +108,13 @@ int	child_process(t_cmd *cmd, t_env **env_lst, int **fd, int count)
 		exit(EXIT_FAILURE);
 	close_fds(fd, count);
 	if (!check_path_existence(*env_lst) && !(cmd->path_known))
-	{
-		printf("no path found\n");
-		exit(errno);
-	}
+		ft_print_error_msg("minishell: no path found", 126, 1);
 	if (!cmd->path)
-		ft_print_error_msg(" command not found\n", 127);
+		ft_print_error_msg("minishell: command not found\n", 127, 1);
 	if (access(cmd->path, F_OK) == -1)
-	{
-		perror("minishell");
-		exit(127);
-	}
+		ft_print_error_msg("minishell", 127, 0);
 	if (access(cmd->path, X_OK) == -1)
-	{
-		perror("minishell");
-		exit(126);
-	}
+		ft_print_error_msg("minishell", 126, 0);
 	env_array = new_env(*env_lst);
 	if (!env_array)
 		exit(EXIT_FAILURE);
@@ -141,6 +123,6 @@ int	child_process(t_cmd *cmd, t_env **env_lst, int **fd, int count)
 	free_mem_fd(fd, count);
 	ft_env_free((env_lst));
 	if (execve(cmd->path, cmd->args, env_array) == -1)
-		ft_print_error_msg(" is a directory\n", 126);
+		ft_print_error_msg(" is a directory\n", 126 , 1);
 	return (0);
 }

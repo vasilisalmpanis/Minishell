@@ -12,38 +12,30 @@
 
 #include "../../includes/minishell.h"
 
-void	handle_sigquit(void)
+extern int	g_signal_num;
+
+void	handle_sigint(int signum)
 {
+	g_signal_num = -3 + signum;
 	rl_replace_line("", 0);
+	write(STDIN_FILENO, "\n", 1);
 	rl_on_new_line();
 	rl_redisplay();
 }
 
-void	handle_sigint(int signum)
-{
-	if (signum == SIGINT)
-	{
-		rl_replace_line("", 0);
-		putchar('\n');
-		rl_on_new_line();
-		rl_redisplay();
-	}
-}
-
 void	handle_sigint_child(int signum)
 {
-	putchar('\n');
-//	rl_replace_line("", 0);
+	g_signal_num = signum;
+	rl_replace_line("", 0);
 }
 
 void	handle_sigquit_child(int signum)
 {
-	putchar('\n');
+	g_signal_num = signum;
 	ft_putstr_fd("Quit: ", STDERR_FILENO);
 	ft_putnbr_fd(signum, STDERR_FILENO);
 	putchar('\n');
 	rl_replace_line("", 0);
-	exit(130);
 }
 
 void	signals(void (*handler)(int))

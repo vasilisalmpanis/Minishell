@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valmpani <valmpani@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 14:43:49 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/09 12:47:27 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/08/23 11:55:56 by valmpani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,10 @@ char	*get_git_head(char *w)
 	buf[bytes] = 0;
 	while (buf[i])
 		++i;
-	while (buf[i] != '/')
+	while (buf[i] != '/' && i > 0)
 		--i;
+	if (i == 0)
+		return (ft_substr(w, 0 , 7));
 	i++;
 	temp = ft_substr(buf, i, ft_strlen(buf) - (size_t)i);
 	temp[ft_strlen(temp) - 1] = '\0';

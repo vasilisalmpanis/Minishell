@@ -31,7 +31,6 @@ SRC =	mandatory/main.c \
 		mandatory/executor/executor_utils2.c \
 		mandatory/executor/open_files.c \
 		mandatory/executor/open_heredoc.c \
-		mandatory/executor/open_files_utils.c \
 		mandatory/executor/set_stdin_stdout.c
 
 
