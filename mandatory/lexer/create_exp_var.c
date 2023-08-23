@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_exp_var.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
+/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 12:32:59 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/23 11:30:32 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/08/23 16:27:40 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	create_exp_var(char *split, int *i, int exit_code, char **exp_var)
 	start = *i;
 	offset = 0;
 	temp = NULL;
+	
 	while (split[*i] && split[*i] != '"' && split[*i] != '\''
 		&& split[*i] != '}' && split[*i] != ')' && split[*i] != '$'
 		&& !ft_isspace(split[*i]))
@@ -48,7 +49,7 @@ int	determine_exp_var(char *temp, int exit_code, char **exp_var)
 		if (!(*exp_var))
 			return (1);
 	}
-	else if (ft_isdigit(temp[0]))
+	else if (ft_isdigit(temp[0]) || temp[0] == '@')
 	{
 		*exp_var = ft_strdup(temp + 1);
 		if (!(*exp_var))
