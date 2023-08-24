@@ -39,7 +39,7 @@ SRC =	mandatory/main.c \
 LIBFT = ./libft
 RM = rm -rf
 CC = gcc
-CFLAGS = -g -Wall -Wextra -fsanitize=address
+CFLAGS = -g -Wall -Wextra
 OBJ = $(SRC:.c=.o)
 GREEN = \033[0;32m
 RED = \033[0;31m

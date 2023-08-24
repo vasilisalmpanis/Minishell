@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 18:26:28 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/24 10:33:59 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/24 13:18:43 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,9 +93,9 @@ void	run_minishell(t_env **env_lst, t_env **exit_code, char *input)
 
 int	main(int argc, char **argv, char **envp)
 {
-	char				*input;
-	t_env				*exit_code;
-	t_env				*env_lst;
+	char	*input;
+	t_env	*exit_code;
+	t_env	*env_lst;
 
 	env_lst = create_env(envp, argv);
 	start_env(&exit_code, env_lst, argc);
@@ -112,39 +112,3 @@ int	main(int argc, char **argv, char **envp)
 	}
 	return (0);
 }
-
-// ft_show_tab2(cmd_lst);
-// void	ft_show_tab2(t_cmd *list)
-// {
-// 	int	i;
-//
-// 	write(1, "\n", 1);
-// 	while (list)
-// 	{
-// 		printf("pid: %d\n", list->pid);
-// 		printf("cmd id: %d\n", list->cmd_id);
-// 		if (list->file)
-// 		{
-// 			while (list->file)
-// 			{
-// 				printf("heredoc_delim: %s\n", list->file->delim);
-// 				printf("file name: %s\n", list->file->name);
-// 				printf("token: %c\n", list->file->token);
-// 				list->file = list->file->next;
-// 			}
-// 		}
-// 		printf("cmd: %s\n", list->cmd);
-// 		printf("builtin: %d\n", list->builtin);
-// 		printf("path: %s\n", list->path);
-// 		i = 0;
-// 		while (list->args[i])
-// 		{
-// 			printf("args[%d]: %s\n", i, list->args[i]);
-// 			i++;
-// 		}
-// 		printf("args[%d]: %s\n", i, list->args[i]);
-// 		// printf("args[1]: %s\n", list->args[1]);
-// 		write(1, "\n", 1);
-// 		list = list->next;
-// 	}
-// }
