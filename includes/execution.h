@@ -17,7 +17,7 @@
 
 # include "minishell.h"
 
-int		execute(t_cmd *cmd_lst, t_env **env_lst, int exit_code);
+int		execute(t_cmd *cmd_lst, t_env **env_lst, t_env **ec);
 pid_t	execute_cmd(t_cmd *cmd_lst, t_env **env_lst, int **fd, int count_cmds);
 int		builtin_child(t_cmd *cmd, t_env **env_lst, int **fd, int count);
 int		builtin_process(t_cmd *cmd, t_env **env_lst, int **fd);
@@ -43,8 +43,8 @@ int		open_in_out_files_helper(t_file *file_lst, int	*fd_temp);
 int		open_in_file(t_file *file);
 int		open_out_file(t_file *file);
 
-int		heredoc(t_cmd *cmd, t_file *file, int exit_code);
-int		open_heredocs(t_cmd *cmd_lst, int exit_code, int i);
+int		heredoc(t_cmd *cmd, t_file *file, t_env *lst);
+int		open_heredocs(t_cmd *cmd_lst, t_env *lst, int i);
 
 int		set_stdin(int flag, int *fd_in_out, t_cmd *cmd, int **fd);
 int		set_stdout(int *fd_in_out, int **fd, t_cmd *cmd);

@@ -41,7 +41,7 @@ int	check_quotes(const char *input, int single, int dbl)
 	return (single + dbl);
 }
 
-t_lex	*lex(char *input, int exit_code)
+t_lex	*lex(char *input, t_env *lst)
 {
 	char	**split;
 	t_lex	*token_lst;
@@ -59,7 +59,7 @@ t_lex	*lex(char *input, int exit_code)
 		return (NULL);
 	while (split[++i])
 	{
-		new_token = create_token(split[i], &pos, exit_code);
+		new_token = create_token(split[i], &pos, lst);
 		if (!(new_token))
 		{
 			ft_free(split);
@@ -70,7 +70,7 @@ t_lex	*lex(char *input, int exit_code)
 	return (ft_free(split), token_lst);
 }
 
-t_lex	*create_token(char *split, int *pos, int exit_code)
+t_lex	*create_token(char *split, int *pos, t_env *lst)
 {
 	t_lex	*new_token;
 
@@ -90,20 +90,20 @@ t_lex	*create_token(char *split, int *pos, int exit_code)
 		new_token = ft_new_tk(split, TK_HERE_DOC, *pos);
 	else
 	{
-		if (create_word_token(split, pos, &new_token, exit_code))
+		if (create_word_token(split, pos, &new_token, lst))
 			return (NULL);
 	}
 	return (new_token);
 }
 
-int	create_word_token(char *split, int *pos, t_lex **new_token, int exit_code)
+int	create_word_token(char *split, int *pos, t_lex **new_token, t_env *lst)
 {
 	char	*word1;
 	char	*word2;
 
 	if (check_syntax_err(split))
 		return ((ft_putstr_fd("Syntax error near '><'\n", 2)), 1);
-	word1 = check_expand(split, -1, exit_code, 1);
+	word1 = check_expand(split, -1, lst, 1);
 	if (!word1)
 		return (1);
 	word2 = remove_quotes(word1, 0, 0);

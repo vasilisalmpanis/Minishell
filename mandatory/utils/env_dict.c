@@ -27,6 +27,7 @@ t_env	*lst_env_node(char *key, char *value)
 	int		temp;
 
 	node = (t_env *)malloc(sizeof(t_env));
+	ft_bzero(node, sizeof(*node));
 	if (!node)
 		return (NULL);
 	node->key = ft_strdup(key);
@@ -164,5 +165,7 @@ t_env	*create_env(char **en, char **argv)
 		free(temp[0]);
 		free(temp[1]);
 	}
+	tmp = lst_env_node("EC", NULL);
+	ft_env_addback(&lst, tmp);
 	return (lst);
 }

@@ -33,15 +33,14 @@ void	export_print(t_env *lst)
 	{
 		if (exp[i]->key[1] != '_' && exp[i]->key[0] != '\0')
 		{
-			ft_putstr_fd("declare -x ", 1);
-			ft_putstr_fd(exp[i]->key, 1);
-			if (exp[i]->value[0] != '\0')
+			if (!(ft_strncmp(exp[i]->key, "EC", ft_strlen(exp[i]->key)) == 0
+					&& ft_strlen(exp[i]->key) == 2))
 			{
-				ft_putstr_fd("=\"", 1);
-				ft_putstr_fd(exp[i]->value, 1);
-				ft_putstr_fd("\"", 1);
+				printf("declare -x %s", exp[i]->key);
+				if (exp[i]->value[0] != '\0')
+					printf("=\"%s\"", exp[i]->value);
+				printf("\n");
 			}
-			ft_putstr_fd("\n", 1);
 		}
 	}
 	free(exp);

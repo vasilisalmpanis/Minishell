@@ -57,3 +57,17 @@ int	set_value_env(t_env *env, char *key, char *pwd)
 	}
 	return (0);
 }
+
+char	*ft_getenv(t_env *lst, char *key)
+{
+	while (lst)
+	{
+		if (ft_strncmp(key, lst->key, ft_strlen(lst->key)) == 0
+			&& ft_strlen(lst->key) == ft_strlen(key))
+		{
+			return (ft_strdup(lst->value));
+		}
+		lst = lst->next;
+	}
+	return (NULL);
+}

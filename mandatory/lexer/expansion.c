@@ -12,7 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-char	*check_expand(char *split, int i, int exit_code, int trim_flag)
+char	*check_expand(char *split, int i, t_env *lst, int trim_flag)
 {
 	char	*exp_word;
 
@@ -23,7 +23,7 @@ char	*check_expand(char *split, int i, int exit_code, int trim_flag)
 	{
 		if (split[0] != '\'' && split[i] == '$')
 		{
-			if (check_expand_helper(split, &i, &exp_word, exit_code))
+			if (check_expand_helper(split, &i, &exp_word, lst))
 				return (NULL);
 		}
 		else
@@ -40,7 +40,7 @@ char	*check_expand(char *split, int i, int exit_code, int trim_flag)
 	return (exp_word);
 }
 
-int	check_expand_helper(char *split, int *i, char **exp_word, int exit_code)
+int	check_expand_helper(char *split, int *i, char **exp_word, t_env *lst)
 {
 	if ((split[*i + 1] != '\0' && !ft_isspace(split[*i + 1])
 			&& split[*i + 1] != '"' && split[*i + 1] != '\'' 
@@ -50,7 +50,7 @@ int	check_expand_helper(char *split, int *i, char **exp_word, int exit_code)
 			&& !(split[*i + 1] >= '+' && split[*i + 1] <= '/')))
 	{
 		(*i)++;
-		if (expand(split, i, exp_word, exit_code))
+		if (expand(split, i, exp_word, lst))
 			return (1);
 		(*i)--;
 	}
@@ -63,7 +63,7 @@ int	check_expand_helper(char *split, int *i, char **exp_word, int exit_code)
 	return (0);
 }
 
-int	expand(char *split, int *i, char **exp_word, int exit_code)
+int	expand(char *split, int *i, char **exp_word, t_env *lst)
 {
 	char	*exp_var;
 
@@ -76,7 +76,7 @@ int	expand(char *split, int *i, char **exp_word, int exit_code)
 	}
 	else
 	{
-		if (create_exp_var(split, i, exit_code, &exp_var))
+		if (create_exp_var(split, i, lst, &exp_var))
 			return (free(*exp_word), 1);
 	}
 	if (exp_var)

@@ -12,7 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-int	execute(t_cmd *cmd_lst, t_env **env_lst, int exit_code)
+int	execute(t_cmd *cmd_lst, t_env **env_lst, t_env **ec)
 {
 	int		**fd;
 	int		num_cmds;
@@ -27,7 +27,7 @@ int	execute(t_cmd *cmd_lst, t_env **env_lst, int exit_code)
 		if (!fd)
 			return (1);
 	}
-	open_heredocs(cmd_lst, exit_code, 0);
+	open_heredocs(cmd_lst, *env_lst, 0);
 	while (cmd_lst)
 	{
 		cmd_lst->pid = execute_cmd(cmd_lst, env_lst, fd, num_cmds);
@@ -35,10 +35,10 @@ int	execute(t_cmd *cmd_lst, t_env **env_lst, int exit_code)
 	}
 	close_fds(fd, num_cmds);
 	if (!(num_cmds == 1 && cmd_lst_start->builtin))
-		exit_code = wait_for_children(cmd_lst_start);
+		(*ec)->ec = wait_for_children(cmd_lst_start);
 	else
-		exit_code = (int)cmd_lst_start->pid;
-	return (free_mem_fd(fd, num_cmds), exit_code);
+		(*ec)->ec = (int)cmd_lst_start->pid;
+	return (free_mem_fd(fd, num_cmds), (*ec)->ec);
 }
 
 pid_t	execute_cmd(t_cmd *cmd_lst, t_env **env_lst, int **fd, int count_cmds)

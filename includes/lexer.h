@@ -13,6 +13,8 @@
 #ifndef LEXER_H
 # define LEXER_H
 
+typedef struct s_env	t_env;
+
 typedef enum s_token
 {
 	TK_WORD = 'w',
@@ -32,26 +34,26 @@ typedef struct s_lex
 }				t_lex;
 
 int		check_quotes(const char *input, int single, int dbl);
-t_lex	*lex(char *input, int exit_code);
-t_lex	*create_token(char *split, int *pos, int exit_code);
-int		create_word_token(char *split, int *pos, t_lex **new_token, \
-									int exit_code);
+t_lex	*lex(char *input, t_env *lst);
+t_lex	*create_token(char *split, int *pos, t_env *lst);
+int		create_word_token(char *split, int *pos, t_lex **new_token,
+			t_env *lst);
 int		check_syntax_err(char *split);
 
-char	*check_expand(char *split, int i, int exit_code, int trim_flag);
-int		check_expand_helper(char *split, int *i, \
-							char **exp_word, int exit_code);
-int		expand(char *split, int *i, char **exp_word, int exit_code);
+char	*check_expand(char *split, int i, t_env *lst, int trim_flag);
+int		check_expand_helper(char *split, int *i, char **exp_word,
+			t_env *lst);
+int		expand(char *split, int *i, char **exp_word, t_env *lst);
 
 char	*trim_word(char *exp_word);
 int		calc_offset(char *split, int start, int *i);
 char	*remove_quotes(char *split, int i, int j);
 int		count_rm_quotes(char *split);
 
-int		create_exp_var(char *split, int *i, int exit_code, char **exp_var);
-int		determine_exp_var(char *temp, int exit_code, char **exp_var);
-int		find_exp_var(char *temp, char **exp_var);
-char	*find_exit_code(char *temp, int exit_code);
+int		create_exp_var(char *split, int *i, t_env *lst, char **exp_var);
+int		determine_exp_var(char *temp, t_env *lst, char **exp_var);
+int		find_exp_var(char *temp, char **exp_var, t_env *lst);
+char	*find_exit_code(char *temp, t_env *lst);
 char	*find_pid(int *i);
 
 #endif

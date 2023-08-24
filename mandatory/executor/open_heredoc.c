@@ -24,7 +24,7 @@ int	ft_heredoc_name(int *i, t_cmd *cmd_lst)
 	return (0);
 }
 
-int	open_heredocs(t_cmd *cmd_lst, int exit_code, int i)
+int	open_heredocs(t_cmd *cmd_lst, t_env *lst, int i)
 {
 	t_file	*start_files;
 
@@ -38,7 +38,7 @@ int	open_heredocs(t_cmd *cmd_lst, int exit_code, int i)
 		{
 			if (start_files->token == TK_HERE_DOC)
 			{
-				if (heredoc(cmd_lst, start_files, exit_code))
+				if (heredoc(cmd_lst, start_files, lst))
 					return (1);
 				cmd_lst->hd_last = 0;
 			}
@@ -51,7 +51,7 @@ int	open_heredocs(t_cmd *cmd_lst, int exit_code, int i)
 	return (0);
 }
 
-int	heredoc(t_cmd *cmd, t_file *file, int exit_code)
+int	heredoc(t_cmd *cmd, t_file *file, t_env *lst)
 {
 	int		fd_temp;
 	char	*buf[2];
@@ -68,7 +68,7 @@ int	heredoc(t_cmd *cmd, t_file *file, int exit_code)
 		rm_newline(&buf[0]);
 		if (ft_memcmp(file->delim, buf[0], ft_strlen(file->delim) + 1) == 0)
 			break ;
-		buf[1] = check_expand(buf[0], -1, exit_code, 0);
+		buf[1] = check_expand(buf[0], -1, lst, 0);
 		if (!buf[1])
 			return (1);
 		free(buf[0]);

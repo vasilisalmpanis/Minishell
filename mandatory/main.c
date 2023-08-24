@@ -14,30 +14,36 @@
 
 int		g_signal_num;
 
-void	start_env(int *exit_code, int argc)
+void	start_env(t_env **exit_code, t_env *env_list, int argc)
 {
 	if (argc > 1)
 		exit (1);
-	*exit_code = 0;
+	while (env_list)
+	{
+		if (ft_strncmp("EC", env_list->key, ft_strlen(env_list->key)) == 0
+			&& ft_strlen(env_list->key) == 2)
+			*exit_code = env_list;
+		env_list = env_list->next;
+	}
 	silence();
 }
 
-void	set_ex_code(int *exit_code)
+void	set_ex_code(t_env **exit_code)
 {
 	signals(handle_sigint);
 	if (g_signal_num == 258)
 	{
-		*exit_code = g_signal_num;
+		(*exit_code)->ec = g_signal_num;
 		g_signal_num = 0;
 	}
 	else if (g_signal_num > 0)
 	{
-		*exit_code = 128 + g_signal_num;
+		(*exit_code)->ec = 128 + g_signal_num;
 		g_signal_num = 0;
 	}
 	else if (g_signal_num == -1)
 	{
-		*exit_code = 1;
+		(*exit_code)->ec = 1;
 		g_signal_num = 0;
 	}
 }
@@ -59,27 +65,27 @@ char	*ft_get_prompt(t_env **env_lst)
 	return (result);
 }
 
-void	run_minishell(t_env **env_lst, int *exit_code, char *input)
+void	run_minishell(t_env **env_lst, t_env **exit_code, char *input)
 {
 	t_lex	*lex_lst;
 	t_cmd	*cmd_lst;
 
 	lex_lst = NULL;
 	cmd_lst = NULL;
-	lex_lst = lex(input, *exit_code);
+	lex_lst = lex(input, *env_lst);
 	if (!lex_lst)
-		*exit_code = 1;
+		(*exit_code)->ec = 1;
 	else if (ft_check_lex(lex_lst))
-		*exit_code = 0;
+		(*exit_code)->ec = 0;
 	else
 	{
-		cmd_lst = parser(lex_lst, *env_lst, *exit_code);
+		cmd_lst = parser(lex_lst, *env_lst, (*exit_code)->ec);
 		if (!cmd_lst)
-			*exit_code = 1;
+			(*exit_code)->ec = 1;
 		else
 		{
 			add_start_lst(cmd_lst);
-			*exit_code = execute(cmd_lst, env_lst, *exit_code);
+			(*exit_code)->ec = execute(cmd_lst, env_lst, exit_code);
 		}
 	}
 	ft_cmd_lst_free(&cmd_lst);
@@ -88,11 +94,11 @@ void	run_minishell(t_env **env_lst, int *exit_code, char *input)
 int	main(int argc, char **argv, char **envp)
 {
 	char				*input;
-	int					exit_code;
+	t_env				*exit_code;
 	t_env				*env_lst;
 
-	start_env(&exit_code, argc);
 	env_lst = create_env(envp, argv);
+	start_env(&exit_code, env_lst, argc);
 	if (!env_lst)
 		return (1);
 	while (1)
@@ -100,7 +106,7 @@ int	main(int argc, char **argv, char **envp)
 		set_ex_code(&exit_code);
 		input = ft_get_prompt(&env_lst);
 		if (input[0] == '\0')
-			exit_code = 0;
+			exit_code->ec = 0;
 		else
 			run_minishell(&env_lst, &exit_code, input);
 	}
@@ -111,7 +117,7 @@ int	main(int argc, char **argv, char **envp)
 // void	ft_show_tab2(t_cmd *list)
 // {
 // 	int	i;
-
+//
 // 	write(1, "\n", 1);
 // 	while (list)
 // 	{
