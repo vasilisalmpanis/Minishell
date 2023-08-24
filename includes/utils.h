@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 16:13:07 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/23 15:39:37 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/24 10:39:00 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	ft_lst_free(t_lex **lst);
 void	free_mem_fd(int **fd, int num_cmds);
 void	ft_cmd_lst_free_child(t_cmd *lst);
 void	free_stuff(t_env **env_lst, t_cmd *cmd, char **env_array);
+void	free_env_cmd_ex(t_env **lst, t_cmd *cmd);
 
 t_lex	*ft_new_tk(void *value, t_token token, int pos);
 void	ft_lstadd_end(t_lex **lst, t_lex *new);

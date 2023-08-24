@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:52:47 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/18 13:02:31 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/24 10:59:17 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,9 @@ char	*ft_charjoin_mod(char *s1, char s2)
 {
 	char	*ret;
 	size_t	i;
-	size_t	j;
 	size_t	len;
 
 	i = 0;
-	j = 0;
 	len = ft_strlen(s1) + 1;
 	ret = malloc((len + 1) * sizeof(*ret));
 	if (!ret)

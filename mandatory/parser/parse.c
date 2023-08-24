@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 18:23:58 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/23 15:49:45 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/24 11:03:51 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,10 @@ int	parse_tokens(t_lex *lex_lst, t_cmd **cmd_lst, char **env_paths, int ex_co)
 		while (lex_lst && lex_lst->token != TK_PIPE)
 		{
 			if (analyze_token(&lex_lst, new_cmd, &arg_num, env_paths))
-				return (free(new_cmd), 1);
+				return (ft_cmd_lst_free(&new_cmd), 1);
+			(new_cmd->args)[arg_num] = NULL;
 			lex_lst = lex_lst->next;
 		}
-		(new_cmd->args)[arg_num] = NULL;
 		ft_cmd_lstadd_end(cmd_lst, new_cmd);
 		if (lex_lst)
 			lex_lst = lex_lst->next;

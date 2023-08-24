@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 12:32:59 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/23 16:33:26 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/24 10:58:54 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,6 @@ int	create_exp_var(char *split, int *i, int exit_code, char **exp_var)
 
 int	determine_exp_var(char *temp, int exit_code, char **exp_var)
 {
-	int		len;
-
-	len = ft_strlen(temp);
 	if (temp[0] == '(' && temp[1] == '(')
 	{
 		*exp_var = ft_strdup("You can calculate in your head");

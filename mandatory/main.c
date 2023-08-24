@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 18:26:28 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/23 15:42:39 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/24 10:33:59 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,10 @@ char	*ft_get_prompt(t_env **env_lst)
 	result = readline(temp);
 	free(temp);
 	if (!result)
+	{
+		printf("Hello\n");
 		exit_builtin(env_lst, NULL);
+	}
 	add_history(result);
 	return (result);
 }
