@@ -1,6 +1,7 @@
 # Prerequisites
 *.d
 .DS_STORE
+*.dSYM
 .idea
 
 # Object files

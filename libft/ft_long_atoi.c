@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_long_atoi.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valmpani <valmpani@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/17 10:59:56 by valmpani          #+#    #+#             */
-/*   Updated: 2023/07/17 11:05:54 by valmpani         ###   ########.fr       */
+/*   Created: 2023/08/21 10:14:45 by valmpani          #+#    #+#             */
+/*   Updated: 2023/08/23 15:40:51 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_atoi(const char *str)
+long long	ft_long_atoi(const char *str)
 {
-	int	index;
-	int	minus;
-	int	number;
+	int			index;
+	int			minus;
+	long long	number;
 
 	index = 0;
 	minus = 1;
