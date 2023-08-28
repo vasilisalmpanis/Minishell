@@ -99,7 +99,10 @@ void	ft_split_key_val(char *arg, char **key, char **value)
 	temp = ft_strtrim(*key, "\"\'");
 	free(*key);
 	*key = temp;
-	temp = ft_strtrim(*value, "\"\'");
+	if ((*value)[0] != '\0')
+		temp = ft_strtrim(*value, "\"\'");
+	else
+		temp = ft_strdup("");
 	free(*value);
 	*value = temp;
 }

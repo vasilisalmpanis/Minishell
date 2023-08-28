@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
+/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 11:02:11 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/08 11:36:13 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/08/24 16:51:11 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,9 @@ int	pwd(void)
 	if (!cwd)
 	{
 		perror("getcwd");
-		return (1);
+		return (free(cwd), 1);
 	}
 	printf("%s\n", cwd);
+	free(cwd);
 	return (0);
 }

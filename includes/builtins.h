@@ -31,6 +31,7 @@ int		pwd(void);
 // echo
 int		echo(t_cmd *cmd);
 void	print_var(const char *str);
+int		check_newline(t_cmd *cmd);
 
 // cd
 int		cd_dir(t_cmd *cmd, t_env *env);

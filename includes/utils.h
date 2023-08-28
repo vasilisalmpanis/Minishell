@@ -49,6 +49,9 @@ void	skip_quotes2(char *input, int *i);
 
 int		env_lst_size(t_env *env_lst);
 int		ft_check_lex(t_lex *lst);
+int		check_token_err(char *word);
+int		check_token_pipe_err(t_lex *lst, t_lex *lst_start);
 char	*ft_getenv(t_env *lst, char *key);
+int		allocate_args(t_lex *lex_lst, t_cmd *new_cmd);
 
 #endif

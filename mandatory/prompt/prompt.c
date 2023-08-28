@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 14:43:49 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/23 15:50:14 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/24 16:55:34 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,17 +100,17 @@ char	*git_traversal(void)
 	while (access(path, O_RDONLY) != 0 && i < 10)
 	{
 		temp = ft_strjoin("../", path);
+		free(path);
 		if (!temp)
 			return (NULL);
-		free(path);
 		path = ft_strdup(temp);
+		free(temp);
 		if (!path)
 			return (NULL);
-		free(temp);
 		++i;
 	}
 	if (access(path, O_RDONLY) != 0 && i == 10)
-		return (NULL);
+		return (free(path), NULL);
 	return (path);
 }
 
@@ -127,18 +127,18 @@ char	*prompt(void)
 		free(temp[1]);
 		return (free(temp[0]), ft_strdup(GREEN"→" BLUE"  / "ESCAPE));
 	}
+	free(temp[1]);
 	temp[2] = ft_strjoin(GREEN"→" BLUE"  ", temp[0]);
+	free(temp[0]);
 	if (!temp[2])
 		return (ft_strdup(GREEN"→" BLUE"  minishell "ESCAPE));
-	free(temp[0]);
 	temp[0] = ft_strjoin(temp[2], " "ESCAPE);
+	free(temp[2]);
 	if (temp[0] == NULL)
 		return (ft_strdup(GREEN"→" BLUE"  minishell "ESCAPE));
-	free(temp[2]);
 	temp[2] = git_traversal();
 	if (!temp[2])
 		return (temp[0]);
 	get_repo(&temp[0], NULL, temp[2]);
-	free(temp[1]);
 	return (free(temp[2]), temp[0]);
 }

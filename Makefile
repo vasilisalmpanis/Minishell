@@ -10,6 +10,7 @@ SRC =	mandatory/main.c \
 		mandatory/utils/redir_spaces.c \
 		mandatory/utils/redir_spaces_utils.c \
 		mandatory/utils/cmd_lst_utils.c \
+		mandatory/utils/cmd_lst_utils2.c \
 		mandatory/utils/lex_lst_utils.c \
 		mandatory/lexer/lexer.c \
 		mandatory/lexer/expansion.c \
@@ -67,6 +68,8 @@ ${LIBFT}:
 
 norm:
 	@norminette mandatory > /tmp/norminette_output.txt 2>&1
+	@norminette includes > /tmp/norminette_output.txt 2>&1
+	@norminette libft > /tmp/norminette_output.txt 2>&1
 	@rm -rf /tmp/norminette_output.txt
 	@echo "${BLUE}\nnorminette completed\n${END}"
 

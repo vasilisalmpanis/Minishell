@@ -54,6 +54,8 @@ char	*remove_quotes(char *split, int i, int j)
 	char	*trimmed_word;
 
 	buf = '\0';
+	if (split[0] == '\'' || split[0] == '\"')
+		return (ft_strdup(split));
 	count = count_rm_quotes(split);
 	if (count == -1)
 		return (ft_strdup(split));

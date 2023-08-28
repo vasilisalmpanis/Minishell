@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 18:26:28 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/24 13:18:43 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/24 17:13:30 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ void	run_minishell(t_env **env_lst, t_env **exit_code, char *input)
 		(*exit_code)->ec = 1;
 	else if (ft_check_lex(lex_lst))
 		(*exit_code)->ec = 0;
+	else if (check_token_pipe_err(lex_lst, lex_lst))
+		(*exit_code)->ec = 258;
 	else
 	{
 		cmd_lst = parser(lex_lst, *env_lst, (*exit_code)->ec);
