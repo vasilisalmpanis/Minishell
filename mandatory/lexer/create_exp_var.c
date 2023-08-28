@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   create_exp_var.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
+/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 12:32:59 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/23 11:30:32 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/08/24 10:58:54 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	create_exp_var(char *split, int *i, int exit_code, char **exp_var)
+int	create_exp_var(char *split, int *i, t_env *lst, char **exp_var)
 {
 	int		offset;
 	int		start;
@@ -31,24 +31,21 @@ int	create_exp_var(char *split, int *i, int exit_code, char **exp_var)
 	temp = ft_substr(split, start + offset, *i - start - (2 * offset));
 	if (!temp)
 		return (1);
-	if (determine_exp_var(temp, exit_code, exp_var))
+	if (determine_exp_var(temp, lst, exp_var))
 		return (free(temp), 1);
 	free(temp);
 	return (0);
 }
 
-int	determine_exp_var(char *temp, int exit_code, char **exp_var)
+int	determine_exp_var(char *temp, t_env *lst, char **exp_var)
 {
-	int		len;
-
-	len = ft_strlen(temp);
 	if (temp[0] == '(' && temp[1] == '(')
 	{
 		*exp_var = ft_strdup("You can calculate in your head");
 		if (!(*exp_var))
 			return (1);
 	}
-	else if (ft_isdigit(temp[0]))
+	else if (ft_isdigit(temp[0]) || temp[0] == '@')
 	{
 		*exp_var = ft_strdup(temp + 1);
 		if (!(*exp_var))
@@ -56,17 +53,17 @@ int	determine_exp_var(char *temp, int exit_code, char **exp_var)
 	}
 	else if (temp[0] == '?')
 	{
-		*exp_var = find_exit_code(temp, exit_code);
+		*exp_var = find_exit_code(temp, lst);
 		if (!(*exp_var))
 			return (1);
 	}
 	else
-		if (find_exp_var(temp, exp_var))
+		if (find_exp_var(temp, exp_var, lst))
 			return (1);
 	return (0);
 }
 
-int	find_exp_var(char *temp, char **exp_var)
+int	find_exp_var(char *temp, char **exp_var, t_env *lst)
 {
 	char	*temp2;
 	char	*temp3;
@@ -80,26 +77,35 @@ int	find_exp_var(char *temp, char **exp_var)
 		temp2 = ft_charjoin_mod(temp2, temp[i]);
 		if (!temp2)
 			return (1);
-		temp3 = getenv(temp2);
+		temp3 = ft_getenv(lst, temp2);
 		if (temp3)
 			break ;
 	}
 	free(temp2);
-	if (temp3 && !(ft_isalnum(temp[i + 1])) && temp[i + 1] != '_') // more cases? should be related to export?
+	if (temp3 && !(ft_isalnum(temp[i + 1])) && temp[i + 1] != '_')
 	{
 		*exp_var = ft_strjoin(temp3, &temp[i + 1]);
+		free(temp3);
 		if (!(*exp_var))
 			return (1);
 	}
 	return (0);
 }
 
-char	*find_exit_code(char *temp, int exit_code)
+char	*find_exit_code(char *temp, t_env *lst)
 {
 	char	*temp2;
 	char	*exp_var;
+	t_env	*tmp;
 
-	temp2 = ft_itoa(exit_code);
+	while (lst)
+	{
+		if (ft_strncmp("EC", lst->key, ft_strlen(lst->key)) == 0
+			&& ft_strlen(lst->key) == 2)
+			tmp = lst;
+		lst = lst->next;
+	}
+	temp2 = ft_itoa(tmp->ec);
 	if (!temp2)
 		return (NULL);
 	if (temp[1])

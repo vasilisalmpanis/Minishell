@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   analyze_cmd_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
+/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 16:56:18 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/23 11:47:35 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/08/23 15:48:15 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,26 +26,25 @@ int	set_cmd_name(t_lex **lst, t_cmd *new_cmd)
 int	check_for_builtin(t_lex **lst, t_cmd *new_cmd)
 {
 	if (!(ft_strncmp((*lst)->value, "echo", ft_strlen((*lst)->value)))
-					&& ft_strlen((*lst)->value) == 4)
+		&& ft_strlen((*lst)->value) == 4)
 		new_cmd->builtin = 1;
 	else if (!(ft_strncmp((*lst)->value, "cd", ft_strlen((*lst)->value)))
-					&& ft_strlen((*lst)->value) == 2)
+		&& ft_strlen((*lst)->value) == 2)
 		new_cmd->builtin = 1;
 	else if (!(ft_strncmp((*lst)->value, "pwd", ft_strlen((*lst)->value)))
-					&& ft_strlen((*lst)->value) == 3)
+		&& ft_strlen((*lst)->value) == 3)
 		new_cmd->builtin = 1;
-	else if (!(ft_strncmp((*lst)->value, 
-				"export", ft_strlen((*lst)->value)))
-					&& ft_strlen((*lst)->value) == 6)
+	else if (!(ft_strncmp((*lst)->value, "export", ft_strlen((*lst)->value)))
+		&& ft_strlen((*lst)->value) == 6)
 		new_cmd->builtin = 1;
-	else if (!(ft_strncmp((*lst)->value, "unset", 
-					ft_strlen((*lst)->value))) && ft_strlen((*lst)->value) == 5)
+	else if (!(ft_strncmp((*lst)->value, "unset", ft_strlen((*lst)->value)))
+		&& ft_strlen((*lst)->value) == 5)
 		new_cmd->builtin = 1;
-	else if (!(ft_strncmp((*lst)->value, "env", 
-					ft_strlen((*lst)->value))) && ft_strlen((*lst)->value) == 3)
+	else if (!(ft_strncmp((*lst)->value, "env", ft_strlen((*lst)->value)))
+		&& ft_strlen((*lst)->value) == 3)
 		new_cmd->builtin = 1;
-	else if (!(ft_strncmp((*lst)->value, "exit", 
-					ft_strlen((*lst)->value))) && ft_strlen((*lst)->value) == 4)
+	else if (!(ft_strncmp((*lst)->value, "exit", ft_strlen((*lst)->value)))
+		&& ft_strlen((*lst)->value) == 4)
 		new_cmd->builtin = 1;
 	return (set_cmd_name(lst, new_cmd));
 }

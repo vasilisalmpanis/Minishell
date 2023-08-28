@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
+/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 13:38:10 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/23 12:38:07 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/08/23 15:44:49 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	execute(t_cmd *cmd_lst, t_env **env_lst, int exit_code)
+int	execute(t_cmd *cmd_lst, t_env **env_lst, t_env **ec)
 {
 	int		**fd;
 	int		num_cmds;
@@ -27,7 +27,7 @@ int	execute(t_cmd *cmd_lst, t_env **env_lst, int exit_code)
 		if (!fd)
 			return (1);
 	}
-	open_heredocs(cmd_lst, exit_code, 0);
+	open_heredocs(cmd_lst, *env_lst, 0);
 	while (cmd_lst)
 	{
 		cmd_lst->pid = execute_cmd(cmd_lst, env_lst, fd, num_cmds);
@@ -35,10 +35,10 @@ int	execute(t_cmd *cmd_lst, t_env **env_lst, int exit_code)
 	}
 	close_fds(fd, num_cmds);
 	if (!(num_cmds == 1 && cmd_lst_start->builtin))
-		exit_code = wait_for_children(cmd_lst_start);
+		(*ec)->ec = wait_for_children(cmd_lst_start);
 	else
-		exit_code = (int)cmd_lst_start->pid;
-	return (free_mem_fd(fd, num_cmds), exit_code);
+		(*ec)->ec = (int)cmd_lst_start->pid;
+	return (free_mem_fd(fd, num_cmds), (*ec)->ec);
 }
 
 pid_t	execute_cmd(t_cmd *cmd_lst, t_env **env_lst, int **fd, int count_cmds)
@@ -99,7 +99,7 @@ int	builtin_process(t_cmd *cmd, t_env **env_lst, int **fd)
 		return (ft_putstr_fd("Error stdout", 2), 1);
 	return (exit_code);
 }
-		
+
 int	child_process(t_cmd *cmd, t_env **env_lst, int **fd, int count)
 {
 	char	**env_array;
@@ -117,6 +117,6 @@ int	child_process(t_cmd *cmd, t_env **env_lst, int **fd, int count)
 	ft_check_errors(env_lst, cmd, env_array);
 	ft_env_free((env_lst));
 	if (execve(cmd->path, cmd->args, env_array) == -1)
-		ft_print_error_msg(" is a directory\n", 126 , 1);
+		ft_print_error_msg(" is a directory\n", 126, 1);
 	return (0);
 }

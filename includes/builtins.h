@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 11:02:47 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/21 14:24:21 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/24 16:23:07 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ typedef struct s_env
 {
 	char			*key;
 	char			*value;
+	int				ec;
 	struct s_env	*next;
 }		t_env;
 
@@ -30,6 +31,7 @@ int		pwd(void);
 // echo
 int		echo(t_cmd *cmd);
 void	print_var(const char *str);
+int		check_newline(t_cmd *cmd);
 
 // cd
 int		cd_dir(t_cmd *cmd, t_env *env);
@@ -63,6 +65,6 @@ void	sort_env_array(t_env **array, int length, int (*cmp)(char *, char *));
 int		unset(t_env **lst, t_cmd *cmd);
 
 // exit
-int	exit_builtin(t_env **lst, t_cmd *cmd);
+int		exit_builtin(t_env **lst, t_cmd *cmd);
 
 #endif

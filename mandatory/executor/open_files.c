@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_files.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
+/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:45:22 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/23 11:22:45 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/08/23 15:46:09 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ int	open_in_out_files_helper(t_file *file_lst, int	*fd_temp)
 int	open_in_file(t_file *file)
 {
 	int	fd;
+
 	fd = open(file->name, O_RDONLY);
 	if (fd == -1)
 	{

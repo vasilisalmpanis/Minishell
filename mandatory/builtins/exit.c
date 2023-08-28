@@ -3,13 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valmpani <valmpani@student.1337.ma>        +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/20 11:38:20 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/20 11:38:20 by valmpani         ###   ########.fr       */
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 11:38:20 by valmpani          #+#    #+#             */
+/*   Updated: 2023/08/24 10:39:24 by mamesser         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 /*   Updated: 2023/08/21 14:40:26 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -41,25 +41,24 @@ int	exit_builtin(t_env **lst, t_cmd *cmd)
 	int	exit_code;
 
 	if (!cmd)
+	{
+		ft_env_free(lst);
 		exit(0);
+	}
 	if (cmd->args[0] == NULL)
 	{
 		exit_code = cmd->exit_code;
-		ft_putstr_fd("exit\n", STDOUT_FILENO);
-		ft_env_free(lst);
-		ft_cmd_lst_free_child(cmd);
+		free_env_cmd_ex(lst, cmd);
 		exit(exit_code);
 	}
 	if (cmd->args[1])
 		return (ft_putstr_fd(" too many arguments\n", STDERR_FILENO), 1);
 	else
 	{
-		ft_putstr_fd("exit\n", STDOUT_FILENO);
 		exit_code = check_exit(cmd->args[0]);
 		if (exit_code == -1)
 			exit_code = 255;
-		ft_env_free(lst);
-		ft_cmd_lst_free_child(cmd);
+		free_env_cmd_ex(lst, cmd);
 		exit(exit_code);
 	}
 	return (0);

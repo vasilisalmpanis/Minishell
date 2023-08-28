@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 17:20:07 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/22 16:12:51 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/24 15:47:19 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ t_cmd	*parser(t_lex *lex_lst, t_env *env_lst, int ex_co);
 char	**extract_paths(t_env *env_lst);
 int		parse_tokens(t_lex *lex_lst, t_cmd **cmd_lst, \
 						char **env_paths, int exit_code);
-int		allocate_args(t_lex *lex_lst, t_cmd *new_cmd);
 int		analyze_token(t_lex **lex_lst, t_cmd *new_cmd, \
 						int *arg_num, char **env_p);
+int		init_args(t_lex *lex_lst, t_cmd *new_cmd, int *arg_num);
 
 int		check_for_builtin(t_lex **lex_lst, t_cmd *new_cmd);
 void	check_for_path(t_lex **lex_lst, t_cmd *new_cmd);

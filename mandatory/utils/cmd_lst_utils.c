@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 12:49:58 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/19 12:06:34 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/23 15:51:05 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ void	ft_file_lst_add(t_file **lst, t_file *new_file)
 void	add_start_lst(t_cmd *cmd)
 {
 	t_cmd	*start;
+
 	start = cmd;
 	while (cmd)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
+/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 12:39:41 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/23 12:43:29 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/08/23 15:44:04 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_print_error_msg(char *msg, int exit_code, int flag)
 	exit(exit_code);
 }
 
-void    ft_check_errors(t_env **env_lst, t_cmd *cmd, char **env_array)
+void	ft_check_errors(t_env **env_lst, t_cmd *cmd, char **env_array)
 {
 	if (!check_path_existence(*env_lst) && !(cmd->path_known))
 	{

@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 11:58:26 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/21 14:37:50 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/24 16:51:54 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int	change_directory(t_cmd *cmd, t_env *env)
 
 	if (chdir(cmd->args[0]) == 0)
 	{
-		home = ft_strdup(getcwd(NULL, 0));
+		home = getcwd(NULL, 0);
 		if (!home)
 		{
 			ft_putstr_fd(CD1, 2);

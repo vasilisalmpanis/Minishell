@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valmpani <valmpani@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 09:02:53 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/12 09:02:56 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/08/24 14:36:49 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@ int	unset(t_env **lst, t_cmd *cmd)
 	{
 		if (check_arg(cmd->args[i], "unset"))
 			err_code = 1;
+		else if (ft_strncmp("EC", cmd->args[i], ft_strlen(cmd->args[i])) == 0
+			&& ft_strlen(cmd->args[i]) == 2)
+			err_code = 0;
 		else
 			ft_env_remove(lst, cmd->args[i]);
 	}

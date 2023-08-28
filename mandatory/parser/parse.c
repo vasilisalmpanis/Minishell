@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
+/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 18:23:58 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/23 11:54:15 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/08/24 16:36:24 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,16 +63,15 @@ int	parse_tokens(t_lex *lex_lst, t_cmd **cmd_lst, char **env_paths, int ex_co)
 		new_cmd = ft_new_cmd(id++, env_paths, ex_co);
 		if (!new_cmd)
 			return (1);
-		arg_num = 0;
-		if (allocate_args(lex_lst, new_cmd))
+		if (init_args(lex_lst, new_cmd, &arg_num))
 			return (free(new_cmd), 1);
 		while (lex_lst && lex_lst->token != TK_PIPE)
 		{
 			if (analyze_token(&lex_lst, new_cmd, &arg_num, env_paths))
-				return (free(new_cmd), 1);
+				return (ft_cmd_lst_free(&new_cmd), 1);
+			(new_cmd->args)[arg_num] = NULL;
 			lex_lst = lex_lst->next;
 		}
-		(new_cmd->args)[arg_num] = NULL;
 		ft_cmd_lstadd_end(cmd_lst, new_cmd);
 		if (lex_lst)
 			lex_lst = lex_lst->next;
@@ -80,33 +79,11 @@ int	parse_tokens(t_lex *lex_lst, t_cmd **cmd_lst, char **env_paths, int ex_co)
 	return (0);
 }
 
-int	allocate_args(t_lex *lex_lst, t_cmd *new_cmd)
+int	init_args(t_lex *lex_lst, t_cmd *new_cmd, int *arg_num)
 {
-	int		arg_num;
-	t_lex	**start_lst;
-
-	start_lst = &lex_lst;
-	arg_num = 0;
-	while (*start_lst && (*start_lst)->token != TK_PIPE)
-	{
-		if ((*start_lst)->token == TK_WORD && (*start_lst)->value[0])
-			arg_num++;
-		else if (((*start_lst)->token == TK_IN_R
-			|| (*start_lst)->token == TK_OUT_R
-			|| (*start_lst)->token == TK_APP_R
-			|| (*start_lst)->token == TK_HERE_DOC) 
-			&& (*start_lst)->next && (*start_lst)->next->token == TK_WORD)
-		{
-			arg_num -= 1;
-		}
-		start_lst = &(*start_lst)->next;
-	}
-	if (arg_num >= 0)
-	{
-		new_cmd->args = malloc((arg_num + 1) * sizeof(char *));
-		if (!new_cmd->args)
-			return (1);
-	}
+	*arg_num = 0;
+	if (allocate_args(lex_lst, new_cmd))
+		return (1);
 	return (0);
 }
 
