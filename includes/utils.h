@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 16:13:07 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/24 17:17:35 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/08/24 10:39:00 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ int		ft_check_lex(t_lex *lst);
 int		check_token_err(char *word);
 int		check_token_pipe_err(t_lex *lst, t_lex *lst_start);
 char	*ft_getenv(t_env *lst, char *key);
-
 int		allocate_args(t_lex *lex_lst, t_cmd *new_cmd);
 
 #endif
