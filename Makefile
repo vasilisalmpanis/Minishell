@@ -49,14 +49,21 @@ PINK = \033[95m
 END = \033[0m
 MAKE = make
 
+UNAME := $(shell uname)
+ifeq ($(UNAME),Linux)
+    LIBREADLINE_FLAGS = -lreadline -lhistory -lncurses
+else ifeq ($(UNAME),Darwin)
+    LIBREADLINE_FLAGS = -I${READLINE_PATH}/include -L${READLINE_PATH}/lib -lreadline -lhistory -ltermcap
+endif
+
 READLINE_PATH = ${PWD}/readline
 
 all: ${LIBFT} ${NAME}
 
 ${NAME}: ${OBJ} ${LIBFT}
-	@$(CC) ${CFLAGS} $(OBJ) -o $(NAME) libft.a -I${READLINE_PATH}/include -L${READLINE_PATH}/lib -lreadline -lhistory -ltermcap -lcurses
+	@$(CC) ${CFLAGS} $(OBJ) -o $(NAME) libft.a $(LIBREADLINE_FLAGS)
 	@${RM} libft.a
-	@echo "${RED}${NAME} completed${RED}"
+	@echo "${RED}${NAME} completed${END}"
 
 ${LIBFT}:
 	@make -q -C libft || make -C libft
