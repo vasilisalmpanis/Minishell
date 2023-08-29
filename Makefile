@@ -51,7 +51,7 @@ MAKE = make
 
 UNAME := $(shell uname)
 ifeq ($(UNAME),Linux)
-    LIBREADLINE_FLAGS = -lreadline -lhistory -lncurses
+    LIBREADLINE_FLAGS = -lreadline -lhistory
 else ifeq ($(UNAME),Darwin)
     LIBREADLINE_FLAGS = -I${READLINE_PATH}/include -L${READLINE_PATH}/lib -lreadline -lhistory -ltermcap
 endif
