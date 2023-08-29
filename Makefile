@@ -51,7 +51,7 @@ MAKE = make
 
 UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S),Linux)
-    LIBREADLINE_FLAGS = -lreadline -lhistory -ltermcap
+    LIBREADLINE_FLAGS = -libreadline -libhistory -libtermcap
 else ifeq ($(UNAME_S),Darwin)
     LIBREADLINE_FLAGS = -lreadline -lhistory -lncurses
 endif
@@ -61,7 +61,7 @@ READLINE_PATH = ${PWD}/readline
 all: ${LIBFT} ${NAME}
 
 ${NAME}: ${OBJ} ${LIBFT}
-	@$(CC) ${CFLAGS} $(OBJ) -o $(NAME) libft.a -I${READLINE_PATH}/include -L${READLINE_PATH}/lib $(LIBREADLINE_FLAGS)
+	@$(CC) ${CFLAGS} $(OBJ) -o $(NAME) libft.a -I${READLINE_PATH}/include -L${READLINE_PATH}/lib -lreadline -lhistory -ltermcap -lcurses
 	@${RM} libft.a
 	@echo "${RED}${NAME} completed${RED}"
 
