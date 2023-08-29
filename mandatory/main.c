@@ -57,10 +57,7 @@ char	*ft_get_prompt(t_env **env_lst)
 	result = readline(temp);
 	free(temp);
 	if (!result)
-	{
-		printf("Hello\n");
 		exit_builtin(env_lst, NULL);
-	}
 	add_history(result);
 	return (result);
 }
