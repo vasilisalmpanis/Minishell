@@ -53,6 +53,7 @@ UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S),Linux)
     LIBREADLINE_FLAGS = -libreadline -libhistory -libtermcap
 else ifeq ($(UNAME_S),Darwin)
+	@echo "hello world"
     LIBREADLINE_FLAGS = -lreadline -lhistory -lncurses
 endif
 
