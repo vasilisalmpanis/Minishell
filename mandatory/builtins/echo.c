@@ -45,14 +45,14 @@ int	check_newline(t_cmd *cmd)
 {
 	int	i;
 
-	i = 0;
+	i = 1;
 	if (cmd->args[0])
 	{
 		if (cmd->args[0][0] == '-')
 		{
 			while (cmd->args[0][i] && cmd->args[0][i] == 'n')
 				i++;
-			if (cmd->args[0][i])
+			if (cmd->args[0][i] == '\0')
 				return (1);
 		}
 	}
