@@ -53,10 +53,11 @@ int	cd_home(t_cmd *cmd, t_env *env)
 	if (cmd->args[0] == NULL)
 	{
 		home = getenv("HOME");
-		if (!home)
-			return (ft_putstr_fd("error\n", STDERR_FILENO), 1);
-		ft_change_env(env, home);
-		chdir(home);
+		if (home)
+		{
+			ft_change_env(env, home);
+			chdir(home);
+		}
 	}
 	return (0);
 }
@@ -96,6 +97,8 @@ int	change_directory(t_cmd *cmd, t_env *env)
 			ft_putstr_fd(CD1, 2);
 			ft_putstr_fd(CD2, 2);
 			home = ft_strdup(getenv("HOME"));
+			if (home[0] == '\0')
+				return (1);
 		}
 		ft_change_env(env, home);
 		free(home);
