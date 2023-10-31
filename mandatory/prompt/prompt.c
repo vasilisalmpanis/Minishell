@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 14:43:49 by valmpani          #+#    #+#             */
-/*   Updated: 2023/08/24 16:55:34 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/10/31 10:57:38 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,11 @@ char	*get_git_head(char *w)
 	while (buf[i] != '/' && i > 0)
 		--i;
 	if (i == 0)
-		return (ft_substr(w, 0, 7));
+		return (close(fd), ft_substr(w, 0, 7));
 	i++;
 	temp = ft_substr(buf, i, ft_strlen(buf) - (size_t)i);
 	temp[ft_strlen(temp) - 1] = '\0';
+	close(fd);
 	return (temp);
 }
 

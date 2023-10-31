@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 13:38:10 by mamesser          #+#    #+#             */
-/*   Updated: 2023/08/23 15:44:49 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/10/31 10:55:15 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ int	builtin_process(t_cmd *cmd, t_env **env_lst, int **fd)
 	exit_code = exec_builtin(cmd, env_lst);
 	if (dup2(fd_stdout, STDOUT_FILENO) == -1)
 		return (ft_putstr_fd("Error stdout", 2), 1);
+	close(fd_stdout);
 	return (exit_code);
 }
 
